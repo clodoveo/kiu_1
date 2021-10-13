@@ -4,9 +4,24 @@ import MenuButton from "../components/MenuButton";
 export default function Menu() {
   return (
     <>
-      <MenuButton title="Come arrivare" caption="via" icon="fa fa-trash" />
-      <MenuButton title="miao" caption="mi si ?" icon="fa fa-trash" />
-      <MenuButton title="bau" caption="ti no?" icon="fa fa-trash" />
+      <MenuButton
+        to="opener/come arrivare"
+        title="Come arrivare"
+        caption="via"
+        icon="fa fa-trash"
+      />
+      <MenuButton
+        to="opener/chatta"
+        title="chatta"
+        caption="mi si ?"
+        icon="fa fa-trash"
+      />
+      <MenuButton
+        to="opener/video"
+        title="video"
+        caption="ti no?"
+        icon="fa fa-trash"
+      />
       <MenuButton
         title="cicicoco"
         caption="el can?"

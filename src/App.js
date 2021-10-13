@@ -62,8 +62,8 @@ export default function App() {
               exact
               path="/guide"
               component={GuideSelector}
-              atEnter={{ offset: -100 }}
-              atLeave={{ offset: 0 }}
+              atEnter={{ offset: 100, position: "fixed" }}
+              atLeave={{ offset: 100 }}
               atActive={{ offset: 0 }}
               mapStyles={(styles) => ({
                 transform: `translateY(${styles.offset}%)`
@@ -72,9 +72,10 @@ export default function App() {
             />
             <Route exact path="/start" component={Start} />
             <Route exact path="/menu" component={Menu} />
-            <Route exact path="/opener" component={Opener} />
+            <Route exact path="/opener/:type" component={Opener} />
             <Route exact path="/info" component={Info} />
             <Route exact path="/services" component={Services} />
+            <Route exact path="/services/:id" component={Services} />
 
             <Route exact path="/video" component={VideoPlayer} />
           </div>

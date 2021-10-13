@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export default function Opener() {
-  return <div>Opener</div>;
+  const { type } = useParams();
+
+  return <div>{type}</div>;
 }
