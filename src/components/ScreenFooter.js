@@ -17,8 +17,8 @@ export default styled(({ text, className }) => {
   ];
   return (
     <div className={className}>
-      {links.map((item) => (
-        <FooterLink>{item.label}</FooterLink>
+      {links.map((item, index) => (
+        <FooterLink key={index}>{item.label}</FooterLink>
       ))}
     </div>
   );
@@ -27,5 +27,9 @@ export default styled(({ text, className }) => {
 `;
 
 const FooterLink = styled.div`
-  padding: 2em;
+  flex: 25;
+  text-align: center;
+  font-size: 14px;
+  padding: 2em 0;
+  cursor: pointer;
 `;
