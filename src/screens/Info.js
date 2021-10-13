@@ -39,7 +39,7 @@ const Info = ({ className }) => {
   return (
     <div className={className}>
       <ScreenHeader text="Informazioni utili" />
-
+      ciao
       <div className="cards">
         {infoData.map((data) => (
           <div className="card">
