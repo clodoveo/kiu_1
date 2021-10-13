@@ -1,6 +1,19 @@
-.App {
+body {
   font-family: Montserrat, sans-serif;
-  text-align: center;
+  margin: 0;
+}
+.splash,
+.language,
+.guide {
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.App {
+  /* text-align: center; */
+  max-width: 400px;
 }
 
 .content {

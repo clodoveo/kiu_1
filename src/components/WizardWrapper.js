@@ -7,7 +7,8 @@ export default function WizardWrapper(props) {
       style={{
         maxWdth: "700px",
         margin: "0 auto",
-        backgroundImage: "url('/assets/sfondo.png')",
+        backgroundImage:
+          "url('https://giomiapp.terotero.it/img/original/app/sfondo.png')",
         height: "100vh",
         width: "100vw",
         backgroundRepeat: "no-repeat",
@@ -22,7 +23,11 @@ export default function WizardWrapper(props) {
           textAlign: "center"
         }}
       >
-        <img src="/assets/logoAndPayoff.png" style={{ margin: "0 auto" }} />
+        <img
+          src="https://giomiapp.terotero.it/img/original/app/logoAndPayoff.png"
+          style={{ margin: "0 auto" }}
+          alt="logo"
+        />
       </div>
       <div>{React.cloneElement(props.children, { ...props })}</div>
     </div>

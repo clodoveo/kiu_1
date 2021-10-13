@@ -46,8 +46,8 @@ const Info = ({ className }) => {
       <ScreenHeader text="Informazioni utili" />
 
       <div className="cards">
-        {infoData.map((data) => (
-          <div className="card">
+        {infoData.map((data, index) => (
+          <div key={index} className="card">
             <div className="img">
               <img src={data.imgUrl} alt={data.title} />
             </div>
