@@ -83,10 +83,12 @@ export default function App() {
             style={{
               display: "flex",
               //position: "fixed",
-              flexDirection: "column"
+              flexDirection: "column",
+              padding: "2em",
+              background: "black"
             }}
           >
-            <Link to="/">spalsh</Link>
+            <Link to="/">splash</Link>
             <Link to="/language">language</Link>
             <Link to="/guide">guide</Link>
             <Link to="/start">start</Link>
