@@ -18,7 +18,7 @@ export default function LanguageSelector() {
         <div
           style={{
             position: "absolute",
-            bottom: "15%",
+            bottom: "30%",
             width: "100%",
             textAlign: "center"
           }}

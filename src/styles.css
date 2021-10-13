@@ -1,4 +1,18 @@
 .App {
-  font-family: sans-serif;
+  font-family: Montserrat, sans-serif;
   text-align: center;
+}
+
+.content {
+  color: #607464;
+  font-size: 16px;
+  line-height: 25px;
+}
+.title {
+  font-family: "Baloo 2";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 23px;
+  line-height: 36px;
+  color: #265a32;
 }
