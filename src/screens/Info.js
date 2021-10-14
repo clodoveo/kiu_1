@@ -1,50 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import ScreenHeader from "../components/ScreenHeader";
 import ScreenFooter from "../components/ScreenFooter";
 
-export default function InfoScreen() {
-  const [infoData, setInfoData] = useState(false);
+export default styled((props) => <Info {...props} />)`
+  text-align: left;
 
-  getInfoData(setInfoData);
-
-  return (
-    <Styled>
-      <ScreenHeader text="Informazioni utili" />
-
-      <div className="cards">
-        {infoData === false && <h1>loading</h1>}
-
-        {infoData &&
-          infoData.map((data, index) => (
-            <div key={index} className="card">
-              <div className="img">
-                <img src={data.imgUrl} alt={data.title} />
-              </div>
-              <div className="content">
-                <div className="title">{data.title}</div>
-                <p>{data.text}</p>
-              </div>
-              {data.links && (
-                <div className="links">
-                  {data.links.map((linkData, index) => (
-                    <a key={index} href={linkData.url}>
-                      <i className={linkData.iconClass} />
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-      </div>
-
-      <ScreenFooter />
-    </Styled>
-  );
-}
-
-const Styled = styled.div`
   .cards {
     border-top: 1px solid #eee;
     padding: 1em;
@@ -74,26 +36,35 @@ const Styled = styled.div`
           margin: 6px 0;
         }
       }
-
-      .links {
-        text-align: right;
-        a {
-          font-size: 41px;
-          color: #265a32;
-          margin: 10px;
-        }
-      }
     }
   }
 `;
 
-const getInfoData = (resolve) => {
-  setTimeout(() => {
-    resolve(infoDB);
-  }, 1000);
+const Info = ({ className }) => {
+  return (
+    <div className={className}>
+      <ScreenHeader text="Informazioni utili" />
+
+      <div className="cards">
+        {infoData.map((data) => (
+          <div className="card">
+            <div className="img">
+              <img src={data.imgUrl} alt={data.title} />
+            </div>
+            <div className="content">
+              <div className="title">{data.title}</div>
+              <p>{data.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <ScreenFooter />
+    </div>
+  );
 };
 
-const infoDB = [
+const infoData = [
   {
     title: "Giomi immobiliare",
     imgUrl: "https://giomiapp.terotero.it/img/original/appdemo/info-1.jpg",
@@ -101,11 +72,11 @@ const infoDB = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in.",
     links: [
       {
-        iconClass: "fas fa-phone-square",
+        icon: "phone",
         url: "tel:+39347666666"
       },
       {
-        iconClass: "fas fa-envelope-square",
+        icon: "envelope",
         url: "mailto:info@immobiliaregiomi.com"
       }
     ]
@@ -117,11 +88,11 @@ const infoDB = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in.",
     links: [
       {
-        iconClass: "fas fa-phone-square",
+        icon: "phone",
         url: "tel:+39347666666"
       },
       {
-        iconClass: "fas fa-envelope-square",
+        icon: "envelope",
         url: "mailto:info@immobiliaregiomi.com"
       }
     ]
@@ -133,11 +104,11 @@ const infoDB = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in.",
     links: [
       {
-        iconClass: "fas fa-phone-square",
+        icon: "phone",
         url: "tel:+39347666666"
       },
       {
-        iconClass: "fas fa-envelope-square",
+        icon: "envelope",
         url: "mailto:info@immobiliaregiomi.com"
       }
     ]

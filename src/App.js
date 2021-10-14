@@ -50,9 +50,9 @@ export default function App() {
               exact
               path="/language"
               component={LanguageSelector}
-              atEnter={{ offset: 100, position: "fixed" }}
+              atEnter={{ offset: 100 }}
               atLeave={{ offset: 100 }}
-              atActive={{ offset: 0 }}
+              atActive={{ offset: 0, position: "fixed" }}
               mapStyles={(styles) => ({
                 transform: `translateY(${styles.offset}%)`
               })}
@@ -62,15 +62,26 @@ export default function App() {
               exact
               path="/guide"
               component={GuideSelector}
-              atEnter={{ offset: 100, position: "fixed" }}
+              atEnter={{ offset: 100 }}
               atLeave={{ offset: 100 }}
-              atActive={{ offset: 0 }}
+              atActive={{ offset: 0, position: "fixed" }}
               mapStyles={(styles) => ({
                 transform: `translateY(${styles.offset}%)`
               })}
               className="guide"
             />
-            <Route exact path="/start" component={Start} />
+            <Route
+              exact
+              path="/start"
+              component={Start}
+              atEnter={{ offset: 100 }}
+              atLeave={{ offset: 100 }}
+              atActive={{ offset: 0, position: "fixed" }}
+              mapStyles={(styles) => ({
+                transform: `translateY(${styles.offset}%)`
+              })}
+              className="start"
+            />
             <Route exact path="/menu" component={Menu} />
             <Route exact path="/opener/:type" component={Opener} />
             <Route exact path="/info" component={Info} />
@@ -83,21 +94,9 @@ export default function App() {
             style={{
               display: "flex",
               //position: "fixed",
-              flexDirection: "column",
-              padding: "2em",
-              background: "black"
+              flexDirection: "column"
             }}
-          >
-            <Link to="/">splash</Link>
-            <Link to="/language">language</Link>
-            <Link to="/guide">guide</Link>
-            <Link to="/start">start</Link>
-            <Link to="/menu">menu</Link>
-            <Link to="/opener">opener</Link>
-            <Link to="/info">info</Link>
-            <Link to="/services">services</Link>
-            <Link to="/video">video</Link>
-          </div>
+          ></div>
         </Router>
       </QueryClientProvider>
     </ConfigContext.Provider>

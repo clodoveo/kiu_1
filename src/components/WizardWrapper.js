@@ -1,7 +1,9 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 export default function WizardWrapper(props) {
   const { logoTop } = props;
+  const history = useHistory();
   return (
     <div
       style={{
@@ -28,6 +30,7 @@ export default function WizardWrapper(props) {
           style={{ margin: "0 auto" }}
           alt="logo"
         />
+        <button onClick={() => history.goBack()}>back</button>
       </div>
       <div>{React.cloneElement(props.children, { ...props })}</div>
     </div>

@@ -22,11 +22,6 @@ export default function Menu() {
         caption="ti no?"
         icon="fa fa-trash"
       />
-      <MenuButton
-        title="cicicoco"
-        caption="el can?"
-        icon="fas fa-umbrella-beach"
-      />
     </>
   );
 }
