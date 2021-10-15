@@ -3,45 +3,39 @@ import styled from "styled-components";
 
 import ScreenHeader from "../components/ScreenHeader";
 import ScreenFooter from "../components/ScreenFooter";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 import info from "../api/info";
 
 export default function InfoScreen() {
   const [infoData, setInfoData] = useState(false);
 
-  const token = "123123123";
+  if (!infoData) {
+    const langId = 1;
 
-  info
-    .fetch(token)
-    .then(setInfoData)
-    .catch((reason) => alert(reason));
+    info.fetch(langId).then(setInfoData);
+  }
 
   return (
     <Styled>
       <ScreenHeader text="Informazioni utili" />
 
       <div className="cards">
-        {infoData === false && <h1>loading</h1>}
+        {infoData === false && <LoadingSpinner />}
 
         {infoData &&
           infoData.map((data, index) => (
             <div key={index} className="card">
-              <div className="img">
-                <img src={data.imgUrl} alt={data.title} />
-              </div>
-              <div className="content">
-                <div className="title">{data.title}</div>
-                <p>{data.text}</p>
-              </div>
-              {data.links && (
-                <div className="links">
-                  {data.links.map((linkData, index) => (
-                    <a key={index} href={linkData.url}>
-                      <i className={linkData.iconClass} />
-                    </a>
-                  ))}
+              {data.imgUrl && (
+                <div className="img">
+                  <img src={data.imgUrl} alt={data.title} />
                 </div>
               )}
+
+              <div className="content">
+                <div className="title">{data.title}</div>
+                <div dangerouslySetInnerHTML={{ __html: data.text }} />
+              </div>
             </div>
           ))}
       </div>
@@ -73,6 +67,7 @@ const Styled = styled.div`
 
         .title {
           font-size: 23px;
+          line-height: 36px;
           color: #265a32;
           font-weight: bold;
         }
@@ -80,14 +75,15 @@ const Styled = styled.div`
         p {
           margin: 6px 0;
         }
-      }
 
-      .links {
-        text-align: right;
-        a {
-          font-size: 41px;
-          color: #265a32;
-          margin: 10px;
+        .links {
+          margin-top: 1.2em;
+          text-align: right;
+          a {
+            font-size: 41px;
+            color: #265a32;
+            margin: 10px;
+          }
         }
       }
     }

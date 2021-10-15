@@ -35,8 +35,11 @@ const Styled = styled.div`
 
     .content {
       padding: 0 21px;
+
       .title {
         font-weight: bold;
+        font-size: 23px;
+        line-height: 36px;
       }
     }
 
