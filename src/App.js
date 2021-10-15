@@ -40,7 +40,7 @@ export default function App() {
               component={Splash}
               atEnter={{ offset: 100 }}
               atLeave={{ offset: 100 }}
-              atActive={{ offset: 0, position: "absolute", zIndex: 0 }}
+              atActive={{ offset: 0 }}
               mapStyles={(styles) => ({
                 //transform: `translate3d(1000,0,-100); position:fixed; zIndex:0`
               })}
@@ -52,7 +52,7 @@ export default function App() {
               component={LanguageSelector}
               atEnter={{ offset: 100 }}
               atLeave={{ offset: 100 }}
-              atActive={{ offset: 0, position: "fixed" }}
+              atActive={{ offset: 0 }}
               mapStyles={(styles) => ({
                 transform: `translateY(${styles.offset}%)`
               })}
@@ -64,7 +64,7 @@ export default function App() {
               component={GuideSelector}
               atEnter={{ offset: 100 }}
               atLeave={{ offset: 100 }}
-              atActive={{ offset: 0, position: "fixed" }}
+              atActive={{ offset: 0 }}
               mapStyles={(styles) => ({
                 transform: `translateY(${styles.offset}%)`
               })}
@@ -76,7 +76,7 @@ export default function App() {
               component={Start}
               atEnter={{ offset: 100 }}
               atLeave={{ offset: 100 }}
-              atActive={{ offset: 0, position: "fixed" }}
+              atActive={{ offset: 0 }}
               mapStyles={(styles) => ({
                 transform: `translateY(${styles.offset}%)`
               })}
