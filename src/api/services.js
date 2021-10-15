@@ -1,16 +1,29 @@
 export default {
-  all: () => {
-    return data;
-  },
+  all: (token) =>
+    new Promise((resolve, reject) => {
+      if (token) {
+        resolve(data);
+      } else {
+        reject("missing token");
+      }
+    }),
 
   byId: (id) => {
-    for (let index = 0; index < data.length; index++) {
-      const service = data[index];
-
-      if (service.id === id) {
-        return service;
+    return new Promise((resolve, reject) => {
+      if (!id) {
+        return reject("required id");
       }
-    }
+
+      for (let index = 0; index < data.length; index++) {
+        const service = data[index];
+
+        if (service.id === id) {
+          return resolve(service);
+        }
+      }
+
+      reject("not found");
+    });
   }
 };
 
