@@ -1,45 +1,36 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-
-import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
 import ScreenHeader from "../components/ScreenHeader";
 import ScreenFooter from "../components/ScreenFooter";
-
-function ServicesList() {
-  return servicesData.map((service) => (
-    <div key={service.id}>
-      <h2>
-        <Link to={"services/" + service.id}>{service.title}</Link>
-      </h2>
-    </div>
-  ));
-}
-
-function Service({ title }) {
-  return <h1>{title}</h1>;
-}
+import ArticlesList from "../components/ArticlesList";
+import Article from "../components/Article";
 
 export default function Services() {
   const { id: service } = useParams();
 
-  let serviceData;
+  let serviceData,
+    headerText = "I servizi della vacanza";
+
   if (service) {
     serviceData = getServiceData(service);
+    headerText = serviceData.title;
   }
 
   return (
-    <Styled>
-      <ScreenHeader text="I servizi della vacanza" />
+    <>
+      <ScreenHeader text={headerText} />
 
-      {serviceData ? <Service {...serviceData} /> : <ServicesList />}
+      {serviceData ? (
+        <Article {...serviceData} />
+      ) : (
+        <ArticlesList data={servicesData} />
+      )}
 
       <ScreenFooter />
-    </Styled>
+    </>
   );
 }
-
-const Styled = styled.div``;
 
 function getServiceData(id) {
   for (let index = 0; index < servicesData.length; index++) {
@@ -54,13 +45,19 @@ function getServiceData(id) {
 const servicesData = [
   {
     id: "beach",
+    linkTo: "services/beach",
     thumb:
       "https://giomiapp.terotero.it/img/original/appdemo/services-spiaggia.jpg",
     title: "La spiaggia",
-    abstract: "Pulvinar lorem semper augue eleifend viverra sed."
+    abstract: "Pulvinar lorem semper augue eleifend viverra sed.",
+    picture:
+      "https://giomiapp.terotero.it/img/original/appdemo/article-spiaggia.jpg",
+    content:
+      "<h2 class='title'>La spiaggia</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in. </p><p>Lorem ipsum dolor sit amet,  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in. </p><h2 class='title'>Le strutture</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in. </p><h2 class='title'>Info e contatti</h2><strong>Gli orari sono</strong><br><p>Lorem ipsum dolor sit amet, consectetur adipiscing eli</p><strong>Numeri</strong><br><p>tel 8r7483884<br>mail djdj@sjksjsjs.ckjsjkskj<br>whatsap 857473873</p>"
   },
   {
     id: "gym",
+    linkTo: "services/gym",
     thumb:
       "https://giomiapp.terotero.it/img/original/appdemo/services-palestra.jpg",
     title: "La palestra",
@@ -68,12 +65,14 @@ const servicesData = [
   },
   {
     id: "spa",
+    linkTo: "services/spa",
     thumb: "https://giomiapp.terotero.it/img/original/appdemo/services-spa.jpg",
     title: "Spa",
     abstract: "Pulvinar lorem semper augue eleifend viverra sed."
   },
   {
     id: "pool",
+    linkTo: "services/pool",
     thumb:
       "https://giomiapp.terotero.it/img/original/appdemo/services-piscina.jpg",
     title: "Piscina",
@@ -81,6 +80,7 @@ const servicesData = [
   },
   {
     id: "bazar",
+    linkTo: "services/bazar",
     thumb:
       "https://giomiapp.terotero.it/img/original/appdemo/services-bazar.jpg",
     title: "Bazar",

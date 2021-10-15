@@ -1,6 +1,9 @@
 body {
   margin: 0;
 }
+img {
+  max-width: 100%;
+}
 .App {
   font-family: Montserrat, sans-serif;
   max-width: 480px;
