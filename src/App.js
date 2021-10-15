@@ -19,7 +19,8 @@ import Start from "./screens/Start";
 import Menu from "./screens/Menu";
 import Opener from "./screens/Opener";
 import Info from "./screens/Info";
-import Services from "./screens/Services";
+import ServicesList from "./screens/ServicesList";
+import ServiceContents from "./screens/ServiceContents";
 import VideoPlayer from "./screens/VideoPlayer";
 
 // Create a client
@@ -85,8 +86,8 @@ export default function App() {
             <Route exact path="/menu" component={Menu} />
             <Route exact path="/opener/:type" component={Opener} />
             <Route exact path="/info" component={Info} />
-            <Route exact path="/services" component={Services} />
-            <Route exact path="/services/:id" component={Services} />
+            <Route exact path="/services" component={ServicesList} />
+            <Route exact path="/services/:id" component={ServiceContents} />
 
             <Route exact path="/video" component={VideoPlayer} />
           </div>

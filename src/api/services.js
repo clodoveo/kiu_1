@@ -1,51 +1,23 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+export default {
+  all: () => {
+    return data;
+  },
 
-import ScreenHeader from "../components/ScreenHeader";
-import ScreenFooter from "../components/ScreenFooter";
-import ArticlesList from "../components/ArticlesList";
-import Article from "../components/Article";
+  byId: (id) => {
+    for (let index = 0; index < data.length; index++) {
+      const service = data[index];
 
-export default function Services() {
-  const { id: service } = useParams();
-
-  let serviceData,
-    headerText = "I servizi della vacanza";
-
-  if (service) {
-    serviceData = getServiceData(service);
-    headerText = serviceData.title;
-  }
-
-  return (
-    <>
-      <ScreenHeader text={headerText} />
-
-      {serviceData ? (
-        <Article {...serviceData} />
-      ) : (
-        <ArticlesList data={servicesData} />
-      )}
-
-      <ScreenFooter />
-    </>
-  );
-}
-
-function getServiceData(id) {
-  for (let index = 0; index < servicesData.length; index++) {
-    const service = servicesData[index];
-
-    if (service.id === id) {
-      return service;
+      if (service.id === id) {
+        return service;
+      }
     }
   }
-}
+};
 
-const servicesData = [
+const data = [
   {
     id: "beach",
-    linkTo: "services/beach",
+    linkTo: "/services/beach",
     thumb:
       "https://giomiapp.terotero.it/img/original/appdemo/services-spiaggia.jpg",
     title: "La spiaggia",
@@ -57,7 +29,7 @@ const servicesData = [
   },
   {
     id: "gym",
-    linkTo: "services/gym",
+    linkTo: "/services/gym",
     thumb:
       "https://giomiapp.terotero.it/img/original/appdemo/services-palestra.jpg",
     title: "La palestra",
@@ -65,14 +37,14 @@ const servicesData = [
   },
   {
     id: "spa",
-    linkTo: "services/spa",
+    linkTo: "/services/spa",
     thumb: "https://giomiapp.terotero.it/img/original/appdemo/services-spa.jpg",
     title: "Spa",
     abstract: "Pulvinar lorem semper augue eleifend viverra sed."
   },
   {
     id: "pool",
-    linkTo: "services/pool",
+    linkTo: "/services/pool",
     thumb:
       "https://giomiapp.terotero.it/img/original/appdemo/services-piscina.jpg",
     title: "Piscina",
@@ -80,7 +52,7 @@ const servicesData = [
   },
   {
     id: "bazar",
-    linkTo: "services/bazar",
+    linkTo: "/services/bazar",
     thumb:
       "https://giomiapp.terotero.it/img/original/appdemo/services-bazar.jpg",
     title: "Bazar",
