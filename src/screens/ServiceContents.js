@@ -5,11 +5,10 @@ import ScreenFooter from "../components/ScreenFooter";
 import Article from "../components/Article";
 
 import services from "../api/services";
-console.log(services);
 
 export default function ServiceContents() {
-  const { id: service } = useParams(),
-    serviceData = services.byId(service);
+  const { id } = useParams(),
+    serviceData = services.byId(id);
 
   return (
     <>

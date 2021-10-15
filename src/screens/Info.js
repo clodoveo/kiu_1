@@ -4,10 +4,17 @@ import styled from "styled-components";
 import ScreenHeader from "../components/ScreenHeader";
 import ScreenFooter from "../components/ScreenFooter";
 
+import info from "../api/info";
+
 export default function InfoScreen() {
   const [infoData, setInfoData] = useState(false);
 
-  getInfoData(setInfoData);
+  const token = "123123123";
+
+  info
+    .fetch(token)
+    .then(setInfoData)
+    .catch((reason) => alert(reason));
 
   return (
     <Styled>
@@ -86,60 +93,3 @@ const Styled = styled.div`
     }
   }
 `;
-
-const getInfoData = (resolve) => {
-  setTimeout(() => {
-    resolve(infoDB);
-  }, 1000);
-};
-
-const infoDB = [
-  {
-    title: "Giomi immobiliare",
-    imgUrl: "https://giomiapp.terotero.it/img/original/appdemo/info-1.jpg",
-    text:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in.",
-    links: [
-      {
-        iconClass: "fas fa-phone-square",
-        url: "tel:+39347666666"
-      },
-      {
-        iconClass: "fas fa-envelope-square",
-        url: "mailto:info@immobiliaregiomi.com"
-      }
-    ]
-  },
-  {
-    title: "Informazioni turistiche",
-    imgUrl: "https://giomiapp.terotero.it/img/original/appdemo/info-2.jpg",
-    text:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in.",
-    links: [
-      {
-        iconClass: "fas fa-phone-square",
-        url: "tel:+39347666666"
-      },
-      {
-        iconClass: "fas fa-envelope-square",
-        url: "mailto:info@immobiliaregiomi.com"
-      }
-    ]
-  },
-  {
-    title: "Stazione Autobus",
-    imgUrl: "https://giomiapp.terotero.it/img/original/appdemo/info-3.jpg",
-    text:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in.",
-    links: [
-      {
-        iconClass: "fas fa-phone-square",
-        url: "tel:+39347666666"
-      },
-      {
-        iconClass: "fas fa-envelope-square",
-        url: "mailto:info@immobiliaregiomi.com"
-      }
-    ]
-  }
-];

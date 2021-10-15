@@ -88,7 +88,6 @@ export default function App() {
             <Route exact path="/info" component={Info} />
             <Route exact path="/services" component={ServicesList} />
             <Route exact path="/services/:id" component={ServiceContents} />
-
             <Route exact path="/video" component={VideoPlayer} />
           </div>
           <div
