@@ -7,7 +7,8 @@ import LanguageSelector from "./LanguageSelector";
 import GuideSelector from "./GuideSelector";
 import Start from "./Start";
 import Menu from "./Menu";
-import Opener from "./Opener";
+import Chat from "./Chat";
+import Map from "./Map";
 import Info from "./Info";
 import ServicesList from "./ServicesList";
 import ServiceContents from "./ServiceContents";
@@ -20,7 +21,8 @@ const routes = [
   { path: "/guide", component: GuideSelector, className: "guide" },
   { path: "/start", component: Start, className: "start" },
   { path: "/menu", component: Menu },
-  { path: "/opener/:type", component: Opener },
+  { path: "/chat", component: Chat },
+  { path: "/map", component: Map },
   { path: "/info", component: Info },
   { path: "/services", component: ServicesList },
   { path: "/services/:id", component: ServiceContents },

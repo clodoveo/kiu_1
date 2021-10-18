@@ -10,7 +10,7 @@ export default function Menu() {
       <MenuHeader>Prima di tutto</MenuHeader>
 
       <MenuButton
-        to="opener/map"
+        to="map"
         title="Come arrivare"
         caption="Via Google maps"
         icon="fas fa-location-arrow"
@@ -35,6 +35,7 @@ export default function Menu() {
         title="I Servizi della vacanza"
         icon="fas fa-umbrella-beach"
       />
+      <MenuButton to="chat" title="Chatta con Giuseppe" icon="fas fa-comment" />
 
       <button onClick={history.back}>back</button>
     </AnimatedFrame>

@@ -6,13 +6,13 @@ export default function (props) {
   const { to, text, color } = props;
 
   return (
-    <Styled className={color}>
+    <WizardButton className={color}>
       <Link to={to}>{text}</Link>
-    </Styled>
+    </WizardButton>
   );
 }
 
-const Styled = styled.div`
+const WizardButton = styled.div`
   a {
     font-family: Montserrat;
     font-weight: bold;
