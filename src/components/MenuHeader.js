@@ -8,6 +8,6 @@ const MenuHeader = styled.div`
   text-align: center;
   margin: 1em 0;
   font-size: 27px;
-  padding-bottom: 1em;
+  padding-bottom: 0.2em;
   border-bottom: 1px solid #ccc;
 `;
