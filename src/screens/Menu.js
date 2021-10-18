@@ -7,27 +7,22 @@ import MenuHeader from "../components/MenuHeader";
 export default function Menu() {
   return (
     <AnimatedFrame>
-      <MenuHeader className="title">Prima di tutto</MenuHeader>
+      <MenuHeader>Prima di tutto</MenuHeader>
 
       <MenuButton
-        to="opener/come arrivare"
+        to="opener/map"
         title="Come arrivare"
-        caption="via"
-        icon="fa fa-trash"
+        caption="Via Google maps"
+        icon="fas fa-location-arrow"
       />
       <MenuButton
-        to="opener/chatta"
-        title="chatta"
-        caption="mi si ?"
-        icon="fa fa-trash"
+        to="video"
+        title="Trova il tuo ingresso"
+        caption="Un video vocale ti spiega"
+        icon="fa fa-crosshairs"
       />
-      <MenuButton
-        to="opener/video"
-        title="video"
-        caption="ti no?"
-        icon="fa fa-trash"
-      />
-      <MenuHeader className="title">Poi con calma</MenuHeader>
+
+      <MenuHeader>Poi con calma</MenuHeader>
 
       <MenuButton
         to="info"
