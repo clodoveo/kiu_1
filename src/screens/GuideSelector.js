@@ -17,20 +17,18 @@ export default function GuideSelector() {
   return (
     <AnimatedFrame>
       <WizardWrapper logoTop="20%">
-        <>
-          <div
-            style={{
-              position: "absolute",
-              bottom: "30%",
-              width: "100%",
-              textAlign: "center"
-            }}
-          >
-            <button onClick={() => clickHandler("filippo")}> filippo </button>
-            <button onClick={() => clickHandler("manuela")}> manuela </button>
-            <Link to="/"> SPLASH </Link>
-          </div>
-        </>
+        <div
+          style={{
+            position: "absolute",
+            bottom: "30%",
+            width: "100%",
+            textAlign: "center"
+          }}
+        >
+          <button onClick={() => clickHandler("filippo")}> filippo </button>
+          <button onClick={() => clickHandler("manuela")}> manuela </button>
+          <Link to="/"> SPLASH </Link>
+        </div>
       </WizardWrapper>
     </AnimatedFrame>
   );

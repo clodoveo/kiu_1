@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-const pageVariants = {
+const variants = {
   initial: { y: "100%" },
   animate: { y: 0 },
   exit: { y: 0 }
 };
 
-const pageTransition = {
+const transition = {
   duration: 0.25,
   transition: "ease"
 };
@@ -15,11 +15,11 @@ const pageTransition = {
 export default styled(({ className, children }) => {
   return (
     <motion.div
-      className={className + " animated-frame"}
-      transition={pageTransition}
-      initial={pageVariants.initial}
-      animate={pageVariants.animate}
-      exit={pageVariants.exit}
+      className={className}
+      transition={transition}
+      initial={variants.initial}
+      animate={variants.animate}
+      exit={variants.exit}
     >
       {children}
     </motion.div>

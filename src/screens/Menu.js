@@ -1,10 +1,12 @@
 import React from "react";
+
+import AnimatedFrame from "../components/AnimatedFrame";
 import MenuButton from "../components/MenuButton";
 import MenuHeader from "../components/MenuHeader";
 
 export default function Menu() {
   return (
-    <>
+    <AnimatedFrame>
       <MenuHeader className="title">Prima di tutto</MenuHeader>
 
       <MenuButton
@@ -38,6 +40,6 @@ export default function Menu() {
         title="I Servizi della vacanza"
         icon="fas fa-umbrella-beach"
       />
-    </>
+    </AnimatedFrame>
   );
 }

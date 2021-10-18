@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
+import AnimatedFrame from "../components/AnimatedFrame";
 import ScreenHeader from "../components/ScreenHeader";
 import ScreenFooter from "../components/ScreenFooter";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -17,31 +18,33 @@ export default function InfoScreen() {
   }
 
   return (
-    <Styled>
-      <ScreenHeader text="Informazioni utili" />
+    <AnimatedFrame>
+      <Styled>
+        <ScreenHeader text="Informazioni utili" />
 
-      <div className="cards">
-        {infoData === false && <LoadingSpinner />}
+        <div className="cards">
+          {infoData === false && <LoadingSpinner />}
 
-        {infoData &&
-          infoData.map((data, index) => (
-            <div key={index} className="card">
-              {data.imgUrl && (
-                <div className="img">
-                  <img src={data.imgUrl} alt={data.title} />
+          {infoData &&
+            infoData.map((data, index) => (
+              <div key={index} className="card">
+                {data.imgUrl && (
+                  <div className="img">
+                    <img src={data.imgUrl} alt={data.title} />
+                  </div>
+                )}
+
+                <div className="content">
+                  <div className="title">{data.title}</div>
+                  <div dangerouslySetInnerHTML={{ __html: data.text }} />
                 </div>
-              )}
-
-              <div className="content">
-                <div className="title">{data.title}</div>
-                <div dangerouslySetInnerHTML={{ __html: data.text }} />
               </div>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
 
-      <ScreenFooter />
-    </Styled>
+        <ScreenFooter />
+      </Styled>
+    </AnimatedFrame>
   );
 }
 

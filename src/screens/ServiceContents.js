@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
+import AnimatedFrame from "../components/AnimatedFrame";
 import ScreenHeader from "../components/ScreenHeader";
 import ScreenFooter from "../components/ScreenFooter";
 import Article from "../components/Article";
@@ -19,10 +20,10 @@ export default function ServiceContents() {
   }
 
   return (
-    <>
+    <AnimatedFrame>
       <ScreenHeader text={serviceData && serviceData.title} />
       {body}
       <ScreenFooter />
-    </>
+    </AnimatedFrame>
   );
 }

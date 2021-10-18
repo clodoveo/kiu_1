@@ -1,5 +1,9 @@
-import React from "react";
+import AnimatedFrame from "../components/AnimatedFrame";
 
 export default function VideoPlayer() {
-  return <div>Video Player</div>;
+  return (
+    <AnimatedFrame>
+      <div>Video Player</div>
+    </AnimatedFrame>
+  );
 }

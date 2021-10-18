@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
+import AnimatedFrame from "../components/AnimatedFrame";
 import ScreenHeader from "../components/ScreenHeader";
 import ScreenFooter from "../components/ScreenFooter";
 import ArticlesList from "../components/ArticlesList";
@@ -24,10 +25,10 @@ export default function ServicesList() {
   }
 
   return (
-    <>
+    <AnimatedFrame>
       <ScreenHeader text={headerText} />
       {body}
       <ScreenFooter />
-    </>
+    </AnimatedFrame>
   );
 }

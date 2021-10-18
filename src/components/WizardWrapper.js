@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 export default function WizardWrapper(props) {
   const { logoTop } = props;
   const history = useHistory();
+
   return (
     <div
       style={{
