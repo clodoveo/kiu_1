@@ -14,7 +14,7 @@ import ServiceContents from "./ServiceContents";
 import VideoPlayer from "./VideoPlayer";
 
 const routes = [
-  { path: "/", component: Splash, className: "splash" },
+  { path: "/", component: Splash },
   { path: "/language", component: LanguageSelector, className: "language" },
   { path: "/guide", component: GuideSelector, className: "guide" },
   { path: "/guide", component: GuideSelector, className: "guide" },

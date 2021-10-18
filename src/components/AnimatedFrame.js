@@ -2,20 +2,20 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 const variants = {
-  initial: { y: "100%" },
-  animate: { y: 0 },
-  exit: { y: 0 }
+  initial: { opacity: 1, y: "100%" },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: 0 }
 };
 
 const transition = {
-  duration: 0.25,
+  duration: 0.3,
   transition: "ease"
 };
 
 export default styled(({ className, children }) => {
   return (
     <motion.div
-      className={className}
+      className={"animated-frame " + className}
       transition={transition}
       initial={variants.initial}
       animate={variants.animate}
@@ -25,9 +25,10 @@ export default styled(({ className, children }) => {
     </motion.div>
   );
 })`
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  background-color: #fff;
 `;

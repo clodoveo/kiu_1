@@ -24,7 +24,7 @@ export default function Start() {
           <h1>{language}</h1>
           <h1>{guide}</h1>
 
-          <WizardButton to="/menu" text="AUANTI" />
+          <WizardButton color="green" to="/menu" text="Cominciamo!" />
         </div>
       </WizardWrapper>
     </AnimatedFrame>

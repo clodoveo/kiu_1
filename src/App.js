@@ -1,16 +1,16 @@
 import "./styles.css";
-import { useState, React } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import styled from "styled-components";
 
 import { ConfigContext } from "./contexts/ConfigContext";
-
 import Screens from "./screens";
 
 // Create a client
 const queryClient = new QueryClient();
 
-export default function App() {
+export default function () {
   const [language, setLanguage] = useState("");
   const [guide, setGuide] = useState("");
 
@@ -19,7 +19,7 @@ export default function App() {
   return (
     <ConfigContext.Provider value={config}>
       <QueryClientProvider client={queryClient}>
-        <div className="App">
+        <App className="app">
           <Router>
             <Screens />
 
@@ -31,8 +31,15 @@ export default function App() {
               }}
             ></div>
           </Router>
-        </div>
+        </App>
       </QueryClientProvider>
     </ConfigContext.Provider>
   );
 }
+
+const App = styled.div`
+  max-width: 480px;
+  position: relative;
+  margin: auto;
+  height: 100vh;
+`;

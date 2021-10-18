@@ -40,6 +40,8 @@ export default function Menu() {
         title="I Servizi della vacanza"
         icon="fas fa-umbrella-beach"
       />
+
+      <button onClick={history.back}>back</button>
     </AnimatedFrame>
   );
 }

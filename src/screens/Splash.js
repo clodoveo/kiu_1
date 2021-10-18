@@ -1,4 +1,5 @@
 import { React, useContext } from "react";
+import styled from "styled-components";
 
 import AnimatedFrame from "../components/AnimatedFrame";
 
@@ -13,20 +14,20 @@ export default function Splash() {
   return (
     <AnimatedFrame>
       <WizardWrapper logoTop="40%">
-        <div
-          style={{
-            position: "absolute",
-            bottom: "15%",
-            width: "100%",
-            textAlign: "center"
-          }}
-        >
+        <StyledDiv>
           <h1>{language}</h1>
           <h1>{guide}</h1>
 
-          <WizardButton to="/language" text="AUANTI" />
-        </div>
+          <WizardButton to="/language" text="Accedi" color="yellow" />
+        </StyledDiv>
       </WizardWrapper>
     </AnimatedFrame>
   );
 }
+
+const StyledDiv = styled.div`
+  position: absolute;
+  bottom: 15%;
+  width: 100%;
+  text-align: center;
+`;

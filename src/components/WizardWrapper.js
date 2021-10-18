@@ -2,18 +2,16 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 export default function WizardWrapper(props) {
-  const { logoTop } = props;
+  const { children, logoTop } = props;
   const history = useHistory();
 
   return (
     <div
       style={{
-        maxWdth: "700px",
-        margin: "0 auto",
         backgroundImage:
           "url('https://giomiapp.terotero.it/img/original/app/sfondo.png')",
-        height: "100vh",
-        width: "100vw",
+        height: "100%",
+        width: "100%",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover"
       }}
@@ -31,9 +29,12 @@ export default function WizardWrapper(props) {
           style={{ margin: "0 auto" }}
           alt="logo"
         />
-        <button onClick={() => history.goBack()}>back</button>
       </div>
-      <div>{React.cloneElement(props.children, { ...props })}</div>
+
+      <button onClick={() => history.goBack()}>back</button>
+
+      {/* <div>{React.cloneElement(children, { ...props })}</div> */}
+      {children}
     </div>
   );
 }

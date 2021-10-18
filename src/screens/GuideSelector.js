@@ -2,6 +2,7 @@ import { React, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import AnimatedFrame from "../components/AnimatedFrame";
+import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
 import { ConfigContext } from "../contexts/ConfigContext";
 
@@ -27,7 +28,6 @@ export default function GuideSelector() {
         >
           <button onClick={() => clickHandler("filippo")}> filippo </button>
           <button onClick={() => clickHandler("manuela")}> manuela </button>
-          <Link to="/"> SPLASH </Link>
         </div>
       </WizardWrapper>
     </AnimatedFrame>

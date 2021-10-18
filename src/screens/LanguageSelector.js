@@ -2,6 +2,7 @@ import { React, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import AnimatedFrame from "../components/AnimatedFrame";
+import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
 import { ConfigContext } from "../contexts/ConfigContext";
 
@@ -29,7 +30,6 @@ export default function LanguageSelector() {
 
           <button onClick={() => clickHandler("it")}> IT </button>
           <button onClick={() => clickHandler("en")}> EN </button>
-          <Link to="/"> SPLASH </Link>
         </div>
       </WizardWrapper>
     </AnimatedFrame>

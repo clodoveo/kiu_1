@@ -28,13 +28,12 @@ const MenuButton = styled(MenuButtonRaw)`
   }
   .menubutton-title {
     color: #fff;
-    font-family: "Baloo";
+    font-family: "Baloo 2";
     font-size: 23px;
     text-decoration: none;
     text-transform: original;
   }
   .menubutton-caption {
-    font-family: "Montserrat";
     font-size: 16px;
     /*line-height: 20px;*/
     color: rgba(255, 255, 255, 0.7);
