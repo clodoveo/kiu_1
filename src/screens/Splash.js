@@ -1,15 +1,18 @@
 import { React, useContext } from "react";
-import WizardButton from "../components/WizardButton";
 
+import AnimatedFrame from "../components/AnimatedFrame";
+
+import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
+
 import { ConfigContext } from "../contexts/ConfigContext";
 
 export default function Splash() {
   const { language, guide } = useContext(ConfigContext);
 
   return (
-    <WizardWrapper logoTop="40%">
-      <>
+    <AnimatedFrame>
+      <WizardWrapper logoTop="40%">
         <div
           style={{
             position: "absolute",
@@ -23,7 +26,7 @@ export default function Splash() {
 
           <WizardButton to="/language" text="AUANTI" />
         </div>
-      </>
-    </WizardWrapper>
+      </WizardWrapper>
+    </AnimatedFrame>
   );
 }

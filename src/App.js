@@ -1,7 +1,12 @@
 import "./styles.css";
 import { useState, React } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import { AnimatedRoute } from "react-router-transition";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  useLocation
+} from "react-router-dom";
 import { ConfigContext } from "./contexts/ConfigContext";
 
 import {
@@ -11,6 +16,8 @@ import {
   QueryClient,
   QueryClientProvider
 } from "react-query";
+
+import { AnimatePresence } from "framer-motion";
 
 import Splash from "./screens/Splash";
 import LanguageSelector from "./screens/LanguageSelector";
@@ -33,72 +40,55 @@ export default function App() {
   return (
     <ConfigContext.Provider value={{ language, setLanguage, guide, setGuide }}>
       <QueryClientProvider client={queryClient}>
-        <Router>
-          <div className="App">
-            <AnimatedRoute
-              exact
-              path="/"
-              component={Splash}
-              atEnter={{ offset: 100 }}
-              atLeave={{ offset: 100 }}
-              atActive={{ offset: 0 }}
-              mapStyles={(styles) => ({
-                //transform: `translate3d(1000,0,-100); position:fixed; zIndex:0`
-              })}
-              className="splash"
-            />
-            <AnimatedRoute
-              exact
-              path="/language"
-              component={LanguageSelector}
-              atEnter={{ offset: 100 }}
-              atLeave={{ offset: 100 }}
-              atActive={{ offset: 0 }}
-              mapStyles={(styles) => ({
-                transform: `translateY(${styles.offset}%)`
-              })}
-              className="language"
-            />
-            <AnimatedRoute
-              exact
-              path="/guide"
-              component={GuideSelector}
-              atEnter={{ offset: 100 }}
-              atLeave={{ offset: 100 }}
-              atActive={{ offset: 0 }}
-              mapStyles={(styles) => ({
-                transform: `translateY(${styles.offset}%)`
-              })}
-              className="guide"
-            />
-            <Route
-              exact
-              path="/start"
-              component={Start}
-              atEnter={{ offset: 100 }}
-              atLeave={{ offset: 100 }}
-              atActive={{ offset: 0 }}
-              mapStyles={(styles) => ({
-                transform: `translateY(${styles.offset}%)`
-              })}
-              className="start"
-            />
-            <Route exact path="/menu" component={Menu} />
-            <Route exact path="/opener/:type" component={Opener} />
-            <Route exact path="/info" component={Info} />
-            <Route exact path="/services" component={ServicesList} />
-            <Route exact path="/services/:id" component={ServiceContents} />
-            <Route exact path="/video" component={VideoPlayer} />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              //position: "fixed",
-              flexDirection: "column"
-            }}
-          ></div>
-        </Router>
+        <div className="App">
+          <Router>
+            <Pages />
+            <div
+              style={{
+                display: "flex",
+                //position: "fixed",
+                flexDirection: "column"
+              }}
+            ></div>
+          </Router>
+        </div>
       </QueryClientProvider>
     </ConfigContext.Provider>
+  );
+}
+
+const routes = [
+  { path: "/", component: Splash, className: "splash" },
+  { path: "/language", component: LanguageSelector, className: "language" },
+  { path: "/guide", component: GuideSelector, className: "guide" },
+  { path: "/guide", component: GuideSelector, className: "guide" },
+  { path: "/start", component: Start, className: "start" }
+];
+
+function Pages() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence>
+      <Switch location={location} key={location.pathname}>
+        {routes.map(({ path, className, component }, index) => {
+          return (
+            <Route
+              key={index}
+              exact
+              path={path}
+              className={className}
+              component={component}
+            />
+          );
+        })}
+        <Route exact path="/menu" component={Menu} />
+        <Route exact path="/opener/:type" component={Opener} />
+        <Route exact path="/info" component={Info} />
+        <Route exact path="/services" component={ServicesList} />
+        <Route exact path="/services/:id" component={ServiceContents} />
+        <Route exact path="/video" component={VideoPlayer} />
+      </Switch>
+    </AnimatePresence>
   );
 }
