@@ -25,7 +25,7 @@ export default function ServicesList() {
   }
 
   return (
-    <AnimatedFrame>
+    <AnimatedFrame scrollable>
       <ScreenHeader text={headerText} />
       {body}
       <ScreenFooter />

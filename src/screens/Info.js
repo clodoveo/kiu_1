@@ -18,7 +18,7 @@ export default function InfoScreen() {
   }
 
   return (
-    <AnimatedFrame>
+    <AnimatedFrame scrollable>
       <Styled>
         <ScreenHeader text="Informazioni utili" />
 

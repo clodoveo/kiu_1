@@ -20,7 +20,7 @@ export default function ServiceContents() {
   }
 
   return (
-    <AnimatedFrame>
+    <AnimatedFrame scrollable>
       <ScreenHeader text={serviceData && serviceData.title} />
       {body}
       <ScreenFooter />

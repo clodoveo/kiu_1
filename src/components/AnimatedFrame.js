@@ -12,10 +12,16 @@ const transition = {
   transition: "ease"
 };
 
-export default styled(({ className, children }) => {
+export default styled(({ className, children, scrollable }) => {
+  className = "animated-frame " + className;
+
+  if (scrollable) {
+    className += " scrollable";
+  }
+
   return (
     <motion.div
-      className={"animated-frame " + className}
+      className={className}
       transition={transition}
       initial={variants.initial}
       animate={variants.animate}
@@ -31,4 +37,8 @@ export default styled(({ className, children }) => {
   left: 0;
   right: 0;
   background-color: #fff;
+
+  &.scrollable {
+    overflow-y: scroll;
+  }
 `;
