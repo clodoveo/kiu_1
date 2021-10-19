@@ -6,7 +6,7 @@ export default function ({ children }) {
 
 const MenuHeader = styled.div`
   text-align: center;
-  margin: 1em 0;
+  margin: 1em 15px;
   font-size: 27px;
   padding-bottom: 0.2em;
   border-bottom: 1px solid #ccc;

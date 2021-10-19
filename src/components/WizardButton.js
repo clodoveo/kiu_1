@@ -22,7 +22,6 @@ const WizardButton = styled.div`
     color: white;
     padding: 1em;
     display: inline-block;
-    margin-top: 1em;
     text-decoration: none;
     border-radius: 50px;
   }

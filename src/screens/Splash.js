@@ -1,33 +1,28 @@
 import { React, useContext } from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 import AnimatedFrame from "../components/AnimatedFrame";
 
 import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
 
-import { ConfigContext } from "../contexts/ConfigContext";
+// import { ConfigContext } from "../contexts/ConfigContext";
 
 export default function Splash() {
-  const { language, guide } = useContext(ConfigContext);
+  const btnStyle = {
+    position: "absolute",
+    bottom: "15%",
+    width: "100%",
+    textAlign: "center"
+  };
 
   return (
     <AnimatedFrame>
-      <WizardWrapper logoTop="40%">
-        <StyledDiv>
-          <h1>{language}</h1>
-          <h1>{guide}</h1>
-
+      <WizardWrapper logoTop="40%" logoPayoff>
+        <div style={btnStyle}>
           <WizardButton to="/language" text="Accedi" color="yellow" />
-        </StyledDiv>
+        </div>
       </WizardWrapper>
     </AnimatedFrame>
   );
 }
-
-const StyledDiv = styled.div`
-  position: absolute;
-  bottom: 15%;
-  width: 100%;
-  text-align: center;
-`;
