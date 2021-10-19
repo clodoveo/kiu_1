@@ -22,7 +22,7 @@ const WizardWrapper = styled.div`
   height: 100%;
   width: 100%;
   background: ${widardBg} no-repeat center;
-  background-size: "cover";
+  background-size: cover;
 `;
 
 const Back = styled(({ className }) => {
