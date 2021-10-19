@@ -18,9 +18,9 @@ export default function Splash() {
 
   return (
     <AnimatedFrame>
-      <WizardWrapper logoTop="40%" logoPayoff>
+      <WizardWrapper logoTop="36%" logoPayoff>
         <div style={btnStyle}>
-          <WizardButton to="/language" text="Accedi" color="yellow" />
+          <WizardButton to="/language" text="Start" color="yellow" />
         </div>
       </WizardWrapper>
     </AnimatedFrame>

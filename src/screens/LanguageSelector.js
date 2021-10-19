@@ -1,17 +1,27 @@
 import { React, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 
+import useLabels from "../hooks/useLabels";
+
 import AnimatedFrame from "../components/AnimatedFrame";
 import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
 import { ConfigContext } from "../contexts/ConfigContext";
 
 export default function LanguageSelector() {
-  const { language, setLanguage } = useContext(ConfigContext);
+  const { language, setLanguage, labels, setLabels } = useContext(
+    ConfigContext
+  );
+
   const history = useHistory();
 
-  function clickHandler(par) {
-    setLanguage(par);
+  const getLabels = useLabels();
+
+  function clickHandler(langId) {
+    setLanguage(langId);
+
+    getLabels(langId).then(setLabels);
+
     history.push("/guide");
   }
 
@@ -26,10 +36,8 @@ export default function LanguageSelector() {
             textAlign: "center"
           }}
         >
-          <h1>{language}</h1>
-
-          <button onClick={() => clickHandler("it")}> IT </button>
-          <button onClick={() => clickHandler("en")}> EN </button>
+          <button onClick={() => clickHandler(1)}> IT </button>
+          <button onClick={() => clickHandler(3)}> EN </button>
         </div>
       </WizardWrapper>
     </AnimatedFrame>

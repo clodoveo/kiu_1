@@ -7,8 +7,10 @@ import WizardWrapper from "../components/WizardWrapper";
 import { ConfigContext } from "../contexts/ConfigContext";
 
 export default function GuideSelector() {
-  const { guide, setGuide } = useContext(ConfigContext);
+  const { labels, guide, setGuide } = useContext(ConfigContext);
   const history = useHistory();
+
+  console.log(labels);
 
   function clickHandler(par) {
     setGuide(par);

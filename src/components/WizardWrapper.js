@@ -4,44 +4,41 @@ import styled from "styled-components";
 
 import Logo from "./WizardLogo";
 
-export default function WizardWrapper(props) {
-  const { children, logoTop, logoPayoff } = props;
-
+export default function ({ children, logoTop, logoPayoff }) {
   return (
-    <div
-      style={{
-        backgroundImage:
-          "url('https://giomiapp.terotero.it/img/original/app/sfondo.png')",
-        height: "100%",
-        width: "100%",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover"
-      }}
-    >
+    <WizardWrapper>
+      {!logoPayoff && <Back />}
+
       <Logo top={logoTop} payoff={logoPayoff} />
-
-      <Back />
-
       {children}
-    </div>
+    </WizardWrapper>
   );
 }
+
+const widardBg =
+  "url('https://giomiapp.terotero.it/img/original/app/sfondo.png')";
+
+const WizardWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  background: ${widardBg} no-repeat center;
+  background-size: "cover";
+`;
 
 const Back = styled(({ className }) => {
   const history = useHistory();
   return (
     <button className={className} onClick={() => history.goBack()}>
-      <i class="fas fa-chevron-left" />
+      <i className="fas fa-chevron-left" />
     </button>
   );
 })`
-  background: #fff;
+  background: #fff8;
   border: none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 23px;
   margin: 12px;
   color: #265a32;
-  font-size: 18px;
   cursor: pointer;
 `;
