@@ -30,9 +30,6 @@ export default function () {
 }
 
 const App = styled(({ className }) => {
-  const result = useLabels();
-  console.log(result);
-
   return (
     <div className={className}>
       <Router>

@@ -1,6 +1,8 @@
-import React from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
+import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+
+import { ConfigContext } from "../contexts/ConfigContext";
 
 import Splash from "./Splash";
 import LanguageSelector from "./LanguageSelector";
@@ -31,10 +33,14 @@ const routes = [
 
 export default function () {
   const location = useLocation();
+  const history = useHistory();
+
+  const { language } = useContext(ConfigContext)
+  requireLanguage(location, history, language);
 
   return (
     <AnimatePresence>
-      <Switch location={location} key={location.pathname}>
+      <Switch location={location} key={location.key}>
         {routes.map(({ path, className, component }) => (
           <Route
             key={path}
@@ -47,4 +53,18 @@ export default function () {
       </Switch>
     </AnimatePresence>
   );
+}
+
+// rimanda a /language se manca la lingua
+function requireLanguage(location, history, language) {
+  useEffect(() => {
+    if (
+      language === null &&
+      location.pathname !== '/' &&
+      location.pathname !== '/language'
+    ) {
+      console.log('redirect: missing language');
+      history.push('/language')
+    }
+  }, [language])
 }
