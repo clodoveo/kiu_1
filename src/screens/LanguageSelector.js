@@ -19,9 +19,6 @@ export default function LanguageSelector() {
 
   function clickHandler(langId) {
     setLanguage(langId);
-
-    getLabels(langId).then(setLabels);
-
     history.push("/guide");
   }
 
