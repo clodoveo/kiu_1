@@ -37,14 +37,6 @@ const App = styled(({ className }) => {
     <div className={className}>
       <Router>
         <Screens />
-
-        <div
-          style={{
-            display: "flex",
-            //position: "fixed",
-            flexDirection: "column"
-          }}
-        ></div>
       </Router>
     </div>
   );
