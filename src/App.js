@@ -8,7 +8,7 @@ import { ConfigContext } from "./contexts/ConfigContext";
 
 import useLabels from "./hooks/useLabels";
 
-import Screens from "./screens";
+import ScreensRouter from "./ScreensRouter";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -33,7 +33,7 @@ const App = styled(({ className }) => {
   return (
     <div className={className}>
       <Router>
-        <Screens />
+        <ScreensRouter />
       </Router>
     </div>
   );
