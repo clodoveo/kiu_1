@@ -1,12 +1,25 @@
+import React, { useContext } from "react";
 import { useQuery } from "react-query";
 
-const getLabels = async (postId) => {
-  const res = await fetch("http://localhost:3000/labels");
-  const data = await res.json();
+import { ConfigContext } from "../contexts/ConfigContext";
 
-  return data;
-};
+const apiUrl = "https://giomiapp.terotero.it/api/resource/labels/all";
+// const apiUrl = "http://localhost:3000/labels"
 
 export default function useLabels() {
-  return useQuery("labels", () => getLabels());
+  const { labels, setLabels } = useContext(ConfigContext);
+
+  return useQuery("labels", () => {
+    return async () => {
+      if (labels) {
+        return labels;
+      }
+
+      const res = await fetch(apiUrl);
+      const data = await res.json();
+
+      setLabels(data);
+      return data;
+    };
+  });
 }
