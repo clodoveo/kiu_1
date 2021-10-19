@@ -4,7 +4,12 @@ import { Link, useHistory } from "react-router-dom";
 import AnimatedFrame from "../components/AnimatedFrame";
 import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
+import WizardBottom from '../components/WizardBottom'
+import WizardCircleButton from "../components/WizardCircleButton"
+
+
 import { ConfigContext } from "../contexts/ConfigContext";
+
 
 export default function GuideSelector() {
   const { labels, guide, setGuide } = useContext(ConfigContext);
@@ -28,8 +33,10 @@ export default function GuideSelector() {
             textAlign: "center"
           }}
         >
-          <button onClick={() => clickHandler("filippo")}> filippo </button>
-          <button onClick={() => clickHandler("manuela")}> manuela </button>
+          <WizardBottom  divider={ true }>
+            <WizardCircleButton onClick={() => clickHandler("Paola")} image="https://giomiapp.terotero.it/img/original/app/agente1.png" title="Paola"/>
+            <WizardCircleButton onClick={() => clickHandler("Luca")} image="https://giomiapp.terotero.it/img/original/app/agente2.png"title="Luca" />           
+          </WizardBottom> 
         </div>
       </WizardWrapper>
     </AnimatedFrame>

@@ -6,6 +6,10 @@ import useLabels from "../hooks/useLabels";
 import AnimatedFrame from "../components/AnimatedFrame";
 import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
+import WizardBottom from '../components/WizardBottom'
+import WizardCircleButton from "../components/WizardCircleButton"
+
+
 import { ConfigContext } from "../contexts/ConfigContext";
 
 export default function LanguageSelector() {
@@ -33,8 +37,10 @@ export default function LanguageSelector() {
             textAlign: "center"
           }}
         >
-          <button onClick={() => clickHandler(1)}> IT </button>
-          <button onClick={() => clickHandler(3)}> EN </button>
+          <WizardBottom  divider={ true}>
+            <WizardCircleButton onClick={() => clickHandler(1)} image="https://giomiapp.terotero.it/img/original/app/ita.png" title="italiano"/>
+            <WizardCircleButton onClick={() => clickHandler(3)} image="https://giomiapp.terotero.it/img/original/app/en.png"title="inglese" />           
+          </WizardBottom> 
         </div>
       </WizardWrapper>
     </AnimatedFrame>
