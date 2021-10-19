@@ -1,14 +1,13 @@
+import { useHistory } from 'react-router-dom'
 import styled from "styled-components";
 
 export default function ScreenHeader({ text }) {
-  const historyBack = () => {
-    window.history.back();
-  };
+  const history = useHistory();
 
   return (
     <Styled>
       <span className="title">
-        <span className="back" onClick={historyBack}>
+        <span className="back" onClick={history.goBack}>
           <i className="fas fa-chevron-left" />
         </span>
         {text}
