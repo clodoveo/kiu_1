@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 const variants = {
-  initial: { opacity: 1, y: "100%" },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 0 }
+  initial: { y: "100%" },
+  animate: { y: 0 },
+  exit: { y: 0 }
 };
 
 const transition = {
