@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function WizardCircleButton(props) {
     const onClick = props.onClick;
     return (
-        <StyledButton onClick={() =>onClick()}>
+        <StyledButton onClick={onClick}>
             <div className="imgWrapper">
                 <img src={props.image} />
             </div>

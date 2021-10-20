@@ -35,7 +35,7 @@ export default function GuideSelector() {
         >
           <WizardBottom  divider={ true }>
             <WizardCircleButton onClick={() => clickHandler("Paola")} image="https://giomiapp.terotero.it/img/original/app/agente1.png" title="Paola"/>
-            <WizardCircleButton onClick={() => clickHandler("Luca")} image="https://giomiapp.terotero.it/img/original/app/agente2.png"title="Luca" />           
+            <WizardCircleButton onClick={() => clickHandler("Luca")} image="https://giomiapp.terotero.it/img/original/app/agente2.png" title="Luca" />           
           </WizardBottom> 
         </div>
       </WizardWrapper>
