@@ -14,7 +14,7 @@ import Map from "./screens/Map";
 import Info from "./screens/Info";
 import ServicesList from "./screens/ServicesList";
 import ServiceContents from "./screens/ServiceContents";
-import VideoPlayer from "./screens/VideoPlayer";
+import VideoPlaylist from "./screens/VideoPlaylist";
 
 // se skipLanguage:true il valore di language non è richiesto
 
@@ -30,7 +30,7 @@ const routes = [
   { path: "/info", exact: true, component: Info },
   { path: "/services", exact: true, component: ServicesList },
   { path: "/services/:id", exact: true, component: ServiceContents },
-  { path: "/video", exact: true, component: VideoPlayer },
+  { path: "/video", exact: true, component: VideoPlaylist },
 
   // rimanda tutto il resto alla root
   { path: "/", component: NotFound, skipLanguage: true }
