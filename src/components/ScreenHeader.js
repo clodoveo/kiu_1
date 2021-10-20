@@ -1,22 +1,18 @@
 import { useHistory } from 'react-router-dom'
 import styled from "styled-components";
 
-export default function ScreenHeader({ text }) {
-  const history = useHistory();
-
+export default function({ text }) {
   return (
-    <Styled>
+    <ScreenHeader>
       <span className="title">
-        <span className="back" onClick={history.goBack}>
-          <i className="fas fa-chevron-left" />
-        </span>
+        <BackButton backTo="/menu" />
         {text}
       </span>
-    </Styled>
+    </ScreenHeader>
   );
 }
 
-const Styled = styled.div`
+const ScreenHeader = styled.div`
   position: relative;
   padding: 1em 0;
   font-size: 27px;
@@ -35,3 +31,18 @@ const Styled = styled.div`
     padding-top: 2px;
   }
 `;
+
+const BackButton = styled(({ backTo }) => {
+  const history = useHistory();
+
+  return (
+    <span className="back" onClick={handleClick}>
+      <i className="fas fa-chevron-left" />
+    </span>
+  )
+
+  function handleClick() {
+    history.push(backTo)
+  }
+})`
+`
