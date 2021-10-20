@@ -5,6 +5,8 @@ import WizardWrapper from "../components/WizardWrapper";
 import WizardButton from "../components/WizardButton";
 import WizardBottom from "../components/WizardBottom";
 import WizardBottomDate from "../components/WizardBottomDate";
+import WizardMessage from "../components/WizardMessage";
+import WizardStepIndicator from "../components/WizardStepIndicator";
 
 import { ConfigContext } from "../contexts/ConfigContext";
 
@@ -30,8 +32,8 @@ export default function Start() {
           }}
         >
         
-
-
+           <WizardMessage title="Perfetto" caption="Siamo pronti "></WizardMessage>
+          <WizardStepIndicator activeIndex={ 3}/>
           <WizardBottom lastScreen={true} vh="45">
             <WizardBottomDate />
             <div className="title" style={StartStyle}>

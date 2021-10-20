@@ -6,8 +6,8 @@ import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
 import WizardBottom from '../components/WizardBottom'
 import WizardCircleButton from "../components/WizardCircleButton"
-
-
+import WizardMessage from "../components/WizardMessage"
+import WizardStepIndicator from "../components/WizardStepIndicator" 
 import { ConfigContext } from "../contexts/ConfigContext";
 
 
@@ -33,6 +33,9 @@ export default function GuideSelector() {
             textAlign: "center"
           }}
         >
+
+          <WizardMessage title="Ciao Giovanni" caption="Scegli la tua guida "></WizardMessage>
+          <WizardStepIndicator activeIndex={ 2}/>
           <WizardBottom  divider={ true }>
             <WizardCircleButton onClick={() => clickHandler("Paola")} image="https://giomiapp.terotero.it/img/original/app/agente1.png" title="Paola"/>
             <WizardCircleButton onClick={() => clickHandler("Luca")} image="https://giomiapp.terotero.it/img/original/app/agente2.png" title="Luca" />           

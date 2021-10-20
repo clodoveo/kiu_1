@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
+
 const Styled = styled.div`
   position: fixed;
   bottom:0;
@@ -22,12 +23,10 @@ export default function WizardBottom(props) {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat"
     } : {}
-
-  
     const flexConditionalStyle = props.lastScreen ? {flexDirection: "column"} : { flexDirection: "row"}
     const heightConditionaStyle = props.vh ? { height: `${props.vh}vh` }:{ height:'30vh'}
 
-        const conditionalStyle = { ...backgroundConditionalStyle, ...flexConditionalStyle, ...heightConditionaStyle }
+    const conditionalStyle = { ...backgroundConditionalStyle, ...flexConditionalStyle, ...heightConditionaStyle }
 
     return (
         <Styled style={conditionalStyle}>
