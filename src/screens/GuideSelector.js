@@ -24,7 +24,7 @@ export default function GuideSelector() {
 
   return (
     <AnimatedFrame>
-      <WizardWrapper logoTop="20%">
+      <WizardWrapper logoTop="10%">
         <div
           style={{
             position: "absolute",

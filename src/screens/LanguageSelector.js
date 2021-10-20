@@ -28,7 +28,7 @@ export default function LanguageSelector() {
 
   return (
     <AnimatedFrame>
-      <WizardWrapper logoTop="20%">
+      <WizardWrapper logoTop="10%">
         <div
           style={{
             position: "absolute",
