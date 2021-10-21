@@ -14,7 +14,7 @@ import ScreensRouter from "./ScreensRouter";
 const queryClient = new QueryClient();
 
 export default function () {
-  const [language, setLanguage] = useState(null);
+  const [language, setLanguage] = useState(1);
   const [guide, setGuide] = useState(null);
   const [labels, setLabels] = useState(null);
 
@@ -38,7 +38,7 @@ const App = styled(({ className }) => {
     </div>
   );
 })`
-  max-width: 480px;
+  max-width: 70vh;
   position: relative;
   margin: auto;
   height: 100vh;

@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-export default function({ items }) {
+export default function({ items, coverComponent }) {
+  const CoverComponent = coverComponent ? coverComponent : ImageCover
+
 	return (
 	  <InfoCards className="cards">
 	    {items.map((data, index) => (
 	      <div key={index} className="card">
-	        {data.imgUrl && (
-	          <div className="img">
-	            <img src={data.imgUrl} alt={data.title} />
-	          </div>
-	        )}
+          <CoverComponent {...data} />
 
 	        <div className="content">
 	          <div className="title">{data.title}</div>
@@ -68,3 +66,16 @@ const InfoCards = styled.div`
     }
   }
 `
+
+function ImageCover({ imgUrl, title }) {
+  console.log(imgUrl);
+  if (! imgUrl) {
+    return null
+  }
+
+  return (
+    <div className="img">
+      <img src={imgUrl} alt={title} />
+    </div>
+  )
+}
