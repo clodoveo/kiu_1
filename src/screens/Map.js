@@ -10,7 +10,8 @@ export default function () {
     link: {
       to: "/menu",
       label: "Parti ora"
-    }
+    },
+    icon:"https://giomiapp.terotero.it/img/original/app/map-icon.png"
   };
 
   return <Opener {...params} />;

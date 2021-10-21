@@ -5,9 +5,9 @@ import { useHistory } from 'react-router-dom'
 import AnimatedFrame from "../components/AnimatedFrame";
 import WizardButton from "../components/WizardButton";
 
-export default function ({ title, text, link,image }) {
+export default function ({ title, text, link, image, icon }) {
   if (link) {
-    link = <WizardButton to={link.to} text={link.label} color="yellow" />;
+    link = <WizardButton to={link.to} text={link.label} color="yellow" icon={ icon} />;
   }
   const history = useHistory();
   

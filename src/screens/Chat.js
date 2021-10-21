@@ -9,7 +9,9 @@ export default function () {
     link: {
       to: "/menu",
       label: "Chatta ora"
-    }
+    },
+    image: "https://giomiapp.terotero.it/img/original/app/agente1.png",
+    icon:"https://giomiapp.terotero.it/img/original/app/chat-icon.png"
   };
 
   return <Opener {...params} />;
