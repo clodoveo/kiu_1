@@ -3,6 +3,9 @@ import React, { useContext, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
 
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { isMobile } from "react-device-detect";
+
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ConfigContext } from "./contexts/ConfigContext";
 
@@ -18,12 +21,24 @@ export default function () {
   const [guide, setGuide] = useState(null);
   const [labels, setLabels] = useState(null);
 
-  const config = { language, setLanguage, guide, setGuide, labels, setLabels };
+  const fullScreenHandle = useFullScreenHandle();
+
+  const config = {
+    language,
+    setLanguage,
+    guide,
+    setGuide,
+    labels,
+    setLabels,
+    enterFullScreen: () => isMobile && fullScreenHandle.enter()
+  };
 
   return (
     <ConfigContext.Provider value={config}>
       <QueryClientProvider client={queryClient}>
-        <App className="app" />
+        <FullScreen handle={fullScreenHandle}>
+          <App className="app" />
+        </FullScreen>
       </QueryClientProvider>
     </ConfigContext.Provider>
   );
