@@ -1,0 +1,7 @@
+{
+    "short_name": "Keep It Up!!!",
+    "name": "Start your holyday",
+    "start_url": "/index.html",
+    "display": "fullscreen",
+    "orientation": "portrait"
+}
