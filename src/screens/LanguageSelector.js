@@ -43,7 +43,7 @@ export default function LanguageSelector() {
 
           <WizardMessage title="Ciao Giovanni" caption="Scegli la tua lingua <br> Choose your language "></WizardMessage>
           <WizardStepIndicator activeIndex={1}/>
-          <WizardBottom divider={true}>
+          <WizardBottom divider={true} vh={ 30 }>
             <WizardCircleButton onClick={() => clickHandler(1)} image="https://giomiapp.terotero.it/img/original/app/ita.png" title="italiano"/>
             <WizardCircleButton onClick={() => clickHandler(3)} image="https://giomiapp.terotero.it/img/original/app/en.png"title="inglese" />           
           </WizardBottom> 
