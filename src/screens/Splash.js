@@ -6,7 +6,7 @@ import AnimatedFrame from "../components/AnimatedFrame";
 import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
 
-// import { ConfigContext } from "../contexts/ConfigContext";
+import { ConfigContext } from "../contexts/ConfigContext";
 
 export default function Splash() {
   const btnStyle = {
@@ -16,11 +16,19 @@ export default function Splash() {
     textAlign: "center"
   };
 
+  const { enterFullScreen } = useContext(ConfigContext);
+
   return (
     <AnimatedFrame>
       <WizardWrapper logoTop="36%" logoPayoff>
         <div style={btnStyle}>
-          <WizardButton to="/language" text="Start" color="yellow" />
+          <WizardButton
+            triggerFullScreen
+            onClick={enterFullScreen}
+            to="/language"
+            text="Start"
+            color="yellow"
+          />
         </div>
       </WizardWrapper>
     </AnimatedFrame>

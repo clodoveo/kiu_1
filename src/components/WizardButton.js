@@ -3,22 +3,26 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function (props) {
-  const { to, text, color, icon, external } = props;
+  const { to, text, color, icon, external, onClick } = props;
 
   return (
     <WizardButton className={color}>
-      {external ?
-        <a href={to} target="_blank" > {icon && <img className="btn-icon" src={icon} /> }  {text}</a>
-        :
-        <Link to={to}> {icon && <img className="btn-icon" src={icon} />} {text}</Link>
-      }
+      {external ? (
+        <a href={to} target="_blank">
+          {icon && <img className="btn-icon" src={icon} />} {text}
+        </a>
+      ) : (
+        <Link onClick={onClick} to={to}>
+          {icon && <img className="btn-icon" src={icon} />} {text}
+        </Link>
+      )}
     </WizardButton>
   );
 }
- 
+
 const WizardButton = styled.div`
   a {
-    position:relative;
+    position: relative;
     font-family: Montserrat;
     font-weight: bold;
     font-size: 22px;
@@ -37,9 +41,9 @@ const WizardButton = styled.div`
     background: #feb700;
   }
   .btn-icon {
-    width:37px;
-    position:absolute;
-    left:15px;
-    top:17px;
+    width: 37px;
+    position: absolute;
+    left: 15px;
+    top: 17px;
   }
 `;
