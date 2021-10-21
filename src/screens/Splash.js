@@ -1,6 +1,5 @@
 import { React, useContext } from "react";
 // import styled from "styled-components";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 import AnimatedFrame from "../components/AnimatedFrame";
 
