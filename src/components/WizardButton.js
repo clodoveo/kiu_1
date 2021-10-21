@@ -9,12 +9,10 @@ export default function (props) {
     <WizardButton className={color}>
       {external ? (
         <a href={to} target="_blank">
-          {" "}
           {icon && <img className="btn-icon" src={icon} />} {text}
         </a>
       ) : (
         <Link onClick={onClick} to={to}>
-          {" "}
           {icon && <img className="btn-icon" src={icon} />} {text}
         </Link>
       )}
