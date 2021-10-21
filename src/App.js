@@ -2,6 +2,7 @@ import "./styles.css";
 import React, { useContext, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
+import AddToHomeScreen from '@ideasio/add-to-homescreen-react';
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { isMobile } from "react-device-detect";
@@ -47,6 +48,7 @@ export default function () {
 const App = styled(({ className }) => {
   return (
     <div className={className}>
+      <AddToHomeScreen />
       <Router>
         <ScreensRouter />
       </Router>

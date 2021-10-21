@@ -2,6 +2,7 @@ import { React, useContext } from "react";
 // import styled from "styled-components";
 
 import AnimatedFrame from "../components/AnimatedFrame";
+import AddToHomeScreen from '@ideasio/add-to-homescreen-react';
 
 import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
@@ -21,6 +22,7 @@ export default function Splash() {
   return (
     <AnimatedFrame>
       <WizardWrapper logoTop="36%" logoPayoff>
+       <AddToHomeScreen />
         <div style={btnStyle}>
           <WizardButton
             triggerFullScreen
