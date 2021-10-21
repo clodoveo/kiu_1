@@ -7,7 +7,7 @@ import WizardButton from "../components/WizardButton";
 
 export default function ({ title, text, link, image, icon }) {
   if (link) {
-    link = <WizardButton to={link.to} text={link.label} color="yellow" icon={ icon} />;
+    link = <WizardButton to={link.to} text={link.label} color="yellow" icon={icon} external={ link.external} />;
   }
   const history = useHistory();
   

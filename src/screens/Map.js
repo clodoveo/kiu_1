@@ -8,8 +8,9 @@ export default function () {
     text: "Verrai reindirizzato sul tuo navigatore",
     image:"https://giomiapp.terotero.it/img/original/app/map.png",
     link: {
-      to: "/menu",
-      label: "Parti ora"
+      to: "http://maps.apple.com/?q=Houston,+TX",
+      label: "Parti ora",
+      external:true
     },
     icon:"https://giomiapp.terotero.it/img/original/app/map-icon.png"
   };
