@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
@@ -29,7 +30,7 @@ export default styled(({ className, children, scrollable }) => {
     >
       {children}
     </motion.div>
-  );
+  )
 })`
   position: absolute;
   top: 0;

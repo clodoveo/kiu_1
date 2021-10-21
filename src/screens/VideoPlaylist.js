@@ -10,19 +10,22 @@ import VideoPlayer from "../components/VideoPlayer";
 
 import { useQuery } from "react-query";
 
+// evita render ripetuti
+const MemoVideo = memo(VideoPlayer)
+
 export default function() {
   let body = <LoadingSpinner />
 
   const items = getListData()
 
   if (items) {
-    body = <InfoCards items={items} coverComponent={memo(VideoPlayer)} />
+    body = <InfoCards items={items} coverComponent={MemoVideo} />
   }
 
   return (
     <AnimatedFrame scrollable>
       <ScreenHeader text="Trova il tuo ingresso" />
-        {body}
+      {body}
       <ScreenFooter />
     </AnimatedFrame>
   );
@@ -39,21 +42,14 @@ const fakeData = [
     cloudName: "dlhsryof2",
     path: "keepitup/IMG_0644_mmnuds.mov",
     ratio: 9 / 16,
-    title: "Keepitup",
+    title: "Video 1",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
   },
   {
-    cloudName: "demo",
-    path: "samples/elephants",
+    cloudName: "dlhsryof2",
+    path: "keepitup/IMG_0644_mmnuds.mov",
     ratio: 9 / 16,
-    title: "Elephants",
+    title: "Video 2",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
   },
-  {
-    cloudName: "demo",
-    path: "samples/sea-turtle",
-    ratio: 9 / 16,
-    title: "Turtle",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  }
 ]
