@@ -31,7 +31,11 @@ export default function () {
     setGuide,
     labels,
     setLabels,
-    enterFullScreen: () => isMobile && fullScreenHandle.enter()
+    enterFullScreen: () => {
+      if (isMobile && ! fullScreenHandle.active) {
+        fullScreenHandle.enter()
+      }
+    }
   };
 
   return (
