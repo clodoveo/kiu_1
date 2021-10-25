@@ -1,8 +1,6 @@
 import { React, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import useLabels from "../hooks/useLabels";
-
 import AnimatedFrame from "../components/AnimatedFrame";
 import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
@@ -14,13 +12,9 @@ import WizardStepIndicator from "../components/WizardStepIndicator"
 import { ConfigContext } from "../contexts/ConfigContext";
 
 export default function LanguageSelector() {
-  const { language, setLanguage, labels, setLabels } = useContext(
-    ConfigContext
-  );
+  const { language, setLanguage } = useContext(ConfigContext)
 
   const history = useHistory();
-
-  const getLabels = useLabels();
 
   function clickHandler(langId) {
     setLanguage(langId);
@@ -30,8 +24,6 @@ export default function LanguageSelector() {
   return (
     <AnimatedFrame>
       <WizardWrapper logoTop="10%">
-        
-        
         <div
           style={{
             position: "absolute",
@@ -40,15 +32,32 @@ export default function LanguageSelector() {
             textAlign: "center"
           }}
         >
-
-          <WizardMessage title="Ciao Giovanni" caption="Scegli la tua lingua <br> Choose your language "></WizardMessage>
+          <WizardMessage title="Ciao Giovanni" caption="Scegli la tua lingua <br> Choose your language" />
           <WizardStepIndicator activeIndex={1}/>
           <WizardBottom divider={true} vh={ 30 }>
-            <WizardCircleButton onClick={() => clickHandler(1)} image="https://giomiapp.terotero.it/img/original/app/ita.png" title="italiano"/>
-            <WizardCircleButton onClick={() => clickHandler(3)} image="https://giomiapp.terotero.it/img/original/app/en.png"title="inglese" />           
+            {languages.map(lang => (
+              <WizardCircleButton key={lang.id}
+                onClick={() => clickHandler(lang.id)}
+                image={lang.image}
+                title={lang.title}
+              />
+            ))}
           </WizardBottom> 
         </div>
       </WizardWrapper>
     </AnimatedFrame>
   );
 }
+
+const languages = [
+  {
+    id: 1,
+    image: "https://giomiapp.terotero.it/img/original/app/ita.png",
+    title: "Italiano"
+  },
+  {
+    id: 3,
+    image: "https://giomiapp.terotero.it/img/original/app/en.png",
+    title: "English"
+  }
+]
