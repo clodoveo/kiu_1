@@ -8,6 +8,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import InfoCards from "../components/InfoCards";
 
 import infoApi from "../api/info";
+// import { useInfo } from "../hooks/useAppData";
 
 export default function InfoScreen() {
   const [items, setItems] = useState(null);

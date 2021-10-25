@@ -10,15 +10,18 @@ import WizardMessage from "../components/WizardMessage"
 import WizardStepIndicator from "../components/WizardStepIndicator"
 
 import { ConfigContext } from "../contexts/ConfigContext";
-import useLabels from "../hooks/useLabels"
+import { useLanguages, useLabels, useAccount } from "../hooks/useAppData"
 
 export default function LanguageSelector() {
   const { language, setLanguage } = useContext(ConfigContext)
 
-  const label = useLabels(language)
+  const label = useLabels().byName
+  const account = useAccount()
 
-  // TODO sostituire Giovani
-  const wizardTitle = label("hello") + " Giovanni"
+  // TODO parametrizzare userName
+  const userName = account.current().name
+
+  const wizardTitle = `${label("hello")} ${userName}`
   const wizardCapition = label("chooseYourLanguageLine1") + "<br>" + label("chooseYourLanguageLine2")
 
   const history = useHistory();
@@ -42,7 +45,7 @@ export default function LanguageSelector() {
           <WizardMessage title={wizardTitle} caption={wizardCapition}/>
           <WizardStepIndicator activeIndex={1}/>
           <WizardBottom divider={true} vh={ 30 }>
-            {languages.map(lang => (
+            {useLanguages().list().map(lang => (
               <WizardCircleButton key={lang.id}
                 onClick={() => clickHandler(lang.id)}
                 image={lang.image}
@@ -55,16 +58,3 @@ export default function LanguageSelector() {
     </AnimatedFrame>
   );
 }
-
-const languages = [
-  {
-    id: 1,
-    image: "https://giomiapp.terotero.it/img/original/app/ita.png",
-    title: "Italiano"
-  },
-  {
-    id: 3,
-    image: "https://giomiapp.terotero.it/img/original/app/en.png",
-    title: "English"
-  }
-]

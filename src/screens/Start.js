@@ -8,17 +8,17 @@ import WizardBottomDate from "../components/WizardBottomDate";
 import WizardMessage from "../components/WizardMessage";
 import WizardStepIndicator from "../components/WizardStepIndicator";
 
-import { ConfigContext } from "../contexts/ConfigContext";
+import { useLabels } from "../hooks/useAppData"
 
 export default function Start() {
-  const { language, guide } = useContext(ConfigContext);
+  const { byName: label } = useLabels()
 
-  const StartStyle = {
+  const startStyle = {
     fontSize: "23px",
     lineHeight: "20px",
     maxWidth: "60%",
     color: "#607464"
-  };
+  }
 
   return (
     <AnimatedFrame>
@@ -31,19 +31,28 @@ export default function Start() {
             textAlign: "center"
           }}
         >
-        
-           <WizardMessage title="Perfetto" caption="Siamo pronti "></WizardMessage>
+          <WizardMessage
+            title={label("success")}
+            caption={label("successInfo")}
+          />
+
           <WizardStepIndicator activeIndex={ 3}/>
+
           <WizardBottom lastScreen={true} vh="45">
             <WizardBottomDate />
-            <div className="title" style={StartStyle}>
-              La tua vacanza comincia ora
+
+            <div className="title" style={startStyle}>
+              {label("yourHolidayStartsHere")}
             </div>
-            <WizardButton color="green" to="/menu" text="Cominciamo!" />
-          </WizardBottom> 
-          
+
+            <WizardButton
+              color="green"
+              to="/menu"
+              text={label("start")}
+            />
+          </WizardBottom>
         </div>
       </WizardWrapper>
     </AnimatedFrame>
-  );
+  )
 }

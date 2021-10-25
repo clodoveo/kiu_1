@@ -10,16 +10,25 @@ import { isMobile } from "react-device-detect";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ConfigContext } from "./contexts/ConfigContext";
 
-import useLabels from "./hooks/useLabels";
+import { useLabels } from "./hooks/useAppData";
 
 import ScreensRouter from "./ScreensRouter";
 
 // Create a client
 const queryClient = new QueryClient();
 
+// TODO rimuovere i default: servono solo in DEV
+const defaultGuide = {
+  "id": "1",
+  "name": "Paola",
+  "picture": "https://giomiapp.terotero.it/img/original/app/agente1.png"
+}
+
+const defaultLanguageId = 1
+
 export default function () {
-  const [language, setLanguage] = useState(1);
-  const [guide, setGuide] = useState(null);
+  const [language, setLanguage] = useState(defaultLanguageId);
+  const [guide, setGuide] = useState(defaultGuide);
   const [labels, setLabels] = useState(null);
 
   const fullScreenHandle = useFullScreenHandle();
@@ -50,6 +59,8 @@ export default function () {
 }
 
 const App = styled(({ className }) => {
+  const { byName: label } = useLabels()
+
   return (
     <div className={className}>
       <AddToHomeScreen />

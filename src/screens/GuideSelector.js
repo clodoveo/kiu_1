@@ -8,17 +8,23 @@ import WizardBottom from '../components/WizardBottom'
 import WizardCircleButton from "../components/WizardCircleButton"
 import WizardMessage from "../components/WizardMessage"
 import WizardStepIndicator from "../components/WizardStepIndicator" 
+
 import { ConfigContext } from "../contexts/ConfigContext";
 
+import { useLabels, useGuides } from "../hooks/useAppData"
 
 export default function GuideSelector() {
-  const { labels, guide, setGuide } = useContext(ConfigContext);
+  const { setGuide, language } = useContext(ConfigContext);
   const history = useHistory();
 
-  console.log(labels);
+  const { byName: label } = useLabels()
 
-  function clickHandler(par) {
-    setGuide(par);
+  const guidesHook = useGuides()
+  const guides = guidesHook.list()
+
+  function clickHandler(guideId) {
+    const guide = guidesHook.byId(guideId)
+    setGuide(guide);
     history.push("/start");
   }
 
@@ -37,8 +43,14 @@ export default function GuideSelector() {
           <WizardMessage title="Ciao Giovanni" caption="Scegli la tua guida "></WizardMessage>
           <WizardStepIndicator activeIndex={ 2}/>
           <WizardBottom  divider={ true }>
-            <WizardCircleButton onClick={() => clickHandler("Paola")} image="https://giomiapp.terotero.it/img/original/app/agente1.png" title="Paola"/>
-            <WizardCircleButton onClick={() => clickHandler("Luca")} image="https://giomiapp.terotero.it/img/original/app/agente2.png" title="Luca" />           
+            {guides && guides.map(guide => (
+              <WizardCircleButton
+                key={guide.id}
+                title={guide.name}
+                image={guide.picture}
+                onClick={() => clickHandler(guide.id)}
+              />
+            ))}
           </WizardBottom> 
         </div>
       </WizardWrapper>

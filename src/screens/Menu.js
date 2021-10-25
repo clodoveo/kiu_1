@@ -7,15 +7,14 @@ import MenuButton from "../components/MenuButton";
 import MenuHeader from "../components/MenuHeader";
 
 import { ConfigContext } from "../contexts/ConfigContext";
-
-import useLabels from "../hooks/useLabels"
+import { useLabels } from "../hooks/useAppData"
 
 export default function Menu() {
   const { language, guide } = useContext(ConfigContext)
 
-  const label = useLabels(language)
+  const { byName: label } = useLabels()
 
-  const guideLabel = label('btnChatTitle') + ' ' + guide
+  const guideLabel = label('btnChatTitle') + ' ' + guide.name
 
   return (
     <AnimatedFrame scrollable>
