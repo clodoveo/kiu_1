@@ -10,9 +10,16 @@ import WizardMessage from "../components/WizardMessage"
 import WizardStepIndicator from "../components/WizardStepIndicator"
 
 import { ConfigContext } from "../contexts/ConfigContext";
+import useLabels from "../hooks/useLabels"
 
 export default function LanguageSelector() {
   const { language, setLanguage } = useContext(ConfigContext)
+
+  const label = useLabels(language)
+
+  // TODO sostituire Giovani
+  const wizardTitle = label("hello") + " Giovanni"
+  const wizardCapition = label("chooseYourLanguageLine1") + "<br>" + label("chooseYourLanguageLine2")
 
   const history = useHistory();
 
@@ -20,10 +27,6 @@ export default function LanguageSelector() {
     setLanguage(langId);
     history.push("/guide");
   }
-
-  // TODO sostituire Giovani
-  const wizardTitle = label("hello") + " Giovanni"
-  const wizardCapition = label("chooseYourLanguageLine1") + "<br>" + label("chooseYourLanguageLine2")
 
   return (
     <AnimatedFrame>
