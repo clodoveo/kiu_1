@@ -24,6 +24,6 @@ export default function({ path, cloudName, width }) {
 
 const VideoPlayer = styled.div`
   video {
-    max-width: 100%;
+    width: 100%;
   }
 `

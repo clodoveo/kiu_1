@@ -68,7 +68,6 @@ const InfoCards = styled.div`
 `
 
 function ImageCover({ imgUrl, title }) {
-  console.log(imgUrl);
   if (! imgUrl) {
     return null
   }

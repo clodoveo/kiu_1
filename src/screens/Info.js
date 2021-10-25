@@ -16,8 +16,6 @@ export default function InfoScreen() {
     const langId = 1;
 
     infoApi.fetch(langId).then(setItems);
-
-    return <LoadingSpinner/>
   }
 
   const body = items ?

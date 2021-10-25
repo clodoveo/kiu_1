@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, memo } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { useHistory } from "react-router-dom";
 
 import AnimatedFrame from "../components/AnimatedFrame";
@@ -14,13 +14,19 @@ import { useQuery } from "react-query";
 const MemoVideo = memo(VideoPlayer)
 
 export default function() {
-  let body = <LoadingSpinner />
+  const [items, setItems] = useState(null)
 
-  const items = getListData()
+  const { data } = useQuery("video", getData)
 
-  if (items) {
-    body = <InfoCards items={items} coverComponent={MemoVideo} />
-  }
+  useEffect(() => {
+    if (data) {
+      setItems(data)
+    }
+  })
+
+  const body = items ?
+    <InfoCards items={items} coverComponent={MemoVideo} /> :
+    <LoadingSpinner />
 
   return (
     <AnimatedFrame scrollable>
@@ -31,10 +37,12 @@ export default function() {
   );
 }
 
-
-function getListData() {
-  const { status, data } = useQuery("video", () => fakeData)
-  return data
+async function getData() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(fakeData)
+    })
+  })
 }
 
 const fakeData = [
