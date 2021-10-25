@@ -21,6 +21,10 @@ export default function LanguageSelector() {
     history.push("/guide");
   }
 
+  // TODO sostituire Giovani
+  const wizardTitle = label("hello") + " Giovanni"
+  const wizardCapition = label("chooseYourLanguageLine1") + "<br>" + label("chooseYourLanguageLine2")
+
   return (
     <AnimatedFrame>
       <WizardWrapper logoTop="10%">
@@ -32,7 +36,7 @@ export default function LanguageSelector() {
             textAlign: "center"
           }}
         >
-          <WizardMessage title="Ciao Giovanni" caption="Scegli la tua lingua <br> Choose your language" />
+          <WizardMessage title={wizardTitle} caption={wizardCapition}/>
           <WizardStepIndicator activeIndex={1}/>
           <WizardBottom divider={true} vh={ 30 }>
             {languages.map(lang => (
