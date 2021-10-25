@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from 'react-router-dom'
 import styled from "styled-components";
 
@@ -6,43 +6,62 @@ import AnimatedFrame from "../components/AnimatedFrame";
 import MenuButton from "../components/MenuButton";
 import MenuHeader from "../components/MenuHeader";
 
+import { ConfigContext } from "../contexts/ConfigContext";
+
+import useLabels from "../hooks/useLabels"
+
 export default function Menu() {
+  const { language, guide } = useContext(ConfigContext)
+
+  const label = useLabels(language)
+
+  const guideLabel = label('btnChatTitle') + ' ' + guide
+
   return (
     <AnimatedFrame scrollable>
+      <Back />
+
       <MenuHeader>
-        <Back />
-        Prima di tutto
+        {label('firstOfAll')}
       </MenuHeader>
 
       <MenuButton
         to="map"
-        title="Come arrivare"
-        caption="Via Google maps"
-        icon="fas fa-location-arrow"
+        title={label('btnNavigatorTitle')}
+        caption={label('btnNavigatorCaption')}
+        icon={label('btnNavigatorIcon')}
       />
       <MenuButton
         to="video"
-        title="Trova il tuo ingresso"
-        caption="Un video vocale ti spiega"
-        icon="fa fa-crosshairs"
+        title={label('btnVideoTitle')}
+        caption={label('btnVideoCaption')}
+        icon={label('btnVideoIcon')}
       />
 
-      <MenuHeader>Poi con calma</MenuHeader>
+      <MenuHeader>
+        {label('then')}
+      </MenuHeader>
 
       <MenuButton
         to="info"
-        title="Informazioni utili"
-        caption="Cose da fare e dintorni"
-        icon="fas fa-info-circle"
+        title={label('btnInfoTitle')}
+        caption={label('btnInfoCaption')}
+        icon={label('btnInfoIcon')}
       />
       <MenuButton
         to="services"
-        title="I Servizi della vacanza"
-        icon="fas fa-umbrella-beach"
+        title={label('btnServiceTitle')}
+        caption=""
+        icon={label('btnServiceIcon')}
       />
-      <MenuButton to="chat" title="Chatta con Giuseppe" icon="fas fa-comment" />
+
+      <MenuButton
+        to="chat"
+        title={guideLabel}
+        icon={label('btnChatIcon')}
+      />
     </AnimatedFrame>
-  );
+  )
 }
 
 const Back = styled(({ className }) => {
