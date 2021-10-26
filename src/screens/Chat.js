@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Opener from "../components/Opener";
 
+import { ConfigContext } from "../contexts/ConfigContext";
+import { useLabels, useAccount } from "../hooks/useAppData"
+
 export default function () {
+  const label = useLabels()
+
+  const { guide } = useContext(ConfigContext)
+
   const params = {
-    title: "Chatta con Giuseppe",
-    text: "Verrai reindirizzato su Whatsapp",
+    title: `${label("btnChatTitle")} ${guide.name}`,
+    text: label("btnChatCaption"),
     link: {
-      to: "https://wa.me/+393929278281",
-      label: "Chatta ora",
+      to: label("btnChatUrl"),
+      label: label("btnChatGo"),
       external:true
     },
-    image: "https://giomiapp.terotero.it/img/original/app/agente1.png",
+    image: guide.picture,
     icon:"https://giomiapp.terotero.it/img/original/app/chat-icon.png"
   };
 

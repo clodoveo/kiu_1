@@ -7,27 +7,20 @@ import ScreenFooter from "../components/ScreenFooter";
 import LoadingSpinner from "../components/LoadingSpinner";
 import InfoCards from "../components/InfoCards";
 
-import infoApi from "../api/info";
-// import { useInfo } from "../hooks/useAppData";
+import { useLabels, useInfo } from "../hooks/useAppData";
 
 export default function InfoScreen() {
-  const [items, setItems] = useState(null);
+  const label = useLabels()
 
-  if (! items) {
-    const langId = 1;
-
-    infoApi.fetch(langId).then(setItems);
-  }
-
-  const body = items ?
-    <InfoCards items={items} /> :
-    <LoadingSpinner />
+  const items = useInfo()
 
   return (
     <AnimatedFrame scrollable>
       <div>
-        <ScreenHeader text="Informazioni utili" />
-        {body}
+        <ScreenHeader text={label("infoTitle")} />
+
+        <InfoCards items={items} />
+
         <ScreenFooter />
       </div>
     </AnimatedFrame>

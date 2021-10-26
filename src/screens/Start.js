@@ -11,7 +11,7 @@ import WizardStepIndicator from "../components/WizardStepIndicator";
 import { useLabels } from "../hooks/useAppData"
 
 export default function Start() {
-  const { byName: label } = useLabels()
+  const label = useLabels()
 
   const startStyle = {
     fontSize: "23px",
@@ -20,17 +20,17 @@ export default function Start() {
     color: "#607464"
   }
 
+  const wrapperStyle = {
+    position: "absolute",
+    width: "100%",
+    textAlign: "center",
+    bottom: 0
+  }
+
   return (
     <AnimatedFrame>
       <WizardWrapper logoTop="10%">
-        <div
-          style={{
-            position: "absolute",
-            bottom: "15%",
-            width: "100%",
-            textAlign: "center"
-          }}
-        >
+        <div style={wrapperStyle}>
           <WizardMessage
             title={label("success")}
             caption={label("successInfo")}

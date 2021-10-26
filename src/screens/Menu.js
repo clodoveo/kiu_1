@@ -5,81 +5,89 @@ import styled from "styled-components";
 import AnimatedFrame from "../components/AnimatedFrame";
 import MenuButton from "../components/MenuButton";
 import MenuHeader from "../components/MenuHeader";
+import WizardCircleButton from "../components/WizardCircleButton"
 
 import { ConfigContext } from "../contexts/ConfigContext";
 import { useLabels } from "../hooks/useAppData"
 
 export default function Menu() {
+  const history = useHistory();
+
   const { language, guide } = useContext(ConfigContext)
 
-  const { byName: label } = useLabels()
+  const label = useLabels()
 
   const guideLabel = label('btnChatTitle') + ' ' + guide.name
 
   return (
     <AnimatedFrame scrollable>
-      <Back />
-
-      <MenuHeader>
-        {label('firstOfAll')}
-      </MenuHeader>
+      <MenuHeader>{label('firstOfAll')}</MenuHeader>
 
       <MenuButton
         to="map"
         title={label('btnNavigatorTitle')}
         caption={label('btnNavigatorCaption')}
         icon={label('btnNavigatorIcon')}
+        color="green"
       />
       <MenuButton
         to="video"
         title={label('btnVideoTitle')}
         caption={label('btnVideoCaption')}
         icon={label('btnVideoIcon')}
+        color="grey-green"
       />
 
-      <MenuHeader>
-        {label('then')}
-      </MenuHeader>
+      <MenuHeader>{label('then')}</MenuHeader>
 
       <MenuButton
         to="info"
         title={label('btnInfoTitle')}
         caption={label('btnInfoCaption')}
         icon={label('btnInfoIcon')}
+        color="green"
       />
       <MenuButton
         to="services"
         title={label('btnServiceTitle')}
         caption=""
         icon={label('btnServiceIcon')}
+        color="yellow"
       />
 
-      <MenuButton
-        to="chat"
-        title={guideLabel}
-        icon={label('btnChatIcon')}
-      />
+      <ButtonWrapper>
+        <WizardCircleButton
+          hasBorder={false}
+          image={guide.picture}
+          onClick={() => history.push('/chat')}
+        />
+
+        <img
+          className="badge"
+          src="https://giomiapp.terotero.it/img/original/app/chat-icon.png"
+        />
+      </ButtonWrapper>
     </AnimatedFrame>
   )
 }
 
-const Back = styled(({ className }) => {
-  const history = useHistory();
+const ButtonWrapper = styled.div`
+  text-align: right;
+  margin: 3em 15px 2em;
+  position: relative;
 
-  return (
-    <button className={className} onClick={history.goBack}>
-      <i className="fas fa-chevron-left" />
-    </button>
-  );
-})`
-  background: #265a327a;
-  border: none;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  color: #fff;
-  cursor: pointer;
-  position: absolute;
-  left: 1em;
-  top: 1em;
-`;
+  .imgWrapper {
+    border: 7px solid #265A32;
+    box-shadow: 5px 5px 10px #888;
+  }
+
+  .badge {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50% 50% 50% 0;
+    box-shadow: 5px 5px 10px #888;
+  }
+`

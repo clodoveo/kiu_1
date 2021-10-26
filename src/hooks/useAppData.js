@@ -5,25 +5,52 @@ import { ConfigContext } from "../contexts/ConfigContext"
 
 const apiBaseUrl = "https://giomiapp.terotero.it/api/resource"
 
-export function useLanguages() {
-  // const { data } = useQuery("languages", () => getData("languages/all"))
-
-  const data = [
-    {
-      id: 1,
-      image: "https://giomiapp.terotero.it/img/original/app/ita.png",
-      title: "Italiano"
-    },
-    {
-      id: 3,
-      image: "https://giomiapp.terotero.it/img/original/app/en.png",
-      title: "English"
+export function useReservation() {
+  const { data } = useQuery("reservation", () => {
+    return {
+      address: "Livorno via Garibaldi",
+      mapUrl: "https://goo.gl/maps/1FPayuxigHEKo7ph7",
+      dates: {
+        arrival: {
+          day: "27",
+          month: "06"
+        },
+        departure: {
+          day: "03",
+          month: "07"
+        }
+      }
     }
-  ]
+  })
 
-  return {
-    list: () => data || null
+  return data || null
+}
+
+export function useLanguages(id) {
+  const { data } = useQuery("languages", () => {
+    return [
+      {
+        id: 1,
+        image: "https://giomiapp.terotero.it/img/original/app/flag-it.png",
+        title: "Italiano"
+      },
+      {
+        id: 3,
+        image: "https://giomiapp.terotero.it/img/original/app/flag-en.png",
+        title: "English"
+      }
+    ]
+  })
+
+  if (! data) {
+    return null
   }
+
+  if (id) {
+    return data.find(item => item.id == id)
+  }
+
+  return data
 }
 
 /**
@@ -32,14 +59,20 @@ export function useLanguages() {
  * 
  * const guide = guideById(1)
  */
-export function useGuides() {
-  const { data } = useQuery("guides", () => getData("guides/all"))
+export function useGuides(id) {
+  const { data } = useQuery("guides", () => fetchData("guides/all"))
 
   return {
-    list: () => data || null,
-    byId: (id) => data && data.find(
-      guide => guide.id == id
-    ) || null
+    list: () => {
+      return data
+    },
+    byId: (id) => {
+      if (! data) {
+        return null
+      }
+
+      return data.find(item => item.id == id)
+    }
   }
 }
 
@@ -51,24 +84,137 @@ export function useGuides() {
  * 
  * <h1>{label('name')}</h1>
  */
-export function useLabels() {
+export function useLabels(name) {
   const { language } = useContext(ConfigContext)
 
-  const { data } = useQuery("labels", () => getData("labels/all"))
+  const { data } = useQuery("labels", () => fetchData("labels/all"))
+
+  return (name) => {
+    if (! data) {
+      return null
+    }
+
+    return data[language][name] || name
+  }
+}
+
+export function useAccount() {
+  const { data } = useQuery("account", () => {
+    return {
+      name: "Filippo"
+    }
+  })
 
   return {
-    byName: (name) => {
-      if (! data || ! language) {
-        return ''
+    current: (key) => {
+      if (! data) {
+        return null
       }
 
-      return data[language][name] || name
+      if (key) {
+        return data[key]
+      }
+      return data
     }
   }
 }
 
-function getData(endpoint, params) {
+export function usePlaylist() {
+  const { data } = useQuery("playlist", () => {
+    return [
+      {
+        cloudName: "dlhsryof2",
+        path: "keepitup/IMG_0644_mmnuds.mov",
+        ratio: 9 / 16,
+        title: "Video 1",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      },
+      {
+        cloudName: "dlhsryof2",
+        path: "keepitup/IMG_0644_mmnuds.mov",
+        ratio: 9 / 16,
+        title: "Video 2",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      },
+    ]
+  })
 
+  return data
+}
+
+export function useInfo() {
+  const { language } = useContext(ConfigContext)
+
+  if (! language) {
+    throw('missing language id')
+  }
+
+  const { data } = useQuery("info", async () => {
+    return await fetchData("info/list", {
+      langid: language
+    })
+  })
+
+  return data
+}
+
+export function useServices(id) {
+  const { data } = useQuery("services", () => {
+    return [
+      {
+        id: "beach",
+        linkTo: "/services/beach",
+        thumb:
+          "https://giomiapp.terotero.it/img/original/appdemo/services-spiaggia.jpg",
+        title: "La spiaggia",
+        abstract: "Pulvinar lorem semper augue eleifend viverra sed.",
+        picture:
+          "https://giomiapp.terotero.it/img/original/appdemo/article-spiaggia.jpg",
+        content:
+          "<h2 class='title'>La spiaggia</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in. </p><p>Lorem ipsum dolor sit amet,  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in. </p><h2 class='title'>Le strutture</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet est a sed imperdiet elit tortor. Est eleifend fermentum, luctus porta venenatis in. </p><h2 class='title'>Info e contatti</h2><strong>Gli orari sono</strong><br><p>Lorem ipsum dolor sit amet, consectetur adipiscing eli</p><strong>Numeri</strong><br><p>tel 8r7483884<br>mail djdj@sjksjsjs.ckjsjkskj<br>whatsap 857473873</p>"
+      },
+      {
+        id: "gym",
+        linkTo: "/services/gym",
+        thumb:
+          "https://giomiapp.terotero.it/img/original/appdemo/services-palestra.jpg",
+        title: "La palestra",
+        abstract: "Pulvinar lorem semper augue eleifend viverra sed."
+      },
+      {
+        id: "spa",
+        linkTo: "/services/spa",
+        thumb: "https://giomiapp.terotero.it/img/original/appdemo/services-spa.jpg",
+        title: "Spa",
+        abstract: "Pulvinar lorem semper augue eleifend viverra sed."
+      },
+      {
+        id: "pool",
+        linkTo: "/services/pool",
+        thumb:
+          "https://giomiapp.terotero.it/img/original/appdemo/services-piscina.jpg",
+        title: "Piscina",
+        abstract: "Pulvinar lorem semper augue eleifend viverra sed."
+      },
+      {
+        id: "bazar",
+        linkTo: "/services/bazar",
+        thumb:
+          "https://giomiapp.terotero.it/img/original/appdemo/services-bazar.jpg",
+        title: "Bazar",
+        abstract: "Pulvinar lorem semper augue eleifend viverra sed."
+      }
+    ]
+  })
+
+  if (data && id) {
+    return data.find(item => item.id == id)
+  }
+
+  return data
+}
+
+function fetchData(endpoint, params) {
   let url = `${apiBaseUrl}/${endpoint}`
 
   if (params) {
@@ -77,20 +223,10 @@ function getData(endpoint, params) {
     for (let key in params) {
       const value = params[key]
 
-      url += key + "=" + params
+      url += key + "=" + value
     }
   }
 
   // console.log(url)
   return fetch(url).then((response) => response.json())
-}
-
-export function useAccount() {
-  return {
-    current: () => {
-      return {
-        name: "Filippo"
-      }
-    }
-  }
 }

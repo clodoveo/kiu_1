@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import LoadingSpinner from "../components/LoadingSpinner";
+
 export default function({ items, coverComponent }) {
   const CoverComponent = coverComponent ? coverComponent : ImageCover
+
+  if (! items) {
+    return <LoadingSpinner />
+  }
 
 	return (
 	  <InfoCards className="cards">

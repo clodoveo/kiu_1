@@ -20,9 +20,22 @@ const Styled = styled.div`
   position: relative;
   margin: 15px;
   border-radius: 15px;
-  border: 1px solid #ccc;
-  background-color: #265a32;
   text-align: left;
+  box-shadow: 0 5px #0002;
+
+  &.green {
+    background-color: #265a32;
+  }
+  &.grey-green {
+    background-color: #678b6f;
+  }
+  &.yellow {
+    background-color: #FEB700;
+
+    .title {
+      max-width: 9em;
+    }
+  }
 
   a {
     display: flex;

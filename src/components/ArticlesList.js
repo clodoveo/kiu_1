@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import LoadingSpinner from "../components/LoadingSpinner";
+
 export default function ArticlesList({ data }) {
+  if (! data) {
+    return <LoadingSpinner />
+  }
+
   return (
     <Styled>
       {data.map((article) => (

@@ -10,8 +10,6 @@ import { isMobile } from "react-device-detect";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ConfigContext } from "./contexts/ConfigContext";
 
-import { useLabels } from "./hooks/useAppData";
-
 import ScreensRouter from "./ScreensRouter";
 
 // Create a client
@@ -21,7 +19,7 @@ const queryClient = new QueryClient();
 const defaultGuide = {
   "id": "1",
   "name": "Paola",
-  "picture": "https://giomiapp.terotero.it/img/original/app/agente1.png"
+  "picture": "https://giomiapp.terotero.it/img/original/appdemo/agente-paola.jpg"
 }
 
 const defaultLanguageId = 1
@@ -29,7 +27,6 @@ const defaultLanguageId = 1
 export default function () {
   const [language, setLanguage] = useState(defaultLanguageId);
   const [guide, setGuide] = useState(defaultGuide);
-  const [labels, setLabels] = useState(null);
 
   const fullScreenHandle = useFullScreenHandle();
 
@@ -38,8 +35,6 @@ export default function () {
     setLanguage,
     guide,
     setGuide,
-    labels,
-    setLabels,
     enterFullScreen: () => {
       if (isMobile && ! fullScreenHandle.active) {
         fullScreenHandle.enter()
@@ -59,8 +54,6 @@ export default function () {
 }
 
 const App = styled(({ className }) => {
-  const { byName: label } = useLabels()
-
   return (
     <div className={className}>
       <AddToHomeScreen />

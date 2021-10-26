@@ -5,6 +5,10 @@ body {
   background: #eee;
 }
 
+a, button {
+  cursor: pointer;
+}
+
 img {
   max-width: 100%;
 }

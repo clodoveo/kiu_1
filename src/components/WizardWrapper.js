@@ -7,7 +7,7 @@ import Logo from "./WizardLogo";
 export default function ({ children, logoTop, logoPayoff }) {
   return (
     <WizardWrapper>
-      {!logoPayoff && <Back />}
+      {!logoPayoff && false && <Back />}
 
       <Logo top={logoTop} payoff={logoPayoff} />
       {children}

@@ -1,11 +1,13 @@
 import { useHistory } from 'react-router-dom'
 import styled from "styled-components";
 
-export default function({ text }) {
+export default function({ text, backToTarget }) {
+  backToTarget = backToTarget || "/menu"
+
   return (
     <ScreenHeader>
       <span className="title">
-        <BackButton backTo="/menu" />
+        <BackButton backTo={backToTarget} />
         {text}
       </span>
     </ScreenHeader>
