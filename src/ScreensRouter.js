@@ -13,7 +13,7 @@ import Chat from "./screens/Chat";
 import Map from "./screens/Map";
 import Info from "./screens/Info";
 import ServicesList from "./screens/ServicesList";
-import ServiceContents from "./screens/ServiceContents";
+import ServiceDetails from "./screens/ServiceDetails";
 import VideoPlaylist from "./screens/VideoPlaylist";
 
 // se skipLanguage:true il valore di language non è richiesto
@@ -29,7 +29,7 @@ const routes = [
   { path: "/map", exact: true, component: Map },
   { path: "/info", exact: true, component: Info },
   { path: "/services", exact: true, component: ServicesList },
-  { path: "/services/:id", exact: true, component: ServiceContents },
+  { path: "/services/:id", exact: true, component: ServiceDetails },
   { path: "/video", exact: true, component: VideoPlaylist },
 
   // rimanda tutto il resto alla root
