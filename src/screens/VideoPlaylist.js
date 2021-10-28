@@ -1,5 +1,4 @@
 import React, { useState, useEffect, memo } from "react";
-import { useHistory } from "react-router-dom";
 
 import AnimatedFrame from "../components/AnimatedFrame";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -9,6 +8,7 @@ import InfoCards from "../components/InfoCards";
 import VideoPlayer from "../components/VideoPlayer";
 
 import { useLabels, usePlaylist } from "../hooks/useAppData"
+import useAnimationMode from "../hooks/useAnimationMode"
 
 // evita render ripetuti
 const MemoVideo = memo(VideoPlayer)
@@ -18,8 +18,12 @@ export default function() {
 
   const playlist = usePlaylist()
 
+  const animationMode = useAnimationMode([
+    { fromKey: "*", mode: "overlayFromRightAndBack" }
+  ])
+
   return (
-    <AnimatedFrame scrollable>
+    <AnimatedFrame scrollable mode={animationMode}>
       <ScreenHeader text={label("btnVideoTitle")} />
 
       <InfoCards items={playlist} coverComponent={MemoVideo} />

@@ -7,11 +7,12 @@ import WizardWrapper from "../components/WizardWrapper";
 import WizardBottom from '../components/WizardBottom'
 import WizardCircleButton from "../components/WizardCircleButton"
 import WizardMessage from "../components/WizardMessage"
-import WizardStepIndicator from "../components/WizardStepIndicator" 
+import WizardStepIndicator from "../components/WizardStepIndicator"
 
 import { ConfigContext } from "../contexts/ConfigContext";
 
 import { useLabels, useGuides, useAccount } from "../hooks/useAppData"
+import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function GuideSelector() {
   const { setGuide, language } = useContext(ConfigContext);
@@ -37,11 +38,17 @@ export default function GuideSelector() {
     position: "absolute",
     width: "100%",
     textAlign: "center",
-    bottom: 0
+    bottom: 0,
+    top: 0
   }
 
+  const animationMode = useAnimationMode([
+    { fromKey: "language", mode: "slideFromRight" },
+    { fromKey: "start", mode: "slideFromLeft" }
+  ])
+
   return (
-    <AnimatedFrame>
+    <AnimatedFrame mode={animationMode}>
       <WizardWrapper logoTop="10%">
         <div style={wrapperStyle}>
           <WizardMessage

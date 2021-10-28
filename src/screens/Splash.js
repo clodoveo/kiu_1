@@ -1,13 +1,14 @@
-import { React, useContext } from "react";
+import { React, useContext, useEffect } from "react";
 // import styled from "styled-components";
 
 import AnimatedFrame from "../components/AnimatedFrame";
-import AddToHomeScreen from '@ideasio/add-to-homescreen-react';
 
 import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
 
 import { ConfigContext } from "../contexts/ConfigContext";
+
+import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function Splash() {
   const btnStyle = {
@@ -19,14 +20,21 @@ export default function Splash() {
 
   const { enterFullScreen } = useContext(ConfigContext);
 
+  function clickHandler() {
+    enterFullScreen()
+  }
+
+  const animationMode = useAnimationMode([
+    { fromKey: "language", mode: "slideFromTop" }
+  ])
+
   return (
-    <AnimatedFrame>
+    <AnimatedFrame mode={animationMode}>
       <WizardWrapper logoTop="36%" logoPayoff>
-       <AddToHomeScreen />
         <div style={btnStyle}>
           <WizardButton
             triggerFullScreen
-            onClick={enterFullScreen}
+            onClick={clickHandler}
             to="/language"
             text="Start"
             color="yellow"

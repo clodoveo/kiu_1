@@ -9,18 +9,23 @@ import WizardCircleButton from "../components/WizardCircleButton"
 
 import { ConfigContext } from "../contexts/ConfigContext";
 import { useLabels } from "../hooks/useAppData"
+import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function Menu() {
   const history = useHistory();
 
-  const { language, guide } = useContext(ConfigContext)
-
   const label = useLabels()
 
-  const guideLabel = label('btnChatTitle') + ' ' + guide.name
+  const { guide } = useContext(ConfigContext)
+
+  const guideLabel = label('btnChatTitle') + " " + guide.name
+
+  const animationMode = useAnimationMode([
+    { fromKey: "start", mode: "slideFromRightAndStay" }
+  ])
 
   return (
-    <AnimatedFrame scrollable>
+    <AnimatedFrame scrollable mode={animationMode}>
       <MenuHeader>{label('firstOfAll')}</MenuHeader>
 
       <MenuButton
@@ -71,7 +76,7 @@ export default function Menu() {
   )
 }
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.div `
   text-align: right;
   margin: 3em 15px 2em;
   position: relative;

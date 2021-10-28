@@ -9,6 +9,7 @@ import WizardMessage from "../components/WizardMessage";
 import WizardStepIndicator from "../components/WizardStepIndicator";
 
 import { useLabels } from "../hooks/useAppData"
+import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function Start() {
   const label = useLabels()
@@ -24,11 +25,17 @@ export default function Start() {
     position: "absolute",
     width: "100%",
     textAlign: "center",
-    bottom: 0
+    bottom: 0,
+    top: 0
   }
 
+  const animationMode = useAnimationMode([
+    { fromKey: "guide", mode: "slideFromRight" },
+    { fromKey: "menu", mode: "slideFromLeft" }
+  ])
+
   return (
-    <AnimatedFrame>
+    <AnimatedFrame mode={animationMode}>
       <WizardWrapper logoTop="10%">
         <div style={wrapperStyle}>
           <WizardMessage

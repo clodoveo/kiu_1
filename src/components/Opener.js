@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom"
 
 import AnimatedFrame from "../components/AnimatedFrame";
 import WizardButton from "../components/WizardButton";
+
+import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function({ title, text, link, image, icon }) {
   const history = useHistory();
@@ -20,10 +22,14 @@ export default function({ title, text, link, image, icon }) {
     )
   }
 
+  const animationMode = useAnimationMode([
+    { fromKey: "*", mode: "overlayFromBottom" }
+  ])
+
   return (
-    <AnimatedFrame>
+    <AnimatedFrame mode={animationMode}>
       <Opener>
-        <button className="close" onClick={ ()=>history.goBack()}>
+        <button className="close" onClick={history.goBack}>
           <img src="https://giomiapp.terotero.it/img/original/app/close.png" />
         </button>
         <h1 className="title">{title}</h1>
@@ -41,7 +47,7 @@ export default function({ title, text, link, image, icon }) {
   );
 }
 
-const Opener = styled.div`
+const Opener = styled.div `
   text-align: center;
   background: #265a32;
   background-image: url('https://giomiapp.terotero.it/img/original/app/opener-bg.png');
@@ -53,7 +59,7 @@ const Opener = styled.div`
   justify-content: space-between;
 
   .close {
-    position: fixed;
+    position: absolute;
     top: 10px;
     right: 10px;
     width: 50px;

@@ -1,82 +1,83 @@
-import React, { useEffect, useContext } from "react";
-import { Route, Switch, Redirect, useLocation, useHistory, matchPath } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  Route,
+  Switch,
+  Redirect,
+  Link,
+  useLocation,
+  useHistory,
+  withRouter
+} from "react-router-dom";
+
 import { AnimatePresence } from "framer-motion";
 
 import { ConfigContext } from "./contexts/ConfigContext";
+import { AppContext } from "./contexts/AppContext";
 
-import Splash from "./screens/Splash";
-import LanguageSelector from "./screens/LanguageSelector";
-import GuideSelector from "./screens/GuideSelector";
-import Start from "./screens/Start";
-import Menu from "./screens/Menu";
-import Chat from "./screens/Chat";
-import Map from "./screens/Map";
-import Info from "./screens/Info";
-import ServicesList from "./screens/ServicesList";
-import ServiceDetails from "./screens/ServiceDetails";
-import VideoPlaylist from "./screens/VideoPlaylist";
+import AnimatedFrame from "./components/AnimatedFrame"
 
-// se skipLanguage:true il valore di language non è richiesto
+import { updatePrevLocation } from "./hooks/usePrevLocation"
 
-const routes = [
-  { path: "/", exact: true, component: Splash, skipLanguage: true },
-  { path: "/language", exact: true, component: LanguageSelector, className: "language", skipLanguage: true },
-  { path: "/guide", exact: true, component: GuideSelector, className: "guide" },
-  { path: "/guide", exact: true, component: GuideSelector, className: "guide" },
-  { path: "/start", exact: true, component: Start, className: "start" },
-  { path: "/menu", exact: true, component: Menu },
-  { path: "/chat", exact: true, component: Chat },
-  { path: "/map", exact: true, component: Map },
-  { path: "/info", exact: true, component: Info },
-  { path: "/services", exact: true, component: ServicesList },
-  { path: "/services/:id", exact: true, component: ServiceDetails },
-  { path: "/video", exact: true, component: VideoPlaylist },
+import routes, { routeFromUrl } from "./routes"
 
-  // rimanda tutto il resto alla root
-  { path: "/", component: NotFound, skipLanguage: true }
-];
+function ScreensRouter({ location, history, match }) {
+  const { language, guide } = useContext(ConfigContext)
 
-function NotFound() {
-  return <Redirect to="/" />
-}
+  const route = routeFromUrl(location.pathname)
 
-export default function() {
-  const location = useLocation();
-  const history = useHistory();
+  useEffect(() => {
+    // rimanda a /guide se serve sapere la guida
+    routeRequires(route, guide.id, "skipGuide", () => history.push("/guide"))
 
-  const { language } = useContext(ConfigContext)
-  requireLanguage(location, history, language);
+    // rimanda a /language se serve sapere la lingua
+    routeRequires(route, language, "skipLanguage", () => history.push("/language"))
+  }, [route.key])
 
   return (
     <AnimatePresence>
-      <Switch location={location} key={location.key}>
-        {routes.map(({ path, className, component, exact }) => (
-          <Route
-            key={path}
-            exact={exact}
-            path={path}
-            className={className}
-            component={component}
-          />
-        ))}
+      <Switch location={location} key={location.pathname}>
+        {routes.map(({ key, path, exact, component }) => {
+          const props = { key, path, exact }
+
+          return (
+            <Route {...props}>
+              <ScreenWrapper>
+                {React.createElement(component)}
+              </ScreenWrapper>
+            </Route>
+          )
+        })}
       </Switch>
     </AnimatePresence>
-  );
+  )
 }
 
-function requireLanguage(location, history, language) {
-  // rimanda a /language se serve sapere la lingua
+const ScreenWrapper = withRouter(({ children }) => {
+  // componente necessario per gestire l'animazione
+  // in base passagi tra url diverse
+  updatePrevLocation()
 
-  useEffect(() => {
-    for (let route of routes) {
-      if(
-        language === null &&
-        route.skipLanguage !== true &&
-        matchPath(location.pathname, route)
-      ) {
-        console.log('redirect: missing language');
-        history.push('/language')
-      }
-    }
-  }, [language])
+  return < > { children } < />
+
+  // simple test
+  return (
+    <AnimatedFrame>
+      {routes.map(route => (
+        <div key={route.key}>
+          <Link to={route.path}>
+            {route.key}
+          </Link>
+        </div>
+      ))}
+    </AnimatedFrame>
+  )
+})
+
+function routeRequires(route, requiredValue, paramName, callback) {
+  if (route[paramName] !== true && requiredValue === null) {
+    console.log(`unmatched rule '${paramName}'`);
+    callback()
+  }
 }
+
+export default withRouter(ScreensRouter)

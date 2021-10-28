@@ -8,14 +8,19 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import InfoCards from "../components/InfoCards";
 
 import { useLabels, useInfo } from "../hooks/useAppData";
+import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function InfoScreen() {
   const label = useLabels()
 
   const items = useInfo()
 
+  const animationMode = useAnimationMode([
+    { fromKey: "*", mode: "overlayFromRightAndBack" }
+  ])
+
   return (
-    <AnimatedFrame scrollable>
+    <AnimatedFrame scrollable mode={animationMode}>
       <div>
         <ScreenHeader text={label("infoTitle")} />
 

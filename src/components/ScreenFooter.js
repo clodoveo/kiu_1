@@ -1,30 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const links = [
-  {
-    label: "Raggiungi",
-    iconClass: "fas fa-location-arrow",
-    linkTo: "/video"
-  },
-  {
-    label: "Info",
-    iconClass: "fas fa-info-circle",
-    linkTo: "/info"
-  },
-  {
-    label: "Servizi",
-    iconClass: "fas fa-umbrella-beach",
-    linkTo: "/services"
-  },
-  {
-    label: "Chat",
-    iconClass: "fas fa-comment",
-    linkTo: "/chat"
-  }
-];
+import { useFooterLinks } from "../hooks/useAppData"
 
 export default function ScreenFooter() {
+  const links = useFooterLinks()
+
   return (
     <Styled>
       {links.map(({ linkTo, iconClass, label }, index) => (

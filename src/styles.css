@@ -2,10 +2,11 @@ body {
   margin: 0;
   overflow: hidden;
   font-family: Montserrat, sans-serif;
-  background: #eee;
+  background: #000;
 }
 
-a, button {
+a,
+button {
   cursor: pointer;
 }
 
@@ -18,11 +19,13 @@ img {
   font-size: 16px;
   line-height: 25px;
 }
+
 .title {
   font-family: "Baloo 2";
   font-style: normal;
   font-weight: bold;
 }
+
 .title,
 .green-text {
   color: #265a32;

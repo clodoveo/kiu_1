@@ -1,5 +1,8 @@
-import { useHistory } from 'react-router-dom'
+import React, { useContext } from "react"
+import { useHistory } from "react-router-dom"
 import styled from "styled-components";
+
+import { ConfigContext } from "../contexts/ConfigContext";
 
 export default function({ text, backToTarget }) {
   backToTarget = backToTarget || "/menu"
