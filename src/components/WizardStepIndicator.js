@@ -1,37 +1,32 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export default function WizardStepIndicator(props) {
+export default function WizardStepIndicator({ activeIndex }) {
   return (
     <Wrapper>
-      <Item className={props.activeIndex==1 && "active" }/>
-      <Item className={props.activeIndex==2 && "active" }/>
-      <Item className={props.activeIndex==3 && "active" }/>
+      <span className={"dot" + (activeIndex === 1 ? " active" : "")} />
+      <span className={"dot" + (activeIndex === 2 ? " active" : "")} />
+      <span className={"dot" + (activeIndex === 3 ? " active" : "")} />
     </Wrapper>
   )
 }
 
-const Wrapper = styled.div`
-  position: absolute;
-  width: 100%;
+const Wrapper = styled.div `
   display: flex;
   flex-direction: columns;
-  align-items: center;
-  justify-items: center;
-  align-content: center;
+  padding-top: 1em;
   justify-content: center;
-  bottom: 50vh;
-`
 
-const Item = styled.div`
-  width: 10px;
-  height: 10px;
+  .dot {
+    width: 10px;
+    height: 10px;
 
-  border-radius: 50%;
-  margin: 3px;
-  background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    margin: 3px;
+    background: rgba(255, 255, 255, 0.4);
 
-  &.active{
-    background-color: #fff;
+    &.active{
+      background-color: #fff;
+    }
   }
 `

@@ -11,7 +11,7 @@ import WizardStepIndicator from "../components/WizardStepIndicator"
 
 import { ConfigContext } from "../contexts/ConfigContext";
 
-import { useLabels, useGuides, useAccount } from "../hooks/useAppData"
+import { useLabels, useGuides, useUserAccount } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function GuideSelector() {
@@ -23,10 +23,8 @@ export default function GuideSelector() {
   const guides = useGuides()
   const guidesList = guides.list()
 
-  const account = useAccount()
-
-  const userName = account.current("name")
-  const wizardTitle = `${label("hello")} ${userName}`
+  const userAccount = useUserAccount()
+  const wizardTitle = `${label("hello")} ${userAccount.name.first}`
 
   function clickHandler(guideId) {
     const guide = guides.byId(guideId)
@@ -51,14 +49,15 @@ export default function GuideSelector() {
     <AnimatedFrame mode={animationMode}>
       <WizardWrapper logoTop="10%">
         <div style={wrapperStyle}>
-          <WizardMessage
-            title={wizardTitle}
-            caption={label("chooseYourGuide")}
-          />
+          <div className="wizard-middle">
+            <WizardMessage
+              title={wizardTitle}
+              caption={label("chooseYourGuide")}
+            />
+            <WizardStepIndicator activeIndex={2} />
+          </div>
 
-          <WizardStepIndicator activeIndex="2"/>
-
-          <WizardBottom  divider={ true }>
+          <WizardBottom divider={true}>
             {guidesList && guidesList.map(guide => (
               <WizardCircleButton
                 key={guide.id}

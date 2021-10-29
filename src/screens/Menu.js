@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from "react-router-dom"
 import styled from "styled-components";
 
 import AnimatedFrame from "../components/AnimatedFrame";
@@ -8,7 +8,7 @@ import MenuHeader from "../components/MenuHeader";
 import WizardCircleButton from "../components/WizardCircleButton"
 
 import { ConfigContext } from "../contexts/ConfigContext";
-import { useLabels } from "../hooks/useAppData"
+import { useLabels, useVideos, useInfo, useServices } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function Menu() {
@@ -23,6 +23,11 @@ export default function Menu() {
   const animationMode = useAnimationMode([
     { fromKey: "start", mode: "slideFromRightAndStay" }
   ])
+
+  // preload data
+  useVideos()
+  useInfo()
+  useServices()
 
   return (
     <AnimatedFrame scrollable mode={animationMode}>
@@ -61,6 +66,10 @@ export default function Menu() {
       />
 
       <ButtonWrapper>
+        <Link to="/">
+          {label("restart")}
+        </Link>
+
         <WizardCircleButton
           hasBorder={false}
           image={guide.picture}
@@ -77,9 +86,11 @@ export default function Menu() {
 }
 
 const ButtonWrapper = styled.div `
-  text-align: right;
   margin: 3em 15px 2em;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 
   .imgWrapper {
     border: 7px solid #265A32;

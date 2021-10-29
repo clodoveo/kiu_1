@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import Logo from "./WizardLogo";
 
-export default function ({ children, logoTop, logoPayoff }) {
+export default function({ children, logoTop, logoPayoff }) {
   return (
     <WizardWrapper>
       {!logoPayoff && false && <Back />}
@@ -18,11 +18,20 @@ export default function ({ children, logoTop, logoPayoff }) {
 const widardBg =
   "url('https://giomiapp.terotero.it/img/original/app/sfondo.png')";
 
-const WizardWrapper = styled.div`
+const WizardWrapper = styled.div `
   height: 100%;
   width: 100%;
   background: ${widardBg} no-repeat center;
   background-size: cover;
+
+  .wizard-middle {
+    position: absolute;
+    left: 0;
+    top: 30vh;
+    text-align: center;
+    width: 100%;
+    color: #FFFFFF;
+  }
 `;
 
 const Back = styled(({ className }) => {
@@ -32,7 +41,8 @@ const Back = styled(({ className }) => {
       <i className="fas fa-chevron-left" />
     </button>
   );
-})`
+})
+`
   background: #fff8;
   border: none;
   border-radius: 50%;

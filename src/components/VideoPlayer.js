@@ -22,7 +22,9 @@ export default function({ path, cloudName, width }) {
   );
 }
 
-const VideoPlayer = styled.div`
+const VideoPlayer = styled.div `
+  width: 100%;
+
   video {
     width: 100%;
   }

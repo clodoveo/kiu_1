@@ -4,8 +4,7 @@ import styled from 'styled-components'
 export default function({ divider, lastScreen, height, children }) {
   // default
   const style = {
-    flexDirection: "row",
-    height: "30vh"
+    flexDirection: "row"
   }
 
   if (divider) {
@@ -18,10 +17,6 @@ export default function({ divider, lastScreen, height, children }) {
     style.flexDirection = "column"
   }
 
-  if (height) {
-    style.height = `${height}vh`
-  }
-
   return (
     <WizardBottom style={style}>
       {children}
@@ -29,7 +24,7 @@ export default function({ divider, lastScreen, height, children }) {
   )
 }
 
-const WizardBottom = styled.div`
+const WizardBottom = styled.div `
   position: absolute;
   bottom:0;
 
@@ -40,5 +35,7 @@ const WizardBottom = styled.div`
   justify-content: space-around;
   align-items: center;
 
-  padding: 2em 0;
+  font-size: 1vh;
+  height: 48em;
+  max-height: 360px;
 `

@@ -24,7 +24,7 @@ function NotFound() {
 const routes = [
 	{ key: "splash", path: "/", exact: true, component: Splash, skipLanguage: true, skipGuide: true },
 	{ key: "language", path: "/language", exact: true, component: LanguageSelector, skipLanguage: true, skipGuide: true },
-	{ key: "guide", path: "/guide", exact: true, component: GuideSelector },
+	{ key: "guide", path: "/guide", exact: true, component: GuideSelector, skipGuide: true },
 	{ key: "start", path: "/start", exact: true, component: Start },
 	{ key: "menu", path: "/menu", exact: true, component: Menu },
 	{ key: "chat", path: "/chat", exact: true, component: Chat },

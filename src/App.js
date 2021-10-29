@@ -13,7 +13,7 @@ import { isMobile } from "react-device-detect";
 import { ConfigContext } from "./contexts/ConfigContext";
 import { AppContext } from "./contexts/AppContext";
 
-import { useLabels, useGuides, useAccount } from "./hooks/useAppData"
+import { useLabels, useGuides, useReservation } from "./hooks/useAppData"
 
 import ScreensRouter from "./ScreensRouter";
 
@@ -55,7 +55,7 @@ export default function() {
             <App className="app" />
           </FullScreen>
 
-          {/*<ReactQueryDevtools initialIsOpen />*/}
+          <ReactQueryDevtools initialIsOpen />
         </QueryClientProvider>
       </ConfigContext.Provider>
     </AppContext.Provider>
@@ -63,6 +63,10 @@ export default function() {
 }
 
 const App = styled(({ className }) => {
+  useLabels()
+  useGuides()
+  useReservation()
+
   return (
     <div className={className}>
       {/*<AddToHomeScreen />*/}

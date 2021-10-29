@@ -38,14 +38,15 @@ export default function Start() {
     <AnimatedFrame mode={animationMode}>
       <WizardWrapper logoTop="10%">
         <div style={wrapperStyle}>
-          <WizardMessage
-            title={label("success")}
-            caption={label("successInfo")}
-          />
+          <div className="wizard-middle">
+            <WizardMessage
+              title={label("success")}
+              caption={label("successInfo")}
+            />
+            <WizardStepIndicator activeIndex={3} />
+          </div>
 
-          <WizardStepIndicator activeIndex={ 3}/>
-
-          <WizardBottom lastScreen={true} vh="45">
+          <WizardBottom lastScreen={true}>
             <WizardBottomDate />
 
             <div className="title" style={startStyle}>

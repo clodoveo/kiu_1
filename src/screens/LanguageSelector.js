@@ -11,7 +11,7 @@ import WizardStepIndicator from "../components/WizardStepIndicator"
 
 import { ConfigContext } from "../contexts/ConfigContext";
 
-import { useLanguages, useLabels, useAccount } from "../hooks/useAppData"
+import { useLanguages, useLabels, useUserAccount } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 
@@ -21,10 +21,9 @@ export default function LanguageSelector() {
   const history = useHistory()
 
   const label = useLabels()
-  const account = useAccount()
 
-  const userName = account.current("name")
-  const wizardTitle = `${label("hello")} ${userName}`
+  const userAccount = useUserAccount()
+  const wizardTitle = `${label("hello")} ${userAccount.name.first}`
 
   const wizardCaption = label("chooseYourLanguageLine1") + "<br>" + label("chooseYourLanguageLine2")
 
@@ -52,10 +51,12 @@ export default function LanguageSelector() {
     <AnimatedFrame mode={animationMode}>
       <WizardWrapper logoTop="10%">
         <div style={wrapperStyle}>
-          <WizardMessage title={wizardTitle} caption={wizardCaption}/>
-          <WizardStepIndicator activeIndex={1}/>
+          <div className="wizard-middle">
+            <WizardMessage title={wizardTitle} caption={wizardCaption}/>
+            <WizardStepIndicator activeIndex={1} />
+          </div>
 
-          <WizardBottom divider={true} vh={ 30 }>
+          <WizardBottom divider={true}>
             {languages && languages.map(lang => (
               <WizardCircleButton key={lang.id}
                 onClick={() => clickHandler(lang.id)}

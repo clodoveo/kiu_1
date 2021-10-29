@@ -25,24 +25,7 @@ export default function WizardBottomDate() {
     </Wrapper>
   )
 }
-
-
-const Date = (props) => {
-  return (
-    <DataContainer border={ props.border}>
-      <div className="title">{props.title}</div>
-
-      <div className="date-wrapper">
-        <div className="day">{ props.day}</div>
-        <div className="month">{props.month}</div>
-      </div>
-    </DataContainer>
-  )
-}
-
-
-
-const Wrapper = styled.div`
+const Wrapper = styled.div `
   display:flex;
   justify-content: space-around;
   background-position:center;
@@ -51,7 +34,19 @@ const Wrapper = styled.div`
   padding-bottom:25px;
 `
 
-const DataContainer = styled.div`
+function Date(props) {
+  return (
+    <DateContainer border={ props.border}>
+      <div className="title">{props.title}</div>
+
+      <div className="date-wrapper">
+        <div className="day">{ props.day}</div>
+        <div className="month">{props.month}</div>
+      </div>
+    </DateContainer>
+  )
+}
+const DateContainer = styled.div `
   width:150px;
 
   .date-wrapper{

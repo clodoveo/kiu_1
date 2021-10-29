@@ -6,27 +6,38 @@ import LoadingSpinner from "../components/LoadingSpinner";
 export default function({ items, coverComponent }) {
   const CoverComponent = coverComponent ? coverComponent : ImageCover
 
-  if (! items) {
+  if (!items) {
     return <LoadingSpinner />
   }
 
-	return (
-	  <InfoCards className="cards">
-	    {items.map((data, index) => (
-	      <div key={index} className="card">
-          <CoverComponent {...data} />
+  return (
+    <InfoCards className="cards">
+      {items.map((item, index) => (
+        <div key={index} className="card">
+          <CoverComponent {...item} />
 
-	        <div className="content">
-	          <div className="title">{data.title}</div>
-	          <div dangerouslySetInnerHTML={{ __html: data.text }} />
-	        </div>
-	      </div>
-	    ))}
-	  </InfoCards>
-	)
+          <div className="content">
+            <div className="title">{item.title}</div>
+
+            <div className="text" dangerouslySetInnerHTML={{ __html: item.text }} />
+
+            {item.links && (
+              <div className="links">
+                {item.links.map(({ url, iconClass }) => (
+                  <a key={url} href={url}>
+                    <i className={iconClass} />
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </InfoCards>
+  )
 }
 
-const InfoCards = styled.div`
+const InfoCards = styled.div `
   border-top: 1px solid #eee;
   padding: 1em;
 
@@ -39,11 +50,11 @@ const InfoCards = styled.div`
     border-radius: 10px;
 
     .img {
-    	text-align: center;
+      text-align: center;
 
-	    img {
-	      max-width: 100%;
-	    }
+      img {
+        max-width: 100%;
+      }
     }
 
     .content {
@@ -74,7 +85,7 @@ const InfoCards = styled.div`
 `
 
 function ImageCover({ imgUrl, title }) {
-  if (! imgUrl) {
+  if (!imgUrl) {
     return null
   }
 

@@ -7,7 +7,7 @@ import ScreenFooter from "../components/ScreenFooter";
 import InfoCards from "../components/InfoCards";
 import VideoPlayer from "../components/VideoPlayer";
 
-import { useLabels, usePlaylist } from "../hooks/useAppData"
+import { useLabels, useVideos } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 // evita render ripetuti
@@ -16,7 +16,7 @@ const MemoVideo = memo(VideoPlayer)
 export default function() {
   const label = useLabels()
 
-  const playlist = usePlaylist()
+  const playlist = useVideos()
 
   const animationMode = useAnimationMode([
     { fromKey: "*", mode: "overlayFromRightAndBack" }

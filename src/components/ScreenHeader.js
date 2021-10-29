@@ -17,7 +17,7 @@ export default function({ text, backToTarget }) {
   );
 }
 
-const ScreenHeader = styled.div`
+const ScreenHeader = styled.div `
   position: relative;
   padding: 1em 0;
   font-size: 27px;
@@ -47,7 +47,9 @@ const BackButton = styled(({ backTo }) => {
   )
 
   function handleClick() {
-    history.push(backTo)
+    // history.push(backTo)
+    history.goBack()
   }
-})`
+})
+`
 `

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export default function WizardMessage(props) {
   function createMarkup() {
-    return {__html: props.caption};
+    return { __html: props.caption };
   }
 
   return (
@@ -17,14 +17,7 @@ export default function WizardMessage(props) {
 
 
 
-const Message = styled.div`
-  position: absolute;
-  left: 0;
-  top: 30vh;
-  text-align: center;
-  width: 100%;
-  color: #FFFFFF;
-
+const Message = styled.div `
   .wizard-message-title{
     font-family: 'Baloo 2';
     font-style: normal;
@@ -34,9 +27,8 @@ const Message = styled.div`
   }
 
   .wizard-message-caption{
-    font-family: 'Montserrat';
     font-size: 17px;
     line-height: 21px;
+    height: 2.5em;
   }
 `
-
