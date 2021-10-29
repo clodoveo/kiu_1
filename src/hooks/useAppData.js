@@ -154,32 +154,6 @@ export function useServices(id) {
   return data
 }
 
-export function useFooterLinks() {
-  const label = useLabels()
-
-  return [{
-      label: label("btnBottomNavigator"),
-      iconClass: "fas fa-location-arrow",
-      linkTo: "/video"
-    },
-    {
-      label: label("btnBottomInfo"),
-      iconClass: "fas fa-info-circle",
-      linkTo: "/info"
-    },
-    {
-      label: label("btnBottomServices"),
-      iconClass: "fas fa-umbrella-beach",
-      linkTo: "/services"
-    },
-    {
-      label: label("btnBottomChat"),
-      iconClass: "fas fa-comment",
-      linkTo: "/chat"
-    }
-  ]
-}
-
 async function fetchData(endpoint, params) {
   let url = `${apiBaseUrl}/${endpoint}`
 
