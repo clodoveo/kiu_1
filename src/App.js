@@ -44,8 +44,17 @@ export default function() {
   }
 
   // ricorda la route precedente per gestire le animazioni
-  const [prevLocation, setPrevLocation] = useState({})
-  const appClient = { prevLocation, setPrevLocation }
+  const [prevLocation, setPrevLocation] = useState(null)
+
+  // variabile per getire redirect in differita (ScreenFooter)
+  const [lazyRedirect, setLazyRedirect] = useState(null)
+
+  const appClient = {
+    prevLocation,
+    setPrevLocation,
+    lazyRedirect,
+    setLazyRedirect,
+  }
 
   return (
     <AppContext.Provider value={appClient}>

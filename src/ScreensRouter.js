@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react"
 import {
   Route,
   Switch,
@@ -7,20 +7,23 @@ import {
   useLocation,
   useHistory,
   withRouter
-} from "react-router-dom";
+} from "react-router-dom"
 
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion"
 
-import { ConfigContext } from "./contexts/ConfigContext";
-import { AppContext } from "./contexts/AppContext";
+import { ConfigContext } from "./contexts/ConfigContext"
+import { AppContext } from "./contexts/AppContext"
 
 import AnimatedFrame from "./components/AnimatedFrame"
 
 import { updatePrevLocation } from "./hooks/usePrevLocation"
+import { useLazyRedirect } from "./hooks/useLazyRedirect"
 
 import routes, { routeFromUrl } from "./routes"
 
 function ScreensRouter({ location, history, match }) {
+  useLazyRedirect(AppContext)
+
   const { language, guide } = useContext(ConfigContext)
 
   const route = routeFromUrl(location.pathname)
@@ -75,7 +78,7 @@ const ScreenWrapper = withRouter(({ children }) => {
 
 function routeRequires(route, requiredValue, paramName, callback) {
   if (route[paramName] !== true && requiredValue === null) {
-    console.log(`unmatched rule '${paramName}'`);
+    console.log(`unmatched rule '${paramName}'`)
     callback()
   }
 }
