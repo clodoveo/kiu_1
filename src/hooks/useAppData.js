@@ -67,7 +67,7 @@ export function useLanguages(id) {
  * 
  * const guide = guideById(1)
  */
-export function useGuides(id) {
+export function useGuides() {
   const { data } = useQuery(
     "guides",
     () => fetchData("guides/all"),
@@ -173,6 +173,6 @@ async function fetchData(endpoint, params) {
 }
 
 function getLangId() {
-  let { language } = useContext(ConfigContext)
-  return language || defaultLangId
+  let { langId } = useContext(ConfigContext)
+  return langId || defaultLangId
 }

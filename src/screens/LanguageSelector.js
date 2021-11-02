@@ -16,7 +16,7 @@ import useAnimationMode from "../hooks/useAnimationMode"
 
 
 export default function LanguageSelector() {
-  const { language, setLanguage } = useContext(ConfigContext)
+  const { langId, setLangId } = useContext(ConfigContext)
 
   const history = useHistory()
 
@@ -28,7 +28,7 @@ export default function LanguageSelector() {
   const wizardCaption = label("chooseYourLanguageLine1") + "<br>" + label("chooseYourLanguageLine2")
 
   function clickHandler(langId) {
-    setLanguage(langId)
+    setLangId(langId)
     history.push("/guide")
   }
 
@@ -40,7 +40,7 @@ export default function LanguageSelector() {
     textAlign: "center"
   }
 
-  const languages = useLanguages()
+  const langs = useLanguages()
 
   const animationMode = useAnimationMode([
     { fromKey: "splash", mode: "slideFromBottomAndFadeOut" },
@@ -57,7 +57,7 @@ export default function LanguageSelector() {
           </div>
 
           <WizardBottom divider={true}>
-            {languages && languages.map(lang => (
+            {langs && langs.map(lang => (
               <WizardCircleButton key={lang.id}
                 onClick={() => clickHandler(lang.id)}
                 image={lang.image}

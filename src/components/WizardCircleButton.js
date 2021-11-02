@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 
-export default function({ onClick, image, title, hasBorder }) {
+export default function WizardCircleButton({ onClick, image, title, hasBorder, badge }) {
   let wrapperClassName = "imgWrapper"
 
   if (hasBorder !== false) {
@@ -9,18 +9,20 @@ export default function({ onClick, image, title, hasBorder }) {
   }
 
   return (
-    <WizardCircleButton onClick={onClick}>
+    <StyledButton onClick={onClick}>
       <span className={wrapperClassName}>
         <img src={image} />
       </span>
       <span className="title">{title}</span>
-    </WizardCircleButton>
+      {badge && <img className="badge" src={badge} />}
+    </StyledButton>
   )
 }
 
-const WizardCircleButton = styled.button`
+const StyledButton = styled.button `
   border: none;
   background-color: transparent;
+  position: relative;
 
   span {
     display: block;
@@ -46,5 +48,15 @@ const WizardCircleButton = styled.button`
   }
   .title {
     font-size:27px
+  }
+
+  .badge {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50% 50% 50% 0;
+    box-shadow: 5px 5px 10px #888;
   }
 `

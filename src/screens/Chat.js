@@ -1,14 +1,21 @@
 import React, { useContext } from "react";
 
 import Opener from "../components/Opener";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 import { ConfigContext } from "../contexts/ConfigContext";
-import { useLabels } from "../hooks/useAppData"
+import { useLabels, useGuides } from "../hooks/useAppData"
 
 export default function() {
   const label = useLabels()
 
-  const { guide } = useContext(ConfigContext)
+  const { guideId } = useContext(ConfigContext)
+
+  const guide = useGuides().byId(guideId)
+
+  if (guide === null) {
+    return <LoadingSpinner />
+  }
 
   const params = {
     title: `${label("btnChatTitle")} ${guide.name}`,

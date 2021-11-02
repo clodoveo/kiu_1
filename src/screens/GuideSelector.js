@@ -15,7 +15,7 @@ import { useLabels, useGuides, useUserAccount } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function GuideSelector() {
-  const { setGuide, language } = useContext(ConfigContext);
+  const { setGuideId, langId } = useContext(ConfigContext);
   const history = useHistory();
 
   const label = useLabels()
@@ -28,7 +28,7 @@ export default function GuideSelector() {
 
   function clickHandler(guideId) {
     const guide = guides.byId(guideId)
-    setGuide(guide);
+    setGuideId(guideId);
     history.push("/start");
   }
 

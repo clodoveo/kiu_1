@@ -5,9 +5,9 @@ import styled from "styled-components"
 
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
+import useLocalStorage from "react-use-localstorage"
 
 import AddToHomeScreen from "@ideasio/add-to-homescreen-react"
-import { isMobile } from "react-device-detect"
 
 import { ConfigContext } from "./contexts/ConfigContext"
 import { AppContext } from "./contexts/AppContext"
@@ -23,22 +23,22 @@ const defaultGuide = { "id": null, "name": "", "picture": "" }
 
 export default function() {
   // id lingua
-  const [language, setLanguage] = useState(null)
+  const [langId, setLangId] = useLocalStorage("langId", null)
 
   // dati della guida scelta
-  const [guide, setGuide] = useState(defaultGuide)
+  const [guideId, setGuideId] = useLocalStorage("guideId", null)
 
   const config = {
-    language,
-    setLanguage,
-    guide,
-    setGuide
+    langId,
+    setLangId,
+    guideId,
+    setGuideId
   }
 
   // ricorda la route precedente per gestire le animazioni
   const [prevLocation, setPrevLocation] = useState(null)
 
-  // variabile per getire redirect in differita (ScreenFooter)
+  // variabile per getire redirect in differita (menu ScreenFooter)
   const [lazyRedirect, setLazyRedirect] = useState(null)
 
   const appClient = {
@@ -53,7 +53,7 @@ export default function() {
       <ConfigContext.Provider value={config}>
         <QueryClientProvider client={queryClient}>
           <App className="app" />
-          <ReactQueryDevtools initialIsOpen />
+          {/*<ReactQueryDevtools initialIsOpen />*/}
         </QueryClientProvider>
       </ConfigContext.Provider>
     </AppContext.Provider>

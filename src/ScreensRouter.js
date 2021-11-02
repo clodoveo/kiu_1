@@ -24,16 +24,16 @@ import routes, { routeFromUrl } from "./routes"
 function ScreensRouter({ location, history, match }) {
   useLazyRedirect(AppContext)
 
-  const { language, guide } = useContext(ConfigContext)
+  const { langId, guideId } = useContext(ConfigContext)
 
   const route = routeFromUrl(location.pathname)
 
   useEffect(() => {
     // rimanda a /guide se serve sapere la guida
-    routeRequires(route, guide.id, "skipGuide", () => history.push("/guide"))
+    routeRequires(route, guideId, "skipGuide", () => history.push("/guide"))
 
     // rimanda a /language se serve sapere la lingua
-    routeRequires(route, language, "skipLanguage", () => history.push("/language"))
+    routeRequires(route, langId, "skipLanguage", () => history.push("/language"))
   }, [route.key])
 
   return (

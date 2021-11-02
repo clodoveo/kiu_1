@@ -8,7 +8,7 @@ import MenuHeader from "../components/MenuHeader";
 import WizardCircleButton from "../components/WizardCircleButton"
 
 import { ConfigContext } from "../contexts/ConfigContext";
-import { useLabels, useVideos, useInfo, useServices } from "../hooks/useAppData"
+import { useLabels, useVideos, useInfo, useServices, useGuides } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function Menu() {
@@ -16,9 +16,9 @@ export default function Menu() {
 
   const label = useLabels()
 
-  const { guide } = useContext(ConfigContext)
+  const { guideId } = useContext(ConfigContext)
 
-  const guideLabel = label('btnChatTitle') + " " + guide.name
+  const guide = useGuides().byId(guideId)
 
   const animationMode = useAnimationMode([
     { fromKey: "start", mode: "slideFromRightAndStay" }
@@ -70,16 +70,16 @@ export default function Menu() {
           {label("restart")}
         </Link>
 
-        <WizardCircleButton
-          hasBorder={false}
-          image={guide.picture}
-          onClick={() => history.push('/chat')}
-        />
-
-        <img
-          className="badge"
-          src="https://giomiapp.terotero.it/img/original/app/chat-icon.png"
-        />
+        {guide && (
+          <div>
+            <WizardCircleButton
+              hasBorder={false}
+              image={guide.picture}
+              onClick={() => history.push('/chat')}
+              badge="https://giomiapp.terotero.it/img/original/app/chat-icon.png"
+            />
+          </div>
+        )}
       </ButtonWrapper>
     </AnimatedFrame>
   )
@@ -87,23 +87,12 @@ export default function Menu() {
 
 const ButtonWrapper = styled.div `
   margin: 3em 15px 2em;
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 
   .imgWrapper {
     border: 7px solid #265A32;
-    box-shadow: 5px 5px 10px #888;
-  }
-
-  .badge {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    border-radius: 50% 50% 50% 0;
     box-shadow: 5px 5px 10px #888;
   }
 `
