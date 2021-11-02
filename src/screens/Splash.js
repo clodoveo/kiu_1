@@ -27,7 +27,6 @@ export default function Splash() {
       <WizardWrapper logoTop="36%" logoPayoff>
         <div style={btnStyle}>
           <WizardButton
-            onClick={clickHandler}
             to="/language"
             text="Start"
             color="yellow"
