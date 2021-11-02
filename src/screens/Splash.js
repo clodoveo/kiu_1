@@ -18,12 +18,6 @@ export default function Splash() {
     textAlign: "center"
   };
 
-  const { enterFullScreen } = useContext(ConfigContext);
-
-  function clickHandler() {
-    enterFullScreen()
-  }
-
   const animationMode = useAnimationMode([
     { fromKey: "language", mode: "slideFromTop" }
   ])
@@ -33,7 +27,6 @@ export default function Splash() {
       <WizardWrapper logoTop="36%" logoPayoff>
         <div style={btnStyle}>
           <WizardButton
-            triggerFullScreen
             onClick={clickHandler}
             to="/language"
             text="Start"

@@ -1,46 +1,38 @@
-import "./styles.css";
-import React, { useState, createContext } from "react";
-import { BrowserRouter as Router, useLocation } from "react-router-dom";
-import styled from "styled-components";
+import "./styles.css"
+import React, { useState, createContext } from "react"
+import { BrowserRouter as Router, useLocation } from "react-router-dom"
+import styled from "styled-components"
 
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
 
-import AddToHomeScreen from "@ideasio/add-to-homescreen-react";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { isMobile } from "react-device-detect";
+import AddToHomeScreen from "@ideasio/add-to-homescreen-react"
+import { isMobile } from "react-device-detect"
 
-import { ConfigContext } from "./contexts/ConfigContext";
-import { AppContext } from "./contexts/AppContext";
+import { ConfigContext } from "./contexts/ConfigContext"
+import { AppContext } from "./contexts/AppContext"
 
 import { useLabels, useGuides, useReservation } from "./hooks/useAppData"
 
-import ScreensRouter from "./ScreensRouter";
+import ScreensRouter from "./ScreensRouter"
 
 // Create a client
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
 const defaultGuide = { "id": null, "name": "", "picture": "" }
 
 export default function() {
   // id lingua
-  const [language, setLanguage] = useState(null);
+  const [language, setLanguage] = useState(null)
 
   // dati della guida scelta
-  const [guide, setGuide] = useState(defaultGuide);
-
-  const fullScreenHandle = useFullScreenHandle();
+  const [guide, setGuide] = useState(defaultGuide)
 
   const config = {
     language,
     setLanguage,
     guide,
-    setGuide,
-    enterFullScreen: () => {
-      if (isMobile && !fullScreenHandle.active) {
-        fullScreenHandle.enter()
-      }
-    }
+    setGuide
   }
 
   // ricorda la route precedente per gestire le animazioni
@@ -60,15 +52,12 @@ export default function() {
     <AppContext.Provider value={appClient}>
       <ConfigContext.Provider value={config}>
         <QueryClientProvider client={queryClient}>
-          <FullScreen handle={fullScreenHandle}>
-            <App className="app" />
-          </FullScreen>
-
+          <App className="app" />
           <ReactQueryDevtools initialIsOpen />
         </QueryClientProvider>
       </ConfigContext.Provider>
     </AppContext.Provider>
-  );
+  )
 }
 
 const App = styled(({ className }) => {
@@ -78,7 +67,7 @@ const App = styled(({ className }) => {
 
   return (
     <div className={className}>
-      {/*<AddToHomeScreen />*/}
+      <AddToHomeScreen />
 
       <Router>
         <ScreensRouter />
@@ -91,5 +80,6 @@ const App = styled(({ className }) => {
   position: relative;
   margin: auto;
   height: 100vh;
+  min-height: 640px;
   overflow: hidden;
-`;
+`

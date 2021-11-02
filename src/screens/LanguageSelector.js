@@ -34,10 +34,10 @@ export default function LanguageSelector() {
 
   const wrapperStyle = {
     position: "absolute",
+    top: 0,
     width: "100%",
-    textAlign: "center",
-    bottom: 0,
-    top: 0
+    height: "100%",
+    textAlign: "center"
   }
 
   const languages = useLanguages()
