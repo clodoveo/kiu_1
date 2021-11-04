@@ -32,11 +32,21 @@ export default function App() {
   // dati della guida scelta
   const [guideId, setGuideId] = useLocalStorage("guideId", null)
 
-  // token temporaneo per ID appartamento = 61
-  const tempToken = "f4b226aa068039e8d045a8100d03b4989d63ffd1"
-
   // token prenotazione
-  const [reservationToken, setReservationToken] = useLocalStorage("reservationToken", tempToken)
+  const [
+    reservationToken,
+    setReservationToken
+  ] = useLocalStorage("reservationToken")
+
+  useState(() => {
+    // token temporaneo per ID appartamento = 61
+    // const tempToken = "f4b226aa068039e8d045a8100d03b4989d63ffd1"
+    const receivedToken = getQueryValue("token")
+
+    if (receivedToken) {
+      setReservationToken(receivedToken)
+    }
+  })
 
   const config = {
     langId,
@@ -69,6 +79,23 @@ export default function App() {
       </ConfigContext.Provider>
     </AppContext.Provider>
   )
+
+  function getQueryValue(searchKey) {
+    const queryString = window.location.search.substr(1)
+
+    if (queryString.length === 0) {
+      return null
+    }
+
+    for (const keyValue of queryString.split("&")) {
+      const [key, value] = keyValue.split("=")
+      if (key === searchKey) {
+        return value
+      }
+    }
+
+    return null
+  }
 }
 
 const StyledApp = styled(({ className }) => {
