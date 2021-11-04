@@ -112,10 +112,8 @@ const StyledApp = styled(({ className }) => {
   if (hasError) {
     return (
       <div className={className}>
-        <WizardWrapper logoTop="10%">
-          <WizardBottom>
-            <DisplayError {...hasError.error} />
-          </WizardBottom>
+        <WizardWrapper logoTop="36%">
+          <DisplayError {...hasError.error} />
         </WizardWrapper>
       </div>
     )

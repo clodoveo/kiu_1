@@ -1,28 +1,30 @@
 import React from "react"
-import styled from "styled-components";
+import styled from "styled-components"
 
-import LoadingSpinner from "../components/LoadingSpinner";
+import LoadingSpinner from "../components/LoadingSpinner"
 
-export default function(props) {
-  if (! props) {
+export default function Article(props) {
+  if (!props) {
     return <LoadingSpinner />
   }
 
   const { title, picture, content } = props
 
   return (
-    <Service>
+    <StyledArticle>
       {picture && (
         <div className="picture">
           <img src={picture} alt={title} />
         </div>
       )}
-      <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
-    </Service>
-  );
+      <div className="content"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </StyledArticle>
+  )
 }
 
-const Service = styled.div`
+const StyledArticle = styled.div `
   .picture {
     text-align: center;
   }
@@ -32,4 +34,4 @@ const Service = styled.div`
     h2 {
     }
   }
-`;
+`
