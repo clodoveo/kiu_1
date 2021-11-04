@@ -11,7 +11,7 @@ import WizardStepIndicator from "../components/WizardStepIndicator"
 
 import { ConfigContext } from "../contexts/ConfigContext";
 
-import { useLanguages, useLabels, useUserAccount } from "../hooks/useAppData"
+import { useLanguages, useLabel, useUserAccount } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 
@@ -20,7 +20,7 @@ export default function LanguageSelector() {
 
   const history = useHistory()
 
-  const label = useLabels()
+  const label = useLabel()
 
   const userAccount = useUserAccount()
   const wizardTitle = `${label("hello")} ${userAccount.name.first}`

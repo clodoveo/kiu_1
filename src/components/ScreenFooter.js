@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { useLabels } from "../hooks/useAppData"
+import { useLabel } from "../hooks/useAppData"
 
 import { AppContext } from "../contexts/AppContext"
 
@@ -80,7 +80,7 @@ const Styled = styled.div `
 `
 
 function footerLinks() {
-  const label = useLabels()
+  const label = useLabel()
 
   return [{
       label: label("btnBottomNavigator"),

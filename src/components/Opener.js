@@ -71,13 +71,14 @@ const Opener = styled.div `
   .title {
     color: #fff;
     margin-top: 70px;
+    font-size: 1.5em;
   }
   .button {
     margin-bottom: 70px;
   }
   .message-caption {
     width: 250px;
-    margin: 0 auto;
+    margin: 1em auto;
   }
 
   .image-wrapper {

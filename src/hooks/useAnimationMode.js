@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { usePrevRoute } from "../hooks/usePrevLocation"
+import { usePrevRoute } from "../hooks/updatePrevLocation"
 
 const defaultMode = "fadeIn"
 

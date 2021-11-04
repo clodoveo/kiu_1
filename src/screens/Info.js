@@ -7,11 +7,11 @@ import ScreenFooter from "../components/ScreenFooter";
 import LoadingSpinner from "../components/LoadingSpinner";
 import InfoCards from "../components/InfoCards";
 
-import { useLabels, useInfo } from "../hooks/useAppData";
+import { useLabel, useInfo } from "../hooks/useAppData";
 import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function InfoScreen() {
-  const label = useLabels()
+  const label = useLabel()
 
   const items = useInfo()
 

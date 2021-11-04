@@ -16,7 +16,7 @@ import { AppContext } from "./contexts/AppContext"
 
 import AnimatedFrame from "./components/AnimatedFrame"
 
-import { updatePrevLocation } from "./hooks/usePrevLocation"
+import { updatePrevLocation } from "./hooks/updatePrevLocation"
 import { useLazyRedirect } from "./hooks/useLazyRedirect"
 
 import routes, { routeFromUrl } from "./routes"

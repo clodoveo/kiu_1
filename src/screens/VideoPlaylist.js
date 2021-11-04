@@ -7,14 +7,14 @@ import ScreenFooter from "../components/ScreenFooter";
 import InfoCards from "../components/InfoCards";
 import VideoPlayer from "../components/VideoPlayer";
 
-import { useLabels, useVideos } from "../hooks/useAppData"
+import { useLabel, useVideos } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 // evita render ripetuti
 const MemoVideo = memo(VideoPlayer)
 
 export default function() {
-  const label = useLabels()
+  const label = useLabel()
 
   const playlist = useVideos()
 

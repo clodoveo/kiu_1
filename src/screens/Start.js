@@ -8,11 +8,13 @@ import WizardBottomDate from "../components/WizardBottomDate";
 import WizardMessage from "../components/WizardMessage";
 import WizardStepIndicator from "../components/WizardStepIndicator";
 
-import { useLabels } from "../hooks/useAppData"
+import LoadingSpinner from "../components/LoadingSpinner"
+
+import { useLabel } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function Start() {
-  const label = useLabels()
+  const label = useLabel()
 
   const startStyle = {
     fontSize: "23px",

@@ -1,23 +1,31 @@
 import React from "react";
 
-import { useReservation, useLabels } from "../hooks/useAppData"
+import { useReservation, useLabel } from "../hooks/useAppData"
 
 import Opener from "../components/Opener";
 
-export default function () {
-  const reservation = useReservation() 
-  const label = useLabels()
+export default function() {
+  const reservation = useReservation()
+  const label = useLabel()
+
+  const title = (
+    <div>
+      {reservation.address}
+      <br />
+      {reservation.location}
+    </div>
+  )
 
   const params = {
-    title: reservation?.address,
+    title: title,
     text: label("mapCaption"),
-    image:"https://giomiapp.terotero.it/img/original/app/map.png",
+    image: "https://giomiapp.terotero.it/img/original/app/map.png",
     link: {
-      to: reservation?.mapUrl,
+      to: reservation ? reservation.mapUrl : "",
       label: label("btnMapGo"),
-      external:true
+      external: true
     },
-    icon:"https://giomiapp.terotero.it/img/original/app/map-icon.png"
+    icon: "https://giomiapp.terotero.it/img/original/app/map-icon.png"
   };
 
   return <Opener {...params} />;

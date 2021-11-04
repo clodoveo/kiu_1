@@ -11,14 +11,14 @@ import WizardStepIndicator from "../components/WizardStepIndicator"
 
 import { ConfigContext } from "../contexts/ConfigContext";
 
-import { useLabels, useGuides, useUserAccount } from "../hooks/useAppData"
+import { useLabel, useGuides, useUserAccount } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function GuideSelector() {
   const { setGuideId, langId } = useContext(ConfigContext);
   const history = useHistory();
 
-  const label = useLabels()
+  const label = useLabel()
 
   const guides = useGuides()
   const guidesList = guides.list()

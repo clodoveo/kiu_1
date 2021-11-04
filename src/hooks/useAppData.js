@@ -12,8 +12,8 @@ const useQueryOptions = {
 }
 
 export function useReservation() {
-  const token = "f3493fr3928erhvt3v98j"
-  const endpoint = "reservations/by_token/" + token
+  const { reservationToken } = useContext(ConfigContext)
+  const endpoint = "reservations/by_token/" + reservationToken
 
   const { status, data } = useQuery(
     "reservation",
@@ -67,12 +67,17 @@ export function useLanguages(id) {
  * 
  * const guide = guideById(1)
  */
+
 export function useGuides() {
   const { data } = useQuery(
     "guides",
     () => fetchData("guides/all"),
     useQueryOptions
   )
+
+  if (data && data.error) {
+    return data
+  }
 
   return {
     list: () => {
@@ -96,22 +101,26 @@ export function useGuides() {
  * 
  * <h1>{label('name')}</h1>
  */
-export function useLabels() {
-  const langid = getLangId()
 
+export function useLabel() {
+  const langid = getLangId()
+  const data = useLabels()
+
+  return name => {
+    if (!data) return ""
+
+    return data[langid][name] || name
+  }
+}
+
+export function useLabels() {
   const { data } = useQuery(
     "labels",
     () => fetchData("labels/all"),
     useQueryOptions
   )
 
-  function label(name) {
-    if (!data) return ""
-
-    return data[langid][name] || name
-  }
-
-  return label
+  return data || null
 }
 
 export function useVideos() {

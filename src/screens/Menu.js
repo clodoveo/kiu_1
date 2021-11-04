@@ -8,13 +8,13 @@ import MenuHeader from "../components/MenuHeader";
 import WizardCircleButton from "../components/WizardCircleButton"
 
 import { ConfigContext } from "../contexts/ConfigContext";
-import { useLabels, useVideos, useInfo, useServices, useGuides } from "../hooks/useAppData"
+import { useLabel, useVideos, useInfo, useServices, useGuides } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function Menu() {
   const history = useHistory();
 
-  const label = useLabels()
+  const label = useLabel()
 
   const { guideId } = useContext(ConfigContext)
 

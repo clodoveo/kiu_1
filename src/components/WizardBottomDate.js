@@ -1,12 +1,15 @@
 import React from 'react'
 import styled from "styled-components";
 
-import { useLabels, useReservation } from "../hooks/useAppData"
+import LoadingSpinner from "../components/LoadingSpinner"
+
+import { useLabel, useReservation } from "../hooks/useAppData"
 
 export default function WizardBottomDate() {
-  const label = useLabels()
+  const label = useLabel()
 
   const reservation = useReservation()
+
   let arrival, departure
 
   if (reservation) {
@@ -16,6 +19,8 @@ export default function WizardBottomDate() {
 
     departure = reservation.dates.departure
     departure.title = label('departure')
+  } else {
+    return <LoadingSpinner />
   }
 
   return (

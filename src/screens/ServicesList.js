@@ -5,11 +5,11 @@ import ScreenHeader from "../components/ScreenHeader"
 import ScreenFooter from "../components/ScreenFooter"
 import ArticlesList from "../components/ArticlesList"
 
-import { useLabels, useServices } from "../hooks/useAppData"
+import { useLabel, useServices } from "../hooks/useAppData"
 import useAnimationMode from "../hooks/useAnimationMode"
 
 export default function ServicesList() {
-  const label = useLabels()
+  const label = useLabel()
 
   const services = useServices()
 

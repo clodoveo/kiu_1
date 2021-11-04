@@ -4,10 +4,10 @@ import Opener from "../components/Opener";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 import { ConfigContext } from "../contexts/ConfigContext";
-import { useLabels, useGuides } from "../hooks/useAppData"
+import { useLabel, useGuides } from "../hooks/useAppData"
 
 export default function() {
-  const label = useLabels()
+  const label = useLabel()
 
   const { guideId } = useContext(ConfigContext)
 

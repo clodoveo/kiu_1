@@ -8,8 +8,8 @@ export default function LoadingSpinner() {
   );
 }
 
-const Spinner = styled.div`
+const Spinner = styled.div `
   text-align: center;
-  font-size: 2em;
-  padding: 1rem;
+  font-size: 32px;
+  padding: 16px;
 `;

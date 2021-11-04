@@ -12,6 +12,10 @@ import AddToHomeScreen from "@ideasio/add-to-homescreen-react"
 import { ConfigContext } from "./contexts/ConfigContext"
 import { AppContext } from "./contexts/AppContext"
 
+import WizardWrapper from "./components/WizardWrapper"
+import WizardBottom from "./components/WizardBottom"
+import DisplayError from "./components/DisplayError"
+
 import { useLabels, useGuides, useReservation } from "./hooks/useAppData"
 
 import ScreensRouter from "./ScreensRouter"
@@ -21,18 +25,25 @@ const queryClient = new QueryClient()
 
 const defaultGuide = { "id": null, "name": "", "picture": "" }
 
-export default function() {
+export default function App() {
   // id lingua
   const [langId, setLangId] = useLocalStorage("langId", null)
 
   // dati della guida scelta
   const [guideId, setGuideId] = useLocalStorage("guideId", null)
 
+  // token temporaneo per ID appartamento = 61
+  const tempToken = "f4b226aa068039e8d045a8100d03b4989d63ffd1"
+
+  // token prenotazione
+  const [reservationToken, setReservationToken] = useLocalStorage("reservationToken", tempToken)
+
   const config = {
     langId,
     setLangId,
     guideId,
-    setGuideId
+    setGuideId,
+    reservationToken
   }
 
   // ricorda la route precedente per gestire le animazioni
@@ -52,7 +63,7 @@ export default function() {
     <AppContext.Provider value={appClient}>
       <ConfigContext.Provider value={config}>
         <QueryClientProvider client={queryClient}>
-          <App className="app" />
+          <StyledApp className="app" />
           {/*<ReactQueryDevtools initialIsOpen />*/}
         </QueryClientProvider>
       </ConfigContext.Provider>
@@ -60,10 +71,28 @@ export default function() {
   )
 }
 
-const App = styled(({ className }) => {
-  useLabels()
-  useGuides()
-  useReservation()
+const StyledApp = styled(({ className }) => {
+  const required = [
+    useLabels(),
+    useGuides(),
+    useReservation()
+  ]
+
+  const hasError = required.find(data => {
+    return (data && data.error)
+  })
+
+  if (hasError) {
+    return (
+      <div className={className}>
+        <WizardWrapper logoTop="10%">
+          <WizardBottom>
+            <DisplayError {...hasError.error} />
+          </WizardBottom>
+        </WizardWrapper>
+      </div>
+    )
+  }
 
   return (
     <div className={className}>
