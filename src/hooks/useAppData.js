@@ -2,36 +2,46 @@ import { useContext, useEffect } from "react"
 import { useQuery, useQueryClient } from "react-query"
 
 import { ConfigContext } from "../contexts/ConfigContext"
+import { AppContext } from "../contexts/AppContext"
 
 const apiBaseUrl = "https://giomiapp.terotero.it/api/app/resource"
 
 const defaultLangId = 1
 
-const useQueryOptions = {
+const defaultQueryOptions = {
   staleTime: 60000 // 1 minute
 }
 
-export function useReservation() {
-  const { reservationToken } = useContext(ConfigContext)
-  const endpoint = "reservations/by_token/" + reservationToken
+function queryOptions(customOptions) {
+  return { ...defaultQueryOptions, ...customOptions }
+}
 
-  const { status, data } = useQuery(
+export function useReservation() {
+  const { reservationToken: token } = useContext(ConfigContext)
+  const endpoint = "reservations/by_token"
+
+  const { setError } = useContext(AppContext)
+
+  const response = useQuery(
     "reservation",
-    () => fetchData(endpoint),
-    useQueryOptions
+    () => fetchData(endpoint, setError, { token }),
+    queryOptions()
   )
 
-  return data || null
+  return response.data || null
 }
 
 export function useUserAccount() {
   const reservation = useReservation()
 
+  // avoid errors
   const emptyUser = { name: { first: "" } }
+
   return reservation && reservation.userAccount || emptyUser
 }
 
 export function useLanguages(id) {
+  // TODO inglobare in useReservation
   const { data } = useQuery(
     "languages",
     () => {
@@ -47,7 +57,7 @@ export function useLanguages(id) {
         }
       ]
     },
-    useQueryOptions
+    queryOptions()
   )
 
   if (!data) {
@@ -69,10 +79,15 @@ export function useLanguages(id) {
  */
 
 export function useGuides() {
+  const { setError } = useContext(AppContext)
+  const { reservationToken: token } = useContext(ConfigContext)
+
+  const queryKey = "guides"
+
   const { data } = useQuery(
-    "guides",
-    () => fetchData("guides/all"),
-    useQueryOptions
+    queryKey,
+    () => fetchData("guides/all", setError, { token }),
+    queryOptions()
   )
 
   if (data && data.error) {
@@ -103,57 +118,99 @@ export function useGuides() {
  */
 
 export function useLabel() {
-  const langid = getLangId()
+  const langId = getLangId()
   const data = useLabels()
 
   return name => {
-    if (!data) return ""
+    if (!data || !langId) return ""
 
-    return data[langid][name] || name
+    return data[langId][name] || name
   }
 }
 
 export function useLabels() {
+  const { setError } = useContext(AppContext)
+  const { reservationToken: token } = useContext(ConfigContext)
+
   const { data } = useQuery(
     "labels",
-    () => fetchData("labels/all"),
-    useQueryOptions
+    () => fetchData("labels/all", setError, { token }),
+    queryOptions()
   )
 
   return data || null
 }
 
 export function useVideos() {
-  const langid = getLangId()
+  const { setError } = useContext(AppContext)
+  const { reservationToken: token } = useContext(ConfigContext)
+
+  const langId = getLangId()
+
+  const reservation = useReservation()
+  const aptId = reservation ? reservation.apartment.id : null
+
+  const queryKeys = ["playlist", aptId, langId]
+
+  const fetchVideos = ({ queryKey }) => {
+    const [name, aptId] = queryKey
+    return fetchData(`videos/by_apt_id/${aptId}`, setError, { langId, token })
+  }
 
   const { data } = useQuery(
-    "playlist" + langid,
-    () => fetchData("videos/by_apt_id", { langid }),
-    useQueryOptions
+    queryKeys,
+    fetchVideos,
+    queryOptions({ enabled: !!aptId })
   )
 
   return data
 }
 
 export function useInfo() {
-  const langid = getLangId()
+  const langId = getLangId()
+
+  const { setError } = useContext(AppContext)
+  const { reservationToken: token } = useContext(ConfigContext)
+
+  const reservation = useReservation()
+  const aptId = reservation ? reservation.apartment.id : null
+
+  const queryKeys = ["info", aptId]
+
+  const fetchInfo = ({ queryKey }) => {
+    const [name, aptId] = queryKey
+    return fetchData(`info/by_apt_id/${aptId}`, setError, { langId, token })
+  }
 
   const { data } = useQuery(
-    "info" + langid,
-    () => fetchData("info/list", { langid }),
-    useQueryOptions
+    queryKeys,
+    fetchInfo,
+    queryOptions({ enabled: !!aptId })
   )
 
   return data
 }
 
 export function useServices(id) {
-  const langid = getLangId()
+  const langId = getLangId()
+
+  const { setError } = useContext(AppContext)
+  const { reservationToken: token } = useContext(ConfigContext)
+
+  const reservation = useReservation()
+  const aptId = reservation ? reservation.apartment.id : null
+
+  const queryKeys = ["services", aptId]
+
+  const fetchServices = ({ queryKey }) => {
+    const [name, aptId] = queryKey
+    return fetchData(`services/by_apt_id/${aptId}`, setError, { langId, token })
+  }
 
   const { data } = useQuery(
-    "services" + langid,
-    () => fetchData("services/by_apt_id", { langid }),
-    useQueryOptions
+    queryKeys,
+    fetchServices,
+    queryOptions({ enabled: !!aptId })
   )
 
   if (data && id) {
@@ -163,25 +220,34 @@ export function useServices(id) {
   return data
 }
 
-async function fetchData(endpoint, params) {
+async function fetchData(endpoint, setError, params) {
   let url = `${apiBaseUrl}/${endpoint}`
 
   if (params) {
-    url += "?"
+    let joinChar = "?"
 
     for (let key in params) {
       const value = params[key]
 
-      url += key + "=" + value
+      url += joinChar + key + "=" + value
+      joinChar = "&"
     }
   }
 
   // console.log(url)
   const result = await fetch(url)
-  return result.json()
+  const data = await result.json()
+
+  if (result.status !== 200) {
+    const error = data.error ? data.error : data
+    setError(error)
+    throw error
+  }
+
+  return data
 }
 
 function getLangId() {
   let { langId } = useContext(ConfigContext)
-  return langId || defaultLangId
+  return langId
 }

@@ -1,5 +1,5 @@
 import "./styles.css"
-import React, { useState, createContext } from "react"
+import React, { useState, createContext, useContext } from "react"
 import { BrowserRouter as Router, useLocation } from "react-router-dom"
 import styled from "styled-components"
 
@@ -62,11 +62,15 @@ export default function App() {
   // variabile per getire redirect in differita (menu ScreenFooter)
   const [lazyRedirect, setLazyRedirect] = useState(null)
 
+  const [error, setError] = useState(null)
+
   const appClient = {
     prevLocation,
     setPrevLocation,
     lazyRedirect,
     setLazyRedirect,
+    error,
+    setError
   }
 
   return (
@@ -99,21 +103,18 @@ export default function App() {
 }
 
 const StyledApp = styled(({ className }) => {
-  const required = [
-    useLabels(),
-    useGuides(),
-    useReservation()
-  ]
+  // get some data
+  useLabels()
+  useGuides()
+  useReservation()
 
-  const hasError = required.find(data => {
-    return (data && data.error)
-  })
+  const { error } = useContext(AppContext)
 
-  if (hasError) {
+  if (error) {
     return (
       <div className={className}>
         <WizardWrapper logoTop="36%">
-          <DisplayError {...hasError.error} />
+          <DisplayError {...error} />
         </WizardWrapper>
       </div>
     )

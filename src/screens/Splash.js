@@ -3,10 +3,12 @@ import { React, useContext, useEffect } from "react";
 
 import AnimatedFrame from "../components/AnimatedFrame";
 
+import LoadingSpinner from "../components/LoadingSpinner";
 import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
 
 import { ConfigContext } from "../contexts/ConfigContext";
+import { useReservation } from "../hooks/useAppData";
 
 import useAnimationMode from "../hooks/useAnimationMode"
 
@@ -26,13 +28,25 @@ export default function Splash() {
     <AnimatedFrame mode={animationMode}>
       <WizardWrapper logoTop="36%" logoPayoff>
         <div style={btnStyle}>
-          <WizardButton
-            to="/language"
-            text="Start"
-            color="yellow"
-          />
+          <SplashBody />
         </div>
       </WizardWrapper>
     </AnimatedFrame>
   );
+}
+
+function SplashBody() {
+  const reservation = useReservation()
+
+  if (!reservation) {
+    return <LoadingSpinner className="is-white" />
+  }
+
+  return (
+    <WizardButton
+      to="/language"
+      text="Start"
+      color="yellow"
+    />
+  )
 }

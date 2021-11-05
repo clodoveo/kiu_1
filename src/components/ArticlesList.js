@@ -4,7 +4,7 @@ import styled from "styled-components";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function ArticlesList({ data }) {
-  if (! data) {
+  if (!data) {
     return <LoadingSpinner />
   }
 
@@ -15,7 +15,9 @@ export default function ArticlesList({ data }) {
           <img className="thumb" src={article.thumb} alt={article.title} />
           <div className="content">
             <div className="title">{article.title}</div>
-            <div className="abstract">{article.abstract}</div>
+            <div className="abstract"
+              dangerouslySetInnerHTML={{ __html: article.abstract }}
+            />
           </div>
           <div className="icon">
             <i className="fas fa-chevron-right" />
@@ -26,7 +28,7 @@ export default function ArticlesList({ data }) {
   );
 }
 
-const Styled = styled.div`
+const Styled = styled.div `
   .list-item {
     padding: 1.4em 1em;
     text-decoration: none;
@@ -37,10 +39,16 @@ const Styled = styled.div`
     .thumb {
       border: 5px solid #eee;
       border-radius: 3px;
+      width: 100px;
     }
 
     .content {
       padding: 0 21px;
+      flex: 1;
+
+      p {
+        margin: 0;
+      }
 
       .title {
         font-weight: bold;
