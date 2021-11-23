@@ -1,43 +1,43 @@
-import { useContext, useEffect } from "react"
-import { useQuery, useQueryClient } from "react-query"
+import { useContext, useEffect } from "react";
+import { useQuery } from "react-query";
 
-import { ConfigContext } from "../contexts/ConfigContext"
-import { AppContext } from "../contexts/AppContext"
+import { ConfigContext } from "../contexts/ConfigContext";
+import { AppContext } from "../contexts/AppContext";
 
-const apiBaseUrl = "https://giomiapp.terotero.it/api/app/resource"
+const apiBaseUrl = "https://giomiapp.terotero.it/api/app/resource";
 
-const defaultLangId = 1
+const defaultLangId = 1;
 
 const defaultQueryOptions = {
-  staleTime: 60000 // 1 minute
-}
+  staleTime: 60000, // 1 minute
+};
 
 function queryOptions(customOptions) {
-  return { ...defaultQueryOptions, ...customOptions }
+  return { ...defaultQueryOptions, ...customOptions };
 }
 
 export function useReservation() {
-  const { reservationToken: token } = useContext(ConfigContext)
-  const endpoint = "reservations/by_token"
+  const { reservationToken: token } = useContext(ConfigContext);
+  const endpoint = "reservations/by_token";
 
-  const { setError } = useContext(AppContext)
+  const { setError } = useContext(AppContext);
 
   const response = useQuery(
     "reservation",
     () => fetchData(endpoint, setError, { token }),
     queryOptions()
-  )
+  );
 
-  return response.data || null
+  return response.data || null;
 }
 
 export function useUserAccount() {
-  const reservation = useReservation()
+  const reservation = useReservation();
 
   // avoid errors
-  const emptyUser = { name: { first: "" } }
+  const emptyUser = { name: { first: "" } };
 
-  return reservation && reservation.userAccount || emptyUser
+  return (reservation && reservation.userAccount) || emptyUser;
 }
 
 export function useLanguages(id) {
@@ -45,209 +45,211 @@ export function useLanguages(id) {
   const { data } = useQuery(
     "languages",
     () => {
-      return [{
+      return [
+        {
           id: 1,
           image: "https://giomiapp.terotero.it/img/original/app/flag-it.png",
-          title: "Italiano"
+          title: "Italiano",
         },
         {
           id: 3,
           image: "https://giomiapp.terotero.it/img/original/app/flag-en.png",
-          title: "English"
-        }
-      ]
+          title: "English",
+        },
+      ];
     },
     queryOptions()
-  )
+  );
 
   if (!data) {
-    return null
+    return null;
   }
 
   if (id) {
-    return data.find(item => item.id == id)
+    return data.find((item) => item.id == id);
   }
 
-  return data
+  return data;
 }
 
 /**
  * @example
  * const { guideById } = useGuides
- * 
+ *
  * const guide = guideById(1)
  */
 
 export function useGuides() {
-  const { setError } = useContext(AppContext)
-  const { reservationToken: token } = useContext(ConfigContext)
+  const { setError } = useContext(AppContext);
+  const { reservationToken: token } = useContext(ConfigContext);
 
-  const queryKey = "guides"
+  const queryKey = "guides";
 
   const { data } = useQuery(
     queryKey,
     () => fetchData("guides/all", setError, { token }),
     queryOptions()
-  )
+  );
 
   if (data && data.error) {
-    return data
+    return data;
   }
 
   return {
     list: () => {
-      return data
+      return data;
     },
     byId: (id) => {
       if (!data) {
-        return null
+        return null;
       }
 
-      return data.find(item => item.id == id)
-    }
-  }
+      return data.find((item) => item.id == id);
+    },
+  };
 }
 
 /**
  * @return singolo metodo label(<name>)
- * 
+ *
  * @example
  * const { labelByName as label } = useLabels()
- * 
+ *
  * <h1>{label('name')}</h1>
  */
 
 export function useLabel() {
-  const langId = getLangId()
-  const data = useLabels()
+  const langId = getLangId();
+  const data = useLabels();
 
-  return name => {
-    if (!data || !langId) return ""
+  return (name) => {
+    if (!data || !langId) return "";
 
-    return data[langId][name] || name
-  }
+    return data[langId][name] || name;
+  };
 }
 
 export function useLabels() {
-  const { setError } = useContext(AppContext)
-  const { reservationToken: token } = useContext(ConfigContext)
+  const { setError } = useContext(AppContext);
+  const { reservationToken: token } = useContext(ConfigContext);
 
   const { data } = useQuery(
     "labels",
     () => fetchData("labels/all", setError, { token }),
     queryOptions()
-  )
+  );
 
-  return data || null
+  return data || null;
 }
 
 export function useVideos() {
-  const { setError } = useContext(AppContext)
-  const { reservationToken: token } = useContext(ConfigContext)
+  const { setError } = useContext(AppContext);
+  const { reservationToken: token } = useContext(ConfigContext);
 
-  const langId = getLangId()
+  const reservation = useReservation();
+  const aptId = reservation ? reservation.apartment.id : null;
 
-  const reservation = useReservation()
-  const aptId = reservation ? reservation.apartment.id : null
-
-  const queryKeys = ["playlist", aptId, langId]
+  const queryKeys = ["playlist", aptId];
 
   const fetchVideos = ({ queryKey }) => {
-    const [name, aptId] = queryKey
-    return fetchData(`videos/by_apt_id/${aptId}`, setError, { langId, token })
-  }
+    const [name, aptId] = queryKey;
+    return fetchData(`videos/find`, setError, { token });
+  };
 
   const { data } = useQuery(
     queryKeys,
     fetchVideos,
     queryOptions({ enabled: !!aptId })
-  )
+  );
 
-  return data
+  return data;
 }
 
 export function useInfo() {
-  const langId = getLangId()
+  const langId = getLangId();
 
-  const { setError } = useContext(AppContext)
-  const { reservationToken: token } = useContext(ConfigContext)
+  const { setError } = useContext(AppContext);
+  const { reservationToken: token } = useContext(ConfigContext);
 
-  const reservation = useReservation()
-  const aptId = reservation ? reservation.apartment.id : null
+  const reservation = useReservation();
+  const aptId = reservation ? reservation.apartment.id : null;
 
-  const queryKeys = ["info", aptId]
+  const queryKeys = ["info", aptId];
 
   const fetchInfo = ({ queryKey }) => {
-    const [name, aptId] = queryKey
-    return fetchData(`info/by_apt_id/${aptId}`, setError, { langId, token })
-  }
+    const [name, aptId] = queryKey;
+    return fetchData(`info/by_apt_id/${aptId}`, setError, { langId, token });
+  };
 
   const { data } = useQuery(
     queryKeys,
     fetchInfo,
     queryOptions({ enabled: !!aptId })
-  )
+  );
 
-  return data
+  return data;
 }
 
 export function useServices(id) {
-  const langId = getLangId()
+  const langId = getLangId();
 
-  const { setError } = useContext(AppContext)
-  const { reservationToken: token } = useContext(ConfigContext)
+  const { setError } = useContext(AppContext);
+  const { reservationToken: token } = useContext(ConfigContext);
 
-  const reservation = useReservation()
-  const aptId = reservation ? reservation.apartment.id : null
+  const reservation = useReservation();
+  const aptId = reservation ? reservation.apartment.id : null;
 
-  const queryKeys = ["services", aptId]
+  const queryKeys = ["services", aptId];
 
   const fetchServices = ({ queryKey }) => {
-    const [name, aptId] = queryKey
-    return fetchData(`services/by_apt_id/${aptId}`, setError, { langId, token })
-  }
+    const [name, aptId] = queryKey;
+    return fetchData(`services/by_apt_id/${aptId}`, setError, {
+      langId,
+      token,
+    });
+  };
 
   const { data } = useQuery(
     queryKeys,
     fetchServices,
     queryOptions({ enabled: !!aptId })
-  )
+  );
 
   if (data && id) {
-    return data.find(item => item.id == id)
+    return data.find((item) => item.id == id);
   }
 
-  return data
+  return data;
 }
 
 async function fetchData(endpoint, setError, params) {
-  let url = `${apiBaseUrl}/${endpoint}`
+  let url = `${apiBaseUrl}/${endpoint}`;
 
   if (params) {
-    let joinChar = "?"
+    let joinChar = "?";
 
     for (let key in params) {
-      const value = params[key]
+      const value = params[key];
 
-      url += joinChar + key + "=" + value
-      joinChar = "&"
+      url += joinChar + key + "=" + value;
+      joinChar = "&";
     }
   }
 
   // console.log(url)
-  const result = await fetch(url)
-  const data = await result.json()
+  const result = await fetch(url);
+  const data = await result.json();
 
   if (result.status !== 200) {
-    const error = data.error ? data.error : data
-    setError(error)
-    throw error
+    const error = data.error ? data.error : data;
+    setError(error);
+    throw error;
   }
 
-  return data
+  return data;
 }
 
 function getLangId() {
-  let { langId } = useContext(ConfigContext)
-  return langId
+  let { langId } = useContext(ConfigContext);
+  return langId;
 }
