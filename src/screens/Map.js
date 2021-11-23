@@ -8,13 +8,13 @@ export default function() {
   const reservation = useReservation()
   const label = useLabel()
 
-  const title = (
+  const title = reservation ? (
     <div>
       {reservation.address}
       <br />
       {reservation.location}
     </div>
-  )
+  ) : ""
 
   const params = {
     title: title,
