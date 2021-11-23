@@ -6,14 +6,14 @@ import { AdvancedVideo } from "@cloudinary/react";
 
 import { scale } from "@cloudinary/url-gen/actions/resize";
 
-export default function({ path, cloudName, width }) {
-  width = width || 480
+export default function ({ path, cloudName, width }) {
+  width = width || 480;
 
   const video = new CloudinaryVideo(path, {
-    cloudName: cloudName
+    cloudName: cloudName,
   });
 
-  video.resize(scale().width(width));
+  // video.resize(scale().width(width));
 
   return (
     <VideoPlayer>
@@ -22,10 +22,10 @@ export default function({ path, cloudName, width }) {
   );
 }
 
-const VideoPlayer = styled.div `
+const VideoPlayer = styled.div`
   width: 100%;
 
   video {
     width: 100%;
   }
-`
+`;
