@@ -1,68 +1,66 @@
-import "./styles.css"
-import React, { useState, createContext, useContext } from "react"
-import { BrowserRouter as Router, useLocation } from "react-router-dom"
-import styled from "styled-components"
+import "./styles.css";
+import React, { useState, createContext, useContext } from "react";
+import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import styled from "styled-components";
 
-import { QueryClient, QueryClientProvider } from "react-query"
-import { ReactQueryDevtools } from "react-query/devtools"
-import useLocalStorage from "react-use-localstorage"
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import useLocalStorage from "react-use-localstorage";
 
-import AddToHomeScreen from "@ideasio/add-to-homescreen-react"
+import AddToHomeScreen from "@ideasio/add-to-homescreen-react";
 
-import { ConfigContext } from "./contexts/ConfigContext"
-import { AppContext } from "./contexts/AppContext"
+import { ConfigContext } from "./contexts/ConfigContext";
+import { AppContext } from "./contexts/AppContext";
 
-import WizardWrapper from "./components/WizardWrapper"
-import WizardBottom from "./components/WizardBottom"
-import DisplayError from "./components/DisplayError"
+import WizardWrapper from "./components/WizardWrapper";
+import WizardBottom from "./components/WizardBottom";
+import DisplayError from "./components/DisplayError";
 
-import { useLabels, useGuides, useReservation } from "./hooks/useAppData"
+import { useLabels, useGuides, useReservation } from "./hooks/useAppData";
 
-import ScreensRouter from "./ScreensRouter"
+import ScreensRouter from "./ScreensRouter";
 
 // Create a client
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
-const defaultGuide = { "id": null, "name": "", "picture": "" }
+const defaultGuide = { id: null, name: "", picture: "" };
 
 export default function App() {
   // id lingua
-  const [langId, setLangId] = useLocalStorage("langId", null)
+  const [langId, setLangId] = useLocalStorage("langId", null);
 
   // dati della guida scelta
-  const [guideId, setGuideId] = useLocalStorage("guideId", null)
+  const [guideId, setGuideId] = useLocalStorage("guideId", null);
 
   // token prenotazione
-  const [
-    reservationToken,
-    setReservationToken
-  ] = useLocalStorage("reservationToken")
+  const [reservationToken, setReservationToken] =
+    useLocalStorage("reservationToken");
 
   useState(() => {
     // token temporaneo per ID appartamento = 61
     // const tempToken = "f4b226aa068039e8d045a8100d03b4989d63ffd1"
-    const receivedToken = getQueryValue("token")
+    const receivedToken = getQueryValue("token");
 
     if (receivedToken) {
-      setReservationToken(receivedToken)
+      setReservationToken(receivedToken);
     }
-  })
+  });
 
   const config = {
     langId,
     setLangId,
     guideId,
     setGuideId,
-    reservationToken
-  }
+    reservationToken,
+  };
 
   // ricorda la route precedente per gestire le animazioni
-  const [prevLocation, setPrevLocation] = useState(null)
+  const [prevLocation, setPrevLocation] = useState(null);
 
   // variabile per getire redirect in differita (menu ScreenFooter)
-  const [lazyRedirect, setLazyRedirect] = useState(null)
+  const [lazyRedirect, setLazyRedirect] = useState(null);
 
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
 
   const appClient = {
     prevLocation,
@@ -70,8 +68,8 @@ export default function App() {
     lazyRedirect,
     setLazyRedirect,
     error,
-    setError
-  }
+    setError,
+  };
 
   return (
     <AppContext.Provider value={appClient}>
@@ -82,33 +80,33 @@ export default function App() {
         </QueryClientProvider>
       </ConfigContext.Provider>
     </AppContext.Provider>
-  )
+  );
 
   function getQueryValue(searchKey) {
-    const queryString = window.location.search.substr(1)
+    const queryString = window.location.search.substr(1);
 
     if (queryString.length === 0) {
-      return null
+      return null;
     }
 
     for (const keyValue of queryString.split("&")) {
-      const [key, value] = keyValue.split("=")
+      const [key, value] = keyValue.split("=");
       if (key === searchKey) {
-        return value
+        return value;
       }
     }
 
-    return null
+    return null;
   }
 }
 
 const StyledApp = styled(({ className }) => {
   // get some data
-  useLabels()
-  useGuides()
-  useReservation()
+  useLabels();
+  useGuides();
+  useReservation();
 
-  const { error } = useContext(AppContext)
+  const { error } = useContext(AppContext);
 
   if (error) {
     return (
@@ -117,7 +115,7 @@ const StyledApp = styled(({ className }) => {
           <DisplayError {...error} />
         </WizardWrapper>
       </div>
-    )
+    );
   }
 
   return (
@@ -128,13 +126,15 @@ const StyledApp = styled(({ className }) => {
         <ScreensRouter />
       </Router>
     </div>
-  )
-})
-`
-  max-width: 70vh;
+  );
+})`
   position: relative;
   margin: auto;
   height: 100vh;
   min-height: 640px;
   overflow: hidden;
-`
+
+  @media screen and (min-width: 992px) {
+    max-width: 70vh;
+  }
+`;
