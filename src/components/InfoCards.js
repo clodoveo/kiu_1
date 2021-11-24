@@ -3,15 +3,17 @@ import styled from "styled-components";
 
 import LoadingSpinner from "../components/LoadingSpinner";
 
-export default function({ items, coverComponent }) {
-  const CoverComponent = coverComponent ? coverComponent : ImageCover
+export default function InfoCards({ items, coverComponent, noGuts }) {
+  const CoverComponent = coverComponent ? coverComponent : ImageCover;
 
   if (!items) {
-    return <LoadingSpinner />
+    return <LoadingSpinner />;
   }
 
+  const cardsClass = "cards " + (noGuts ? "no-guts" : "guts");
+
   return (
-    <InfoCards className="cards">
+    <StyledInfoCards className={cardsClass}>
       {items.map((item, index) => (
         <div key={index} className="card">
           <CoverComponent {...item} />
@@ -19,7 +21,10 @@ export default function({ items, coverComponent }) {
           <div className="content">
             <div className="title">{item.title}</div>
 
-            <div className="text" dangerouslySetInnerHTML={{ __html: item.text }} />
+            <div
+              className="text"
+              dangerouslySetInnerHTML={{ __html: item.text }}
+            />
 
             {item.links && (
               <div className="links">
@@ -33,22 +38,28 @@ export default function({ items, coverComponent }) {
           </div>
         </div>
       ))}
-    </InfoCards>
-  )
+    </StyledInfoCards>
+  );
 }
 
-const InfoCards = styled.div `
+const StyledInfoCards = styled.div`
   border-top: 1px solid #eee;
-  padding: 1em;
+
+  &.guts {
+    padding: 1em;
+
+    .card {
+      padding: 1em;
+      box-shadow: 0px 0px 42px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+  }
 
   .card + .card {
     margin-top: 1.8em;
   }
-  .card {
-    padding: 1em;
-    box-shadow: 0px 0px 42px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
 
+  .card {
     .img {
       text-align: center;
 
@@ -82,16 +93,16 @@ const InfoCards = styled.div `
       }
     }
   }
-`
+`;
 
 function ImageCover({ imgUrl, title }) {
   if (!imgUrl) {
-    return null
+    return null;
   }
 
   return (
     <div className="img">
       <img src={imgUrl} alt={title} />
     </div>
-  )
+  );
 }

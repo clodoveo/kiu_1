@@ -134,7 +134,7 @@ const StyledApp = styled(({ className }) => {
   min-height: 640px;
   overflow: hidden;
 
-  @media screen and (min-width: 992px) {
+  @media screen and (min-width: 1024px) {
     max-width: 70vh;
   }
 `;
