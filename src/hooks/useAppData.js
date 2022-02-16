@@ -40,6 +40,11 @@ export function useUserAccount() {
   return (reservation && reservation.userAccount) || emptyUser;
 }
 
+export function useCurrentLanguage() {
+  const langId = getLangId();
+  return useLanguages(langId);
+}
+
 export function useLanguages(id) {
   // TODO inglobare in useReservation
   const { data } = useQuery(
@@ -48,13 +53,15 @@ export function useLanguages(id) {
       return [
         {
           id: 1,
+          title: "it",
           image: "https://giomiapp.terotero.it/img/original/app/flag-it.png",
-          title: "Italiano",
+          label: "Italiano",
         },
         {
           id: 3,
+          title: "en",
           image: "https://giomiapp.terotero.it/img/original/app/flag-en.png",
-          title: "English",
+          label: "English",
         },
       ];
     },
@@ -146,6 +153,8 @@ export function useVideos() {
   const { setError } = useContext(AppContext);
   const { reservationToken: token } = useContext(ConfigContext);
 
+  const langId = getLangId();
+
   const reservation = useReservation();
   const aptId = reservation ? reservation.apartment.id : null;
 
@@ -153,7 +162,7 @@ export function useVideos() {
 
   const fetchVideos = ({ queryKey }) => {
     const [name, aptId] = queryKey;
-    return fetchData(`videos/find`, setError, { token });
+    return fetchData(`videos/find`, setError, { token, langId });
   };
 
   const { data } = useQuery(

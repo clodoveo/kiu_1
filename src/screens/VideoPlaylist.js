@@ -8,7 +8,7 @@ import InfoCards from "../components/InfoCards";
 import VideoPlayer from "../components/VideoPlayer";
 import ResponsiveMedia from "../components/ResponsiveMedia";
 
-import { useLabel, useVideos } from "../hooks/useAppData";
+import { useLabel, useVideos, useCurrentLanguage } from "../hooks/useAppData";
 import useAnimationMode from "../hooks/useAnimationMode";
 
 const breakPoints = [1024, 768, 480, 360];
@@ -25,6 +25,12 @@ export default function VideoPlaylist() {
     { fromKey: "*", mode: "overlayFromRightAndBack" },
   ]);
 
+  const lang = useCurrentLanguage();
+
+  if (!lang) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <AnimatedFrame scrollable mode={animationMode}>
       <ScreenHeader text={label("btnVideoTitle")} />
@@ -37,6 +43,8 @@ export default function VideoPlaylist() {
 }
 
 function Item(props) {
+  // console.log(props);
+
   return (
     <ResponsiveMedia breakPoints={breakPoints}>
       <MemoVideo {...props} />
