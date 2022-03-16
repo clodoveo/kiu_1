@@ -153,7 +153,7 @@ const StyledPlayer = styled.div`
       right: 60%;
 
       :before {
-        content: "\f04a";
+        content: "\f0e2";
       }
     }
     &.right {
@@ -161,7 +161,7 @@ const StyledPlayer = styled.div`
       right: 0;
 
       :before {
-        content: "\f04e";
+        content: "\f01e";
       }
     }
   }
