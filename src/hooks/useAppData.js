@@ -212,10 +212,7 @@ export function useServices(id) {
 
   const fetchServices = ({ queryKey }) => {
     const [name, aptId] = queryKey;
-    return fetchData(`services/by_apt_id/${aptId}`, setError, {
-      langId,
-      token,
-    });
+    return fetchData(`services/find`, setError, { langId, token });
   };
 
   const { data } = useQuery(
