@@ -16,8 +16,6 @@ export default function InfoCards({ items, coverComponent, noGuts }) {
     <StyledInfoCards className={cardsClass}>
       {items.map((item, index) => (
         <div key={index} className="card">
-          <CoverComponent {...item} />
-
           <div className="content">
             <div className="title">{item.title}</div>
 
@@ -36,6 +34,7 @@ export default function InfoCards({ items, coverComponent, noGuts }) {
               </div>
             )}
           </div>
+          <CoverComponent {...item} />
         </div>
       ))}
     </StyledInfoCards>
