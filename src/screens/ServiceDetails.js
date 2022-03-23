@@ -25,6 +25,17 @@ export default function ServiceDetails() {
     };
   }
 
+  if (serviceData?.addresses.length) {
+    serviceData.links = serviceData.addresses.map((address) => {
+      return {
+        to: address.text,
+        label: address.label || label("btnServiceGo"),
+        external: true,
+        icon: "https://giomiapp.terotero.it/img/original/app/map-icon.png",
+      };
+    });
+  }
+
   const animationMode = useAnimationMode([
     { fromKey: "*", mode: "overlayFromRightAndBack" },
   ]);

@@ -9,21 +9,7 @@ export default function Article(props) {
     return <LoadingSpinner />;
   }
 
-  const { title, picture, content } = props;
-
-  let link;
-
-  if (props.link) {
-    link = (
-      <WizardButton
-        to={props.link.to}
-        text={props.link.label}
-        color="yellow"
-        icon={props.link.icon}
-        external={props.link.external}
-      />
-    );
-  }
+  const { title, picture, content, links } = props;
 
   return (
     <StyledArticle>
@@ -34,7 +20,7 @@ export default function Article(props) {
       )}
       <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
 
-      <div className="button">{link}</div>
+      {links && <ArticleLinks list={links} />}
     </StyledArticle>
   );
 }
@@ -52,4 +38,29 @@ const StyledArticle = styled.div`
   .button {
     text-align: center;
   }
+
+  .links {
+    text-align: center;
+    margin-top: 1em;
+
+    > div + div {
+      margin-top: 1em;
+    }
+  }
 `;
+
+function ArticleLinks({ list }) {
+  return (
+    <div className="links">
+      {list.map((link) => (
+        <WizardButton
+          to={link.to}
+          text={link.label}
+          color="yellow"
+          icon={link.icon}
+          external={link.external}
+        />
+      ))}
+    </div>
+  );
+}
