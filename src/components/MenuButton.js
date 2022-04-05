@@ -24,16 +24,22 @@ const Styled = styled.div`
   box-shadow: 0 5px #0002;
 
   &.green {
+    background-color: #2aaa46;
+  }
+  &.dark-green {
     background-color: #265a32;
   }
   &.grey-green {
     background-color: #678b6f;
   }
   &.yellow {
-    background-color: #FEB700;
+    background-color: #feb700;
 
     .title {
       max-width: 9em;
+    }
+    .caption {
+      color: #0008;
     }
   }
 
@@ -57,7 +63,7 @@ const Styled = styled.div`
     }
     .caption {
       font-size: 16px;
-      color: rgba(255, 255, 255, 0.7);
+      color: #fffb;
     }
     .icon {
       color: #fff;

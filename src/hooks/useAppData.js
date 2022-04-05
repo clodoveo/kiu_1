@@ -187,12 +187,37 @@ export function useInfo() {
 
   const fetchInfo = ({ queryKey }) => {
     const [name, aptId] = queryKey;
-    return fetchData(`info/by_apt_id/${aptId}`, setError, { langId, token });
+    return fetchData(`info/by_token`, setError, { langId, token });
   };
 
   const { data } = useQuery(
     queryKeys,
     fetchInfo,
+    queryOptions({ enabled: !!aptId })
+  );
+
+  return data;
+}
+
+export function useHouse() {
+  const langId = getLangId();
+
+  const { setError } = useContext(AppContext);
+  const { reservationToken: token } = useContext(ConfigContext);
+
+  const reservation = useReservation();
+  const aptId = reservation ? reservation.apartment.id : null;
+
+  const queryKeys = ["house", aptId];
+
+  const fetchHouse = ({ queryKey }) => {
+    const [name, aptId] = queryKey;
+    return fetchData(`alloggio/by_token`, setError, { langId, token });
+  };
+
+  const { data } = useQuery(
+    queryKeys,
+    fetchHouse,
     queryOptions({ enabled: !!aptId })
   );
 

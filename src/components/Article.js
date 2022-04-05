@@ -41,8 +41,21 @@ const StyledArticle = styled.div`
 
   .links {
     text-align: center;
-    margin-top: 1em;
+    margin: 1em auto 3em;
+    display: flex;
+    flex-direction: column;
+    max-width: 20em;
 
+    > div {
+      // display: inline-block;
+
+      > a {
+        min-width: auto;
+        padding: 1em 50px;
+        box-sizing: border-box;
+        display: block;
+      }
+    }
     > div + div {
       margin-top: 1em;
     }
@@ -52,11 +65,13 @@ const StyledArticle = styled.div`
 function ArticleLinks({ list }) {
   return (
     <div className="links">
-      {list.map((link) => (
+      {list.map((link, index) => (
         <WizardButton
+          key={index}
           to={link.to}
           text={link.label}
           color="yellow"
+          size="small"
           icon={link.icon}
           external={link.external}
         />

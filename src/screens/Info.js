@@ -8,17 +8,19 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import InfoCards from "../components/InfoCards";
 
 import { useReservation, useLabel, useInfo } from "../hooks/useAppData";
-import useAnimationMode from "../hooks/useAnimationMode"
+import useAnimationMode from "../hooks/useAnimationMode";
 
 export default function InfoScreen() {
-  const label = useLabel()
+  const label = useLabel();
 
-  const items = useInfo()
+  const items = useInfo();
 
-  const animationMode = useAnimationMode([{
-    fromKey: "*",
-    mode: "overlayFromRightAndBack"
-  }])
+  const animationMode = useAnimationMode([
+    {
+      fromKey: "*",
+      mode: "overlayFromRightAndBack",
+    },
+  ]);
 
   return (
     <AnimatedFrame scrollable mode={animationMode}>

@@ -28,7 +28,7 @@ export default function ServiceDetails() {
   if (serviceData?.addresses.length) {
     serviceData.links = serviceData.addresses.map((address) => {
       return {
-        to: address.text,
+        to: address.mapUrl,
         label: address.label || label("btnServiceGo"),
         external: true,
         icon: "https://giomiapp.terotero.it/img/original/app/map-icon.png",

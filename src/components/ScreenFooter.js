@@ -1,55 +1,53 @@
-import React, { useContext } from "react"
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { useLabel } from "../hooks/useAppData"
+import { useLabel } from "../hooks/useAppData";
 
-import { AppContext } from "../contexts/AppContext"
-
+import { AppContext } from "../contexts/AppContext";
 
 export default function ScreenFooter() {
-  const links = footerLinks()
+  const links = footerLinks();
 
-  const { setLazyRedirect } = useContext(AppContext)
+  const { setLazyRedirect } = useContext(AppContext);
 
   return (
     <Styled>
       {links.map(({ linkTo, iconClass, label }, index) => {
-        const linkClass = (location.pathname === linkTo) ? "is-active" : ""
-        const clickHandler = (location.pathname !== linkTo) ? () => handleClick(linkTo) : null
+        const linkClass = location.pathname === linkTo ? "is-active" : "";
+        const clickHandler =
+          location.pathname !== linkTo ? () => handleClick(linkTo) : null;
 
         return (
-          <a key={index}
-            className={linkClass}
-            onClick={clickHandler}
-          >
+          <a key={index} className={linkClass} onClick={clickHandler}>
             <span className="icon">
               <i className={iconClass} />
             </span>
             <span className="label">{label}</span>
           </a>
-        )
+        );
       })}
     </Styled>
-  )
+  );
 
   function handleClick(linkTo) {
     if (location.pathname === linkTo) {
       // siamo gia qui
-      return
+      return;
     }
 
     setLazyRedirect({
       from: location.pathname,
-      to: linkTo
-    })
+      to: linkTo,
+    });
 
-    window.history.back()
+    window.history.back();
   }
 }
 
-const Styled = styled.div `
-  display: flex;
+const Styled = styled.div`
+  // display: flex;
+  display: none;
   padding: 10px 0;
   background: #fff;
   margin-top: 1em;
@@ -77,30 +75,36 @@ const Styled = styled.div `
     font-size: 14px;
     color: #607464;
   }
-`
+`;
 
 function footerLinks() {
-  const label = useLabel()
+  const label = useLabel();
 
-  return [{
-      label: label("btnBottomNavigator"),
-      iconClass: "fas fa-location-arrow",
-      linkTo: "/map"
+  return [
+    {
+      label: label("btnBottomVideo"),
+      iconClass: "fas fa-door-open",
+      linkTo: "/video",
+    },
+    {
+      label: label("btnBottomHouse"),
+      iconClass: "fas fa-home",
+      linkTo: "/house",
     },
     {
       label: label("btnBottomInfo"),
       iconClass: "fas fa-info-circle",
-      linkTo: "/info"
+      linkTo: "/info",
     },
     {
       label: label("btnBottomServices"),
       iconClass: "fas fa-umbrella-beach",
-      linkTo: "/services"
+      linkTo: "/services",
     },
     {
       label: label("btnBottomChat"),
       iconClass: "fas fa-comment",
-      linkTo: "/chat"
-    }
-  ]
+      linkTo: "/chat",
+    },
+  ];
 }
