@@ -132,7 +132,7 @@ export function useLabel() {
   return (name) => {
     if (!data || !langId) return "";
 
-    return data[langId][name] || name;
+    return data[langId][name] || "";
   };
 }
 
@@ -149,7 +149,13 @@ export function useLabels() {
   return data || null;
 }
 
-export function useVideos() {
+export const videoSections = {
+  video: { id: 1 },
+  beach: { id: 2 },
+  pool: { id: 3 },
+};
+
+export function useVideos({ sectionId }) {
   const { setError } = useContext(AppContext);
   const { reservationToken: token } = useContext(ConfigContext);
 
@@ -158,11 +164,11 @@ export function useVideos() {
   const reservation = useReservation();
   const aptId = reservation ? reservation.apartment.id : null;
 
-  const queryKeys = ["playlist", aptId];
+  const queryKeys = ["playlist", aptId, sectionId];
 
   const fetchVideos = ({ queryKey }) => {
     const [name, aptId] = queryKey;
-    return fetchData(`videos/find`, setError, { token, langId });
+    return fetchData(`videos/find`, setError, { token, langId, sectionId });
   };
 
   const { data } = useQuery(

@@ -8,7 +8,7 @@ export default function ({ color, to, title, caption, icon }) {
       <Link to={to}>
         <span>
           <span className="title">{title}</span>
-          <span className="caption">{caption}</span>
+          {caption && <span className="caption">{caption}</span>}
         </span>
         <i className={icon + " icon"} />
       </Link>

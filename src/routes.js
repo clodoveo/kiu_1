@@ -51,6 +51,8 @@ const routes = [
 	{ key: "info", path: "/info", exact: true, component: Info },
 	{ key: "house", path: "/house", exact: true, component: House },
 	{ key: "video", path: "/video", exact: true, component: VideoPlaylist },
+	{ key: "beach", path: "/beach", exact: true, component: VideoPlaylist },
+	{ key: "pool", path: "/pool", exact: true, component: VideoPlaylist },
 	{ key: "services", path: "/services", exact: true, component: ServicesList },
 	{
 		key: "service-details",

@@ -11,6 +11,7 @@ import { ConfigContext } from "../contexts/ConfigContext";
 import {
   useLabel,
   useVideos,
+  videoSections,
   useInfo,
   useServices,
   useGuides,
@@ -31,9 +32,14 @@ export default function Menu() {
   ]);
 
   // preload data
-  useVideos();
   useInfo();
   useServices();
+
+  // preload video data
+  for (let name in videoSections) {
+    const sectionId = videoSections[name].id;
+    videoSections[name].list = useVideos({ sectionId });
+  }
 
   return (
     <AnimatedFrame scrollable mode={animationMode}>
@@ -46,13 +52,17 @@ export default function Menu() {
         icon={label("btnNavigatorIcon")}
         color="green"
       />
-      <MenuButton
-        to="video"
-        title={label("btnVideoTitle")}
-        caption={label("btnVideoCaption")}
-        icon={label("btnVideoIcon")}
-        color="dark-green"
-      />
+
+      {videoSections.video.list?.length && (
+        <MenuButton
+          to="video"
+          title={label("btnVideoTitle_video")}
+          caption={label("btnVideoCaption")}
+          icon={label("btnVideoIcon")}
+          color="dark-green"
+        />
+      )}
+
       <MenuButton
         to="house"
         title={label("btnHouseTitle")}
@@ -61,6 +71,26 @@ export default function Menu() {
         color="grey-green"
       />
 
+      {videoSections.beach.list?.length > 0 && (
+        <MenuButton
+          to="beach"
+          title={label("btnInfoBeachTitle")}
+          caption={label("btnInfoBeachCaption")}
+          icon={label("btnInfoBeachIcon")}
+          color="dark-green"
+        />
+      )}
+
+      {videoSections.pool.list?.length > 0 && (
+        <MenuButton
+          to="pool"
+          title={label("btnInfoPoolTitle")}
+          caption={label("btnInfoPoolCaption")}
+          icon={label("btnInfoPoolIcon")}
+          color="dark-green"
+        />
+      )}
+
       <MenuHeader>{label("then")}</MenuHeader>
 
       <MenuButton
@@ -68,7 +98,7 @@ export default function Menu() {
         title={label("btnInfoTitle")}
         caption={label("btnInfoCaption")}
         icon={label("btnInfoIcon")}
-        color="dark-green"
+        color="yellow"
       />
       <MenuButton
         to="services"

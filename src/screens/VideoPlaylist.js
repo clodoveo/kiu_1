@@ -1,4 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
+import { useLocation } from "react-router-dom";
 
 import AnimatedFrame from "../components/AnimatedFrame";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -12,6 +13,7 @@ import ToastMessage from "../components/ToastMessage";
 import {
   useLabel,
   useVideos,
+  videoSections,
   useReservation,
   useCurrentLanguage,
 } from "../hooks/useAppData";
@@ -27,7 +29,10 @@ export default function VideoPlaylist() {
 
   const reservation = useReservation();
 
-  const videoList = useVideos() || [];
+  const location = useLocation();
+  const sectionName = location.pathname.substring(1);
+  const sectionId = videoSections[sectionName].id;
+  const videoList = useVideos({ sectionId }) || [];
 
   const animationMode = useAnimationMode([
     { fromKey: "*", mode: "overlayFromRightAndBack" },
@@ -49,9 +54,11 @@ export default function VideoPlaylist() {
       .replaceAll("wifi_password", reservation.wifi.password);
   }
 
+  const headerLabelName = "btnVideoTitle_" + sectionName;
+
   return (
     <AnimatedFrame scrollable mode={animationMode}>
-      <ScreenHeader text={label("btnVideoTitle")} />
+      <ScreenHeader text={label(headerLabelName)} />
 
       <ToastMessage title={wifiToast.title} content={wifiToast.content} />
 
