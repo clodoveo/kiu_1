@@ -149,11 +149,43 @@ export function useLabels() {
   return data || null;
 }
 
-export const videoSections = {
+const videoSections = {
   video: { id: 1 },
   beach: { id: 2 },
   pool: { id: 3 },
 };
+
+export function useVideoSections() {
+  const { setError } = useContext(AppContext);
+
+  const langId = getLangId();
+
+  const queryKeys = ["videoSections", langId];
+
+  const fetchVideoSections = ({ queryKey }) => {
+    const [name, aptId] = queryKey;
+    return fetchData(`video_sections/find`, setError, { langId });
+  };
+
+  const { data } = useQuery(queryKeys, fetchVideoSections, queryOptions());
+
+  // preload video data
+  for (let name in videoSections) {
+    const sectionId = videoSections[name].id;
+    const videoList = useVideos({ sectionId });
+
+    if (!data) {
+      continue;
+    }
+
+    const section = data.find((item) => item.id == sectionId);
+    section.list = videoList;
+
+    videoSections[name] = section;
+  }
+
+  return videoSections;
+}
 
 export function useVideos({ sectionId }) {
   const { setError } = useContext(AppContext);

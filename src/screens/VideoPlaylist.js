@@ -13,7 +13,7 @@ import ToastMessage from "../components/ToastMessage";
 import {
   useLabel,
   useVideos,
-  videoSections,
+  useVideoSections,
   useReservation,
   useCurrentLanguage,
 } from "../hooks/useAppData";
@@ -31,6 +31,8 @@ export default function VideoPlaylist() {
 
   const location = useLocation();
   const sectionName = location.pathname.substring(1);
+
+  const videoSections = useVideoSections();
   const sectionId = videoSections[sectionName].id;
   const videoList = useVideos({ sectionId }) || [];
 

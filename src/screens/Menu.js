@@ -6,12 +6,13 @@ import AnimatedFrame from "../components/AnimatedFrame";
 import MenuButton from "../components/MenuButton";
 import MenuHeader from "../components/MenuHeader";
 import WizardCircleButton from "../components/WizardCircleButton";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 import { ConfigContext } from "../contexts/ConfigContext";
 import {
   useLabel,
   useVideos,
-  videoSections,
+  useVideoSections,
   useInfo,
   useServices,
   useGuides,
@@ -35,95 +36,102 @@ export default function Menu() {
   useInfo();
   useServices();
 
-  // preload video data
-  for (let name in videoSections) {
-    const sectionId = videoSections[name].id;
-    videoSections[name].list = useVideos({ sectionId });
-  }
+  const videoSections = useVideoSections();
 
   return (
     <AnimatedFrame scrollable mode={animationMode}>
       <MenuHeader>{label("firstOfAll")}</MenuHeader>
-
-      <MenuButton
-        to="map"
-        title={label("btnNavigatorTitle")}
-        caption={label("btnNavigatorCaption")}
-        icon={label("btnNavigatorIcon")}
-        color="green"
-      />
-
-      {videoSections.video.list?.length && (
-        <MenuButton
-          to="video"
-          title={label("btnVideoTitle_video")}
-          caption={label("btnVideoCaption")}
-          icon={label("btnVideoIcon")}
-          color="dark-green"
-        />
-      )}
-
-      <MenuButton
-        to="house"
-        title={label("btnHouseTitle")}
-        caption={label("btnHouseCaption")}
-        icon={label("btnHouseIcon")}
-        color="grey-green"
-      />
-
-      {videoSections.beach.list?.length > 0 && (
-        <MenuButton
-          to="beach"
-          title={label("btnInfoBeachTitle")}
-          caption={label("btnInfoBeachCaption")}
-          icon={label("btnInfoBeachIcon")}
-          color="dark-green"
-        />
-      )}
-
-      {videoSections.pool.list?.length > 0 && (
-        <MenuButton
-          to="pool"
-          title={label("btnInfoPoolTitle")}
-          caption={label("btnInfoPoolCaption")}
-          icon={label("btnInfoPoolIcon")}
-          color="dark-green"
-        />
-      )}
-
-      <MenuHeader>{label("then")}</MenuHeader>
-
-      <MenuButton
-        to="info"
-        title={label("btnInfoTitle")}
-        caption={label("btnInfoCaption")}
-        icon={label("btnInfoIcon")}
-        color="yellow"
-      />
-      <MenuButton
-        to="services"
-        title={label("btnServiceTitle")}
-        caption=""
-        icon={label("btnServiceIcon")}
-        color="yellow"
-      />
-
-      <ButtonWrapper>
-        <Link to="/">{label("restart")}</Link>
-
-        {guide && (
-          <div>
-            <WizardCircleButton
-              hasBorder={false}
-              image={guide.picture}
-              onClick={() => history.push("/chat")}
-              badge="https://giomiapp.terotero.it/img/original/app/chat-icon.png"
-            />
-          </div>
-        )}
-      </ButtonWrapper>
+      <MenuButtons />
     </AnimatedFrame>
   );
+
+  function MenuButtons() {
+    if (!videoSections) {
+      return <LoadingSpinner />;
+    }
+
+    return (
+      <>
+        <MenuButton
+          to="map"
+          title={label("btnNavigatorTitle")}
+          caption={label("btnNavigatorCaption")}
+          icon={label("btnNavigatorIcon")}
+          color="green"
+        />
+
+        {videoSections.video.title && (
+          <MenuButton
+            to="video"
+            title={videoSections.video.title}
+            caption={videoSections.video.caption}
+            icon={videoSections.video.iconClass}
+            color="dark-green"
+          />
+        )}
+
+        <MenuButton
+          to="house"
+          title={label("btnHouseTitle")}
+          caption={label("btnHouseCaption")}
+          icon={label("btnHouseIcon")}
+          color="grey-green"
+        />
+
+        {videoSections.beach.title && (
+          <MenuButton
+            to="beach"
+            title={videoSections.beach.title}
+            caption={videoSections.beach.caption}
+            icon={videoSections.beach.iconClass}
+            color="dark-green"
+          />
+        )}
+
+        {videoSections.pool.title && (
+          <MenuButton
+            to="pool"
+            title={videoSections.pool.title}
+            caption={videoSections.pool.caption}
+            icon={videoSections.pool.iconClass}
+            color="dark-green"
+          />
+        )}
+
+        <MenuHeader>{label("then")}</MenuHeader>
+
+        <MenuButton
+          to="info"
+          title={label("btnInfoTitle")}
+          caption={label("btnInfoCaption")}
+          icon={label("btnInfoIcon")}
+          color="yellow"
+        />
+        <MenuButton
+          to="services"
+          title={label("btnServiceTitle")}
+          caption=""
+          icon={label("btnServiceIcon")}
+          color="yellow"
+        />
+
+        <ButtonWrapper>
+          <Link to="/">{label("restart")}</Link>
+
+          {guide && (
+            <div>
+              <WizardCircleButton
+                hasBorder={false}
+                image={guide.picture}
+                onClick={() => history.push("/chat")}
+                badge="https://giomiapp.terotero.it/img/original/app/chat-icon.png"
+              />
+            </div>
+          )}
+        </ButtonWrapper>
+      </>
+    );
+  }
 }
 
 const ButtonWrapper = styled.div`
