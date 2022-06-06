@@ -22,7 +22,7 @@ export default function ({ text, backToTarget }) {
         <a href={label("contactUrlWhatsapp")} target="_blank">
           <i className="fab fa-whatsapp-square"></i>
         </a>
-        <a href={label("contactUrlPhones")}>
+        <a href={label("contactUrlPhone")}>
           <i className="fas fa-phone-square"></i>
         </a>
       </div>
