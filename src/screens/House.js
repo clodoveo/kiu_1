@@ -23,8 +23,6 @@ export default function InfoScreen() {
   const sectionName = location.pathname.substring(7);
   const section = useHouseSection(sectionName);
 
-  console.log(section);
-
   const items = useHouse({ sectionId: section.id });
 
   const animationMode = useAnimationMode([

@@ -197,7 +197,7 @@ export function useVideos({ sectionId }) {
   const reservation = useReservation();
   const aptId = reservation ? reservation.apartment.id : null;
 
-  const queryKeys = ["playlist", aptId, sectionId];
+  const queryKeys = ["playlist", aptId.langId, sectionId];
 
   const fetchVideos = ({ queryKey }) => {
     const [name, aptId] = queryKey;
@@ -222,7 +222,7 @@ export function useInfo() {
   const reservation = useReservation();
   const aptId = reservation ? reservation.apartment.id : null;
 
-  const queryKeys = ["info", aptId];
+  const queryKeys = ["info", aptId, langId];
 
   const fetchInfo = ({ queryKey }) => {
     const [name, aptId] = queryKey;
@@ -247,7 +247,7 @@ export function useHouse({ sectionId }) {
   const reservation = useReservation();
   const aptId = reservation ? reservation.apartment.id : null;
 
-  const queryKeys = ["house", aptId, sectionId];
+  const queryKeys = ["house", aptId, langId, sectionId];
 
   const fetchHouse = ({ queryKey }) => {
     const [name, aptId] = queryKey;
@@ -312,7 +312,7 @@ export function useServices(id) {
   const reservation = useReservation();
   const aptId = reservation ? reservation.apartment.id : null;
 
-  const queryKeys = ["services", aptId];
+  const queryKeys = ["services", aptId, langId];
 
   const fetchServices = ({ queryKey }) => {
     const [name, aptId] = queryKey;
