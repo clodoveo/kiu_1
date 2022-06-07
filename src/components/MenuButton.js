@@ -68,6 +68,7 @@ const Styled = styled.div`
     .icon {
       color: #fff;
       font-size: 48px;
+      margin-left: 0.2em;
     }
   }
 `;

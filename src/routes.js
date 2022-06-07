@@ -49,7 +49,7 @@ const routes = [
 	{ key: "chat", path: "/chat", exact: true, component: Chat },
 	{ key: "map", path: "/map", exact: true, component: Map },
 	{ key: "info", path: "/info", exact: true, component: Info },
-	{ key: "house", path: "/house", exact: true, component: House },
+	{ key: "house", path: "/house/:section", exact: true, component: House },
 	{ key: "video", path: "/video", exact: true, component: VideoPlaylist },
 	{ key: "beach", path: "/beach", exact: true, component: VideoPlaylist },
 	{ key: "pool", path: "/pool", exact: true, component: VideoPlaylist },

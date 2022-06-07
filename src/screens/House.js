@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 import AnimatedFrame from "../components/AnimatedFrame";
 import ScreenHeader from "../components/ScreenHeader";
@@ -7,13 +8,24 @@ import ScreenFooter from "../components/ScreenFooter";
 import LoadingSpinner from "../components/LoadingSpinner";
 import InfoCards from "../components/InfoCards";
 
-import { useReservation, useLabel, useHouse } from "../hooks/useAppData";
+import {
+  useReservation,
+  useLabel,
+  useHouseSection,
+  useHouse,
+} from "../hooks/useAppData";
 import useAnimationMode from "../hooks/useAnimationMode";
 
 export default function InfoScreen() {
   const label = useLabel();
 
-  const items = useHouse();
+  const location = useLocation();
+  const sectionName = location.pathname.substring(7);
+  const section = useHouseSection(sectionName);
+
+  console.log(section);
+
+  const items = useHouse({ sectionId: section.id });
 
   const animationMode = useAnimationMode([
     {
@@ -25,7 +37,7 @@ export default function InfoScreen() {
   return (
     <AnimatedFrame scrollable mode={animationMode}>
       <div>
-        <ScreenHeader text={label("houseTitle")} />
+        <ScreenHeader text={section.title} />
 
         <InfoCards items={items} />
 

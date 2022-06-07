@@ -12,8 +12,9 @@ import { ConfigContext } from "../contexts/ConfigContext";
 import {
   useLabel,
   useVideos,
-  useVideoSections,
+  useVideoSection,
   useInfo,
+  useHouseSection,
   useServices,
   useGuides,
 } from "../hooks/useAppData";
@@ -36,102 +37,129 @@ export default function Menu() {
   useInfo();
   useServices();
 
-  const videoSections = useVideoSections();
+  const videoSection = useVideoSection("video");
+  const beachSection = useVideoSection("beach");
+  const poolSection = useVideoSection("pool");
+
+  const infoSection = useHouseSection("info");
+  const servicesSection = useHouseSection("services");
+  const equipmentSection = useHouseSection("equipment");
+
+  if (
+    !videoSection.list ||
+    !beachSection.list ||
+    !poolSection.list ||
+    !infoSection.list ||
+    !servicesSection.list ||
+    !equipmentSection.list
+  ) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <AnimatedFrame scrollable mode={animationMode}>
       <MenuHeader>{label("firstOfAll")}</MenuHeader>
-      <MenuButtons />
-    </AnimatedFrame>
-  );
+      <MenuButton
+        to="map"
+        title={label("btnNavigatorTitle")}
+        caption={label("btnNavigatorCaption")}
+        icon={label("btnNavigatorIcon")}
+        color="green"
+      />
 
-  function MenuButtons() {
-    if (!videoSections) {
-      return <LoadingSpinner />;
-    }
-
-    return (
-      <>
+      {videoSection.list.length && (
         <MenuButton
-          to="map"
-          title={label("btnNavigatorTitle")}
-          caption={label("btnNavigatorCaption")}
-          icon={label("btnNavigatorIcon")}
-          color="green"
+          to="video"
+          title={videoSection.title}
+          caption={videoSection.caption}
+          icon={videoSection.iconClass}
+          color="dark-green"
         />
+      )}
 
-        {videoSections.video.title && (
-          <MenuButton
-            to="video"
-            title={videoSections.video.title}
-            caption={videoSections.video.caption}
-            icon={videoSections.video.iconClass}
-            color="dark-green"
-          />
-        )}
-
+      {infoSection.list.length && (
         <MenuButton
-          to="house"
-          title={label("btnHouseTitle")}
-          caption={label("btnHouseCaption")}
-          icon={label("btnHouseIcon")}
+          to={infoSection.path}
+          title={infoSection.title}
+          caption={infoSection.caption}
+          icon={infoSection.iconClass}
           color="grey-green"
         />
+      )}
 
-        {videoSections.beach.title && (
-          <MenuButton
-            to="beach"
-            title={videoSections.beach.title}
-            caption={videoSections.beach.caption}
-            icon={videoSections.beach.iconClass}
-            color="dark-green"
-          />
-        )}
-
-        {videoSections.pool.title && (
-          <MenuButton
-            to="pool"
-            title={videoSections.pool.title}
-            caption={videoSections.pool.caption}
-            icon={videoSections.pool.iconClass}
-            color="dark-green"
-          />
-        )}
-
-        <MenuHeader>{label("then")}</MenuHeader>
-
+      {servicesSection.list.length && (
         <MenuButton
-          to="info"
-          title={label("btnInfoTitle")}
-          caption={label("btnInfoCaption")}
-          icon={label("btnInfoIcon")}
-          color="yellow"
+          to={servicesSection.path}
+          title={servicesSection.title}
+          caption={servicesSection.caption}
+          icon={servicesSection.iconClass}
+          color="grey-green"
         />
+      )}
+
+      {equipmentSection.list.length && (
         <MenuButton
-          to="services"
-          title={label("btnServiceTitle")}
-          caption=""
-          icon={label("btnServiceIcon")}
-          color="yellow"
+          to={equipmentSection.path}
+          title={equipmentSection.title}
+          caption={equipmentSection.caption}
+          icon={equipmentSection.iconClass}
+          color="grey-green"
         />
+      )}
 
-        <ButtonWrapper>
-          <Link to="/">{label("restart")}</Link>
+      {beachSection.list.length && (
+        <MenuButton
+          to="beach"
+          title={beachSection.title}
+          caption={beachSection.caption}
+          icon={beachSection.iconClass}
+          color="dark-green"
+        />
+      )}
 
-          {guide && (
-            <div>
-              <WizardCircleButton
-                hasBorder={false}
-                image={guide.picture}
-                onClick={() => history.push("/chat")}
-                badge="https://giomiapp.terotero.it/img/original/app/chat-icon.png"
-              />
-            </div>
-          )}
-        </ButtonWrapper>
-      </>
-    );
-  }
+      {poolSection.list.length && (
+        <MenuButton
+          to="pool"
+          title={poolSection.title}
+          caption={poolSection.caption}
+          icon={poolSection.iconClass}
+          color="dark-green"
+        />
+      )}
+
+      <MenuHeader>{label("then")}</MenuHeader>
+
+      <MenuButton
+        to="info"
+        title={label("btnInfoTitle")}
+        caption={label("btnInfoCaption")}
+        icon={label("btnInfoIcon")}
+        color="yellow"
+      />
+      <MenuButton
+        to="services"
+        title={label("btnServiceTitle")}
+        caption=""
+        icon={label("btnServiceIcon")}
+        color="yellow"
+      />
+
+      <ButtonWrapper>
+        <Link to="/">{label("restart")}</Link>
+
+        {guide && (
+          <div>
+            <WizardCircleButton
+              hasBorder={false}
+              image={guide.picture}
+              onClick={() => history.push("/chat")}
+              badge="https://giomiapp.terotero.it/img/original/app/chat-icon.png"
+            />
+          </div>
+        )}
+      </ButtonWrapper>
+    </AnimatedFrame>
+  );
 }
 
 const ButtonWrapper = styled.div`

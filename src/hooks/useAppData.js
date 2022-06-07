@@ -169,22 +169,23 @@ export function useVideoSections() {
 
   const { data } = useQuery(queryKeys, fetchVideoSections, queryOptions());
 
-  // preload video data
   for (let name in videoSections) {
-    const sectionId = videoSections[name].id;
-    const videoList = useVideos({ sectionId });
-
-    if (!data) {
-      continue;
+    if (data) {
+      const sectionId = videoSections[name].id;
+      const section = data.find((item) => item.id == sectionId);
+      videoSections[name] = section;
     }
-
-    const section = data.find((item) => item.id == sectionId);
-    section.list = videoList;
-
-    videoSections[name] = section;
   }
 
   return videoSections;
+}
+
+export function useVideoSection(name) {
+  const videoSections = useVideoSections();
+  const section = videoSections[name];
+
+  section.list = useVideos({ sectionId: section.id });
+  return section;
 }
 
 export function useVideos({ sectionId }) {
@@ -237,7 +238,7 @@ export function useInfo() {
   return data;
 }
 
-export function useHouse() {
+export function useHouse({ sectionId }) {
   const langId = getLangId();
 
   const { setError } = useContext(AppContext);
@@ -246,11 +247,11 @@ export function useHouse() {
   const reservation = useReservation();
   const aptId = reservation ? reservation.apartment.id : null;
 
-  const queryKeys = ["house", aptId];
+  const queryKeys = ["house", aptId, sectionId];
 
   const fetchHouse = ({ queryKey }) => {
     const [name, aptId] = queryKey;
-    return fetchData(`alloggio/by_token`, setError, { langId, token });
+    return fetchData(`house/by_token`, setError, { langId, token, sectionId });
   };
 
   const { data } = useQuery(
@@ -260,6 +261,46 @@ export function useHouse() {
   );
 
   return data;
+}
+
+const houseSections = {
+  info: { id: 1, path: "house/info" },
+  services: { id: 2, path: "house/services" },
+  equipment: { id: 3, path: "house/equipment" },
+};
+
+export function useHouseSections() {
+  const { setError } = useContext(AppContext);
+
+  const langId = getLangId();
+
+  const queryKeys = ["houseSections", langId];
+
+  const fetchVideoSections = ({ queryKey }) => {
+    const [name, aptId] = queryKey;
+    return fetchData(`house_sections/find`, setError, { langId });
+  };
+
+  const { data } = useQuery(queryKeys, fetchVideoSections, queryOptions());
+
+  for (let name in houseSections) {
+    if (data) {
+      const sectionId = houseSections[name].id;
+      const section = data.find((item) => item.id == sectionId);
+      section.path = houseSections[name].path;
+      houseSections[name] = section;
+    }
+  }
+
+  return houseSections;
+}
+
+export function useHouseSection(name) {
+  const houseSections = useHouseSections();
+  const section = houseSections[name];
+
+  section.list = useHouse({ sectionId: section.id });
+  return section;
 }
 
 export function useServices(id) {

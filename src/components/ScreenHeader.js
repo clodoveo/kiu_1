@@ -15,7 +15,7 @@ export default function ({ text, backToTarget }) {
     <ScreenHeader>
       <span className="title">
         <BackButton backTo={backToTarget} />
-        {text}
+        <span className="text">{text}</span>
       </span>
 
       <div className="contacts">
@@ -39,6 +39,11 @@ const ScreenHeader = styled.div`
 
   & .title {
     font-size: 27px;
+
+    .text {
+      display: inline-block;
+      padding: 0 1.5em;
+    }
   }
 
   & .back {

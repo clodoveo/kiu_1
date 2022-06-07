@@ -13,7 +13,7 @@ import ToastMessage from "../components/ToastMessage";
 import {
   useLabel,
   useVideos,
-  useVideoSections,
+  useVideoSection,
   useReservation,
   useCurrentLanguage,
 } from "../hooks/useAppData";
@@ -31,10 +31,7 @@ export default function VideoPlaylist() {
 
   const location = useLocation();
   const sectionName = location.pathname.substring(1);
-
-  const videoSections = useVideoSections();
-  const sectionId = videoSections[sectionName].id;
-  const videoList = useVideos({ sectionId }) || [];
+  const section = useVideoSection(sectionName);
 
   const animationMode = useAnimationMode([
     { fromKey: "*", mode: "overlayFromRightAndBack" },
@@ -56,15 +53,13 @@ export default function VideoPlaylist() {
       .replaceAll("wifi_password", reservation.wifi.password);
   }
 
-  const headerLabelName = "btnVideoTitle_" + sectionName;
-
   return (
     <AnimatedFrame scrollable mode={animationMode}>
-      <ScreenHeader text={label(headerLabelName)} />
+      <ScreenHeader text={section.title} />
 
       <ToastMessage title={wifiToast.title} content={wifiToast.content} />
 
-      <InfoCards items={videoList} coverComponent={Item} noGuts />
+      <InfoCards items={section.list} coverComponent={Item} noGuts />
 
       <ScreenFooter />
     </AnimatedFrame>
