@@ -197,7 +197,7 @@ export function useVideos({ sectionId }) {
   const reservation = useReservation();
   const aptId = reservation ? reservation.apartment.id : null;
 
-  const queryKeys = ["playlist", aptId.langId, sectionId];
+  const queryKeys = ["playlist", aptId, langId, sectionId];
 
   const fetchVideos = ({ queryKey }) => {
     const [name, aptId] = queryKey;
