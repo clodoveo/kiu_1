@@ -67,7 +67,7 @@ export default function Menu() {
         color="green"
       />
 
-      {videoSection.list.length && (
+      {videoSection.list.length > 0 && (
         <MenuButton
           to="video"
           title={videoSection.title}
@@ -77,7 +77,7 @@ export default function Menu() {
         />
       )}
 
-      {infoSection.list.length && (
+      {infoSection.list.length > 0 && (
         <MenuButton
           to={infoSection.path}
           title={infoSection.title}
@@ -87,7 +87,7 @@ export default function Menu() {
         />
       )}
 
-      {servicesSection.list.length && (
+      {servicesSection.list.length > 0 && (
         <MenuButton
           to={servicesSection.path}
           title={servicesSection.title}
@@ -97,7 +97,7 @@ export default function Menu() {
         />
       )}
 
-      {equipmentSection.list.length && (
+      {equipmentSection.list.length > 0 && (
         <MenuButton
           to={equipmentSection.path}
           title={equipmentSection.title}
@@ -107,7 +107,7 @@ export default function Menu() {
         />
       )}
 
-      {beachSection.list.length && (
+      {beachSection.list.length > 0 && (
         <MenuButton
           to="beach"
           title={beachSection.title}
@@ -117,7 +117,7 @@ export default function Menu() {
         />
       )}
 
-      {poolSection.list.length && (
+      {poolSection.list.length > 0 && (
         <MenuButton
           to="pool"
           title={poolSection.title}
