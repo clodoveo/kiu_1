@@ -107,22 +107,22 @@ export default function Menu() {
         />
       )}
 
-      {beachSection.list.length > 0 && (
-        <MenuButton
-          to="beach"
-          title={beachSection.title}
-          caption={beachSection.caption}
-          icon={beachSection.iconClass}
-          color="dark-green"
-        />
-      )}
-
       {poolSection.list.length > 0 && (
         <MenuButton
           to="pool"
           title={poolSection.title}
           caption={poolSection.caption}
           icon={poolSection.iconClass}
+          color="dark-green"
+        />
+      )}
+
+      {beachSection.list.length > 0 && (
+        <MenuButton
+          to="beach"
+          title={beachSection.title}
+          caption={beachSection.caption}
+          icon={beachSection.iconClass}
           color="dark-green"
         />
       )}
