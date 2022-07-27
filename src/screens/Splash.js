@@ -10,19 +10,19 @@ import WizardWrapper from "../components/WizardWrapper";
 import { ConfigContext } from "../contexts/ConfigContext";
 import { useReservation } from "../hooks/useAppData";
 
-import useAnimationMode from "../hooks/useAnimationMode"
+import useAnimationMode from "../hooks/useAnimationMode";
 
 export default function Splash() {
   const btnStyle = {
     position: "absolute",
-    bottom: "15%",
+    bottom: "30%",
     width: "100%",
-    textAlign: "center"
+    textAlign: "center",
   };
 
   const animationMode = useAnimationMode([
-    { fromKey: "language", mode: "slideFromTop" }
-  ])
+    { fromKey: "language", mode: "slideFromTop" },
+  ]);
 
   return (
     <AnimatedFrame mode={animationMode}>
@@ -36,17 +36,11 @@ export default function Splash() {
 }
 
 function SplashBody() {
-  const reservation = useReservation()
+  const reservation = useReservation();
 
   if (!reservation) {
-    return <LoadingSpinner className="is-white" />
+    return <LoadingSpinner className="is-white" />;
   }
 
-  return (
-    <WizardButton
-      to="/language"
-      text="Start"
-      color="yellow"
-    />
-  )
+  return <WizardButton to="/language" text="Start" color="yellow" />;
 }

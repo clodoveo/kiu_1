@@ -1,41 +1,46 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-export default function({ divider, lastScreen, height, children }) {
+export default function ({ divider, lastScreen, height, children }) {
   // default
   const style = {
-    flexDirection: "row"
-  }
+    flexDirection: "row",
+  };
 
   if (divider) {
-    style.backgroundImage = "url(https://giomiapp.terotero.it/img/original/app/Line.png)"
-    style.backgroundPosition = "center"
-    style.backgroundRepeat = "no-repeat"
+    style.backgroundImage =
+      "url(https://giomiapp.terotero.it/img/original/app/Line.png)";
+    style.backgroundPosition = "center";
+    style.backgroundRepeat = "no-repeat";
   }
 
   if (lastScreen) {
-    style.flexDirection = "column"
+    style.flexDirection = "column";
+    style.justifyContent = "flex-start";
   }
 
   return (
-    <WizardBottom style={style}>
+    <WizardBottom className={lastScreen ? "last" : ""} style={style}>
       {children}
     </WizardBottom>
-  )
+  );
 }
 
-const WizardBottom = styled.div `
+const WizardBottom = styled.div`
   position: absolute;
-  bottom:0;
+  bottom: 0;
 
-  background-color:#fff;
-  width:100%;
+  background-color: #fff;
+  width: 100%;
   border-radius: 35px 35px 0 0;
-  display:flex;
+  display: flex;
   justify-content: space-around;
   align-items: center;
 
   font-size: 1vh;
-  height: 48em;
-  max-height: 360px;
-`
+  height: 50%;
+
+  &.last > div {
+    margin-top: 1.5rem;
+  }
+`;

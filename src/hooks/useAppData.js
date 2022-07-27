@@ -31,6 +31,20 @@ export function useReservation() {
   return response.data || null;
 }
 
+export function useChatUrl() {
+  const label = useLabel();
+  const reservation = useReservation();
+
+  return [
+    label("contactUrlWhatsapp"),
+    "?text=",
+    reservation.userAccount.name.first,
+    "+(",
+    reservation.apartment.name,
+    ")",
+  ].join("");
+}
+
 export function useUserAccount() {
   const reservation = useReservation();
 

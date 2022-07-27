@@ -4,12 +4,14 @@ import styled from "styled-components";
 
 import { ConfigContext } from "../contexts/ConfigContext";
 
-import { useLabel } from "../hooks/useAppData";
+import { useLabel, useChatUrl } from "../hooks/useAppData";
 
 export default function ({ text, backToTarget }) {
   backToTarget = backToTarget || "/menu";
 
   const label = useLabel();
+
+  const chatUrl = useChatUrl();
 
   return (
     <ScreenHeader>
@@ -19,7 +21,7 @@ export default function ({ text, backToTarget }) {
       </span>
 
       <div className="contacts">
-        <a href={label("contactUrlWhatsapp")} target="_blank">
+        <a href={chatUrl} target="_blank">
           <i className="fab fa-whatsapp-square"></i>
         </a>
         <a href={label("contactUrlPhone")}>
