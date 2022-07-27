@@ -44,6 +44,8 @@ export default function Menu() {
   const infoSection = useHouseSection("info");
   const servicesSection = useHouseSection("services");
   const equipmentSection = useHouseSection("equipment");
+  const poolRulesSection = useHouseSection("poolRules");
+  const beachRulesSection = useHouseSection("beachRules");
 
   if (
     !videoSection.list ||
@@ -51,7 +53,9 @@ export default function Menu() {
     !poolSection.list ||
     !infoSection.list ||
     !servicesSection.list ||
-    !equipmentSection.list
+    !equipmentSection.list ||
+    !poolRulesSection.list ||
+    !beachRulesSection.list
   ) {
     return <LoadingSpinner />;
   }
@@ -117,6 +121,16 @@ export default function Menu() {
         />
       )}
 
+      {poolRulesSection.list.length > 0 && (
+        <MenuButton
+          to={poolRulesSection.path}
+          title={poolRulesSection.title}
+          caption={poolRulesSection.caption}
+          icon={poolRulesSection.iconClass}
+          color="grey-green"
+        />
+      )}
+
       {beachSection.list.length > 0 && (
         <MenuButton
           to="beach"
@@ -124,6 +138,16 @@ export default function Menu() {
           caption={beachSection.caption}
           icon={beachSection.iconClass}
           color="dark-green"
+        />
+      )}
+
+      {beachRulesSection.list.length > 0 && (
+        <MenuButton
+          to={beachRulesSection.path}
+          title={beachRulesSection.title}
+          caption={beachRulesSection.caption}
+          icon={beachRulesSection.iconClass}
+          color="grey-green"
         />
       )}
 

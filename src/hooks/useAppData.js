@@ -267,6 +267,8 @@ const houseSections = {
   info: { id: 1, path: "house/info" },
   services: { id: 2, path: "house/services" },
   equipment: { id: 3, path: "house/equipment" },
+  poolRules: { id: 4, path: "house/poolRules" },
+  beachRules: { id: 5, path: "house/beachRules" },
 };
 
 export function useHouseSections() {
