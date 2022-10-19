@@ -57,6 +57,7 @@ export default function App() {
   };
 
   // ricorda la route precedente per gestire le animazioni
+
   const [prevLocation, setPrevLocation] = useState(null);
 
   // variabile per getire redirect in differita (menu ScreenFooter)
