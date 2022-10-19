@@ -39,7 +39,9 @@ export default function App() {
   useState(() => {
     // token temporaneo per ID appartamento = 61
     // const tempToken = "f4b226aa068039e8d045a8100d03b4989d63ffd1"
-    const receivedToken = getQueryValue("token");
+
+    const receivedToken = "test";
+    //const receivedToken = getQueryValue("token");
 
     if (receivedToken) {
       setReservationToken(receivedToken);
