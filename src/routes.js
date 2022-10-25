@@ -12,6 +12,7 @@ import House from "./screens/House";
 import ServicesList from "./screens/ServicesList";
 import ServiceDetails from "./screens/ServiceDetails";
 import VideoPlaylist from "./screens/VideoPlaylist";
+import Scanner from "./screens/Scanner";
 
 function NotFound() {
 	return <Redirect to="/" />;
@@ -21,6 +22,14 @@ function NotFound() {
 // se route.skipGuide: true il valore di guide non è richiesto
 
 const routes = [
+	{
+		key: "scanner",
+		path: "/scanner",
+		exact: true,
+		component: Scanner,
+		skipLanguage: true,
+		skipGuide: true,
+	},
 	{
 		key: "splash",
 		path: "/",

@@ -8,7 +8,7 @@ export default function (props) {
   return (
     <WizardButton className={[color, size].join(" ")}>
       {external ? (
-        <a href={to} target="_blank">
+        <a href={to} target={props.target || "_blank"}>
           {icon && <img className="btn-icon" src={icon} />} {text}
         </a>
       ) : (

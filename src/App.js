@@ -14,6 +14,7 @@ import { AppContext } from "./contexts/AppContext";
 
 import WizardWrapper from "./components/WizardWrapper";
 import WizardBottom from "./components/WizardBottom";
+import WizardButton from "./components/WizardButton";
 import DisplayError from "./components/DisplayError";
 
 import { useLabels, useGuides, useReservation } from "./hooks/useAppData";
@@ -104,11 +105,32 @@ const StyledApp = styled(({ className }) => {
   // get some data
   useLabels();
   useGuides();
-  useReservation();
+
+  const reservation = useReservation();
 
   const { error } = useContext(AppContext);
 
   if (error) {
+    const isMobileApp = (window.Capacitor !== undefined);
+
+    switch(error.code) {
+      case "token is required":
+        if (isMobileApp) {
+          if (location.pathname !== "/scanner") {
+            return <div className={className}><ScanQr/></div>
+          }
+        } else {
+          // webapp
+          return <div className={className}><TokenRequired/></div>
+        }
+        break;
+
+      case "404":
+        deleteToken()
+        error.description = "Invalid or expired token"
+        break;
+    }
+
     return (
       <div className={className}>
         <WizardWrapper logoTop="36%">
@@ -116,6 +138,21 @@ const StyledApp = styled(({ className }) => {
         </WizardWrapper>
       </div>
     );
+  }
+
+  // CHECK TOKEN EXPIRED
+  if (reservation) {
+    const departure = new Date(reservation.dates.departure.full),
+      now = new Date()
+
+    // add one  day of tolerance
+    departure.setDate(departure.getDate() + 1)
+
+    if (now > departure) {
+      // reservation expired, delete token and redirect
+      deleteToken()
+      location = "/"
+    }
   }
 
   return (
@@ -138,3 +175,43 @@ const StyledApp = styled(({ className }) => {
     max-width: 70vh;
   }
 `;
+
+function ScanQr() {
+  const btnStyle = {
+    position: "absolute",
+    bottom: "30%",
+    width: "100%",
+    textAlign: "center",
+  };
+
+  return (
+    <WizardWrapper logoTop="36%" logoPayoff>
+      <div style={btnStyle}>
+        <WizardButton to="/scanner" text="Scan QR" color="yellow" external="1" target="_self" />
+      </div>
+    </WizardWrapper>
+  )
+}
+
+function TokenRequired() {
+  const btnStyle = {
+    position: "absolute",
+    bottom: "30%",
+    width: "100%",
+    textAlign: "center",
+    color: "#fff",
+    fontWeight: "bold"
+  };
+
+  return (
+    <WizardWrapper logoTop="36%" logoPayoff>
+      <div style={btnStyle}>
+        Access denied
+      </div>
+    </WizardWrapper>
+  )
+}
+
+function deleteToken() {
+  localStorage.removeItem("reservationToken")
+}
