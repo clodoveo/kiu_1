@@ -23,18 +23,18 @@ function NotFound() {
 
 const routes = [
   {
-    key: "splash",
-    path: "/",
-    exact: true,
-    component: Splash,
-    skipLanguage: true,
-    skipGuide: true,
-  },
-  {
     key: "scanner",
     path: "/scanner",
     exact: true,
     component: Scanner,
+    skipLanguage: true,
+    skipGuide: true,
+  },
+  {
+    key: "splash",
+    path: "/",
+    exact: true,
+    component: Splash,
     skipLanguage: true,
     skipGuide: true,
   },
