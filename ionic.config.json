@@ -1,0 +1,7 @@
+{
+  "name": "kiu_app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

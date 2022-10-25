@@ -1,15 +1,28 @@
 import styled from "styled-components";
 
+import WizardButton from "./WizardButton";
+import { Link, Redirect } from "react-router-dom";
+
 export default function DisplayError({ code, description }) {
+  // const startScan = async () => {
+  //   // Check camera permission
+  //   // This is just a simple example, check out the better checks below
+  //   await BarcodeScanner.checkPermission({ force: true });
+
+  //   // make background of WebView transparent
+  //   // note: if you are using ionic this might not be enough, check below
+  //   BarcodeScanner.hideBackground();
+
+  //   const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
+
+  //   // if the result has content
+  //   if (result.hasContent) {
+  //     console.log(result.content); // log the raw scanned content
+  //   }
+  // };
   return (
     <StyledDisplayError>
-      Error: <strong>{code}</strong>
-      {description && <p>{description}</p>}
-      {/*code === "token is required" && (
-        <p>
-          <a href="/?token=test">reload</a>
-        </p>
-      )*/}
+      <Link to="/scanner">SCAN QR</Link>
     </StyledDisplayError>
   );
 }

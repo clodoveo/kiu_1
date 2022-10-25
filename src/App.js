@@ -15,10 +15,12 @@ import { AppContext } from "./contexts/AppContext";
 import WizardWrapper from "./components/WizardWrapper";
 import WizardBottom from "./components/WizardBottom";
 import DisplayError from "./components/DisplayError";
-
+import WizardButton from "./components/WizardButton";
 import { useLabels, useGuides, useReservation } from "./hooks/useAppData";
 
 import ScreensRouter from "./ScreensRouter";
+
+import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -26,6 +28,7 @@ const queryClient = new QueryClient();
 const defaultGuide = { id: null, name: "", picture: "" };
 
 export default function App() {
+  console.log(Capacitor);
   // id lingua
   const [langId, setLangId] = useLocalStorage("langId", null);
 
@@ -40,8 +43,8 @@ export default function App() {
     // token temporaneo per ID appartamento = 61
     // const tempToken = "f4b226aa068039e8d045a8100d03b4989d63ffd1"
 
-    const receivedToken = "test";
-    //const receivedToken = getQueryValue("token");
+    //const receivedToken = "test";
+    const receivedToken = getQueryValue("token");
 
     if (receivedToken) {
       setReservationToken(receivedToken);
@@ -112,19 +115,30 @@ const StyledApp = styled(({ className }) => {
   const { error } = useContext(AppContext);
 
   if (error) {
-    return (
-      <div className={className}>
-        <WizardWrapper logoTop="36%">
-          <DisplayError {...error} />
-        </WizardWrapper>
-      </div>
-    );
+    // token error
+    if (error.code === "token is required") {
+      if (location.pathname !== "/scanner") {
+        return (
+          <div className={className}>
+            <ScanQr />
+          </div>
+        );
+      }
+    } else {
+      // any error
+      return (
+        <div className={className}>
+          <WizardWrapper logoTop="36%">
+            <DisplayError {...error} />
+          </WizardWrapper>
+        </div>
+      );
+    }
   }
 
   return (
     <div className={className}>
       <AddToHomeScreen />
-
       <Router>
         <ScreensRouter />
       </Router>
@@ -141,3 +155,26 @@ const StyledApp = styled(({ className }) => {
     max-width: 70vh;
   }
 `;
+
+function ScanQr() {
+  const btnStyle = {
+    position: "absolute",
+    bottom: "30%",
+    width: "100%",
+    textAlign: "center",
+  };
+
+  return (
+    <WizardWrapper logoTop="36%" logoPayoff>
+      <div style={btnStyle}>
+        <WizardButton
+          to="/scanner"
+          text="Scan QR"
+          color="yellow"
+          external="1"
+          target="_self"
+        />
+      </div>
+    </WizardWrapper>
+  );
+}

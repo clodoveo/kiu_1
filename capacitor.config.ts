@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.terotero.kiu_native',
-  appName: 'kiu_native',
+  appId: 'io.ionic.starter',
+  appName: 'kiu_app',
   webDir: 'build',
   bundledWebRuntime: false
 };
