@@ -17,7 +17,12 @@ import WizardBottom from "./components/WizardBottom";
 import WizardButton from "./components/WizardButton";
 import DisplayError from "./components/DisplayError";
 
-import { useLabels, useGuides, useReservation } from "./hooks/useAppData";
+import {
+  useLabels,
+  useGuides,
+  useReservation,
+  deleteToken,
+} from "./hooks/useAppData";
 
 import ScreensRouter from "./ScreensRouter";
 
@@ -110,24 +115,31 @@ const StyledApp = styled(({ className }) => {
 
   const { error } = useContext(AppContext);
 
-  if (error) {
-    const isMobileApp = (window.Capacitor !== undefined);
+  if (error && location.pathname !== "/scanner") {
+    // const isMobileApp = window.Capacitor !== undefined;
+    const isMobileApp = 1;
 
-    switch(error.code) {
+    switch (error.code) {
       case "token is required":
         if (isMobileApp) {
-          if (location.pathname !== "/scanner") {
-            return <div className={className}><ScanQr/></div>
-          }
+          return (
+            <div className={className}>
+              <ScanQr />
+            </div>
+          );
         } else {
-          // webapp
-          return <div className={className}><TokenRequired/></div>
+          // web app
+          return (
+            <div className={className}>
+              <TokenRequired />
+            </div>
+          );
         }
         break;
 
       case "404":
-        deleteToken()
-        error.description = "Invalid or expired token"
+        deleteToken();
+        error.description = "Invalid or expired token";
         break;
     }
 
@@ -143,15 +155,15 @@ const StyledApp = styled(({ className }) => {
   // CHECK TOKEN EXPIRED
   if (reservation) {
     const departure = new Date(reservation.dates.departure.full),
-      now = new Date()
+      now = new Date();
 
     // add one  day of tolerance
-    departure.setDate(departure.getDate() + 1)
+    departure.setDate(departure.getDate() + 1);
 
     if (now > departure) {
       // reservation expired, delete token and redirect
-      deleteToken()
-      location = "/"
+      deleteToken();
+      location = "/";
     }
   }
 
@@ -187,10 +199,16 @@ function ScanQr() {
   return (
     <WizardWrapper logoTop="36%" logoPayoff>
       <div style={btnStyle}>
-        <WizardButton to="/scanner" text="Scan QR" color="yellow" external="1" target="_self" />
+        <WizardButton
+          to="/scanner"
+          text="Scan QR"
+          color="yellow"
+          external="1"
+          target="_self"
+        />
       </div>
     </WizardWrapper>
-  )
+  );
 }
 
 function TokenRequired() {
@@ -200,18 +218,14 @@ function TokenRequired() {
     width: "100%",
     textAlign: "center",
     color: "#fff",
-    fontWeight: "bold"
+    fontWeight: "bold",
   };
+
+  const errorCode = "Access denied";
 
   return (
     <WizardWrapper logoTop="36%" logoPayoff>
-      <div style={btnStyle}>
-        Access denied
-      </div>
+      <DisplayError code={errorCode} />
     </WizardWrapper>
-  )
-}
-
-function deleteToken() {
-  localStorage.removeItem("reservationToken")
+  );
 }
