@@ -116,8 +116,7 @@ const StyledApp = styled(({ className }) => {
   const { error } = useContext(AppContext);
 
   if (error && location.pathname !== "/scanner") {
-    // const isMobileApp = window.Capacitor !== undefined;
-    const isMobileApp = 1;
+    const isMobileApp = window.Capacitor !== undefined;
 
     switch (error.code) {
       case "token is required":
