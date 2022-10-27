@@ -8,7 +8,7 @@ import WizardButton from "../components/WizardButton";
 import WizardWrapper from "../components/WizardWrapper";
 
 import { ConfigContext } from "../contexts/ConfigContext";
-import { useReservation } from "../hooks/useAppData";
+import { useReservation, useLabel, deleteToken } from "../hooks/useAppData";
 
 import useAnimationMode from "../hooks/useAnimationMode";
 
@@ -42,5 +42,34 @@ function SplashBody() {
     return <LoadingSpinner className="is-white" />;
   }
 
-  return <WizardButton to="/language" text="Start" color="yellow" />;
+  return (
+    <>
+      <WizardButton to="/language" text="Start" color="yellow" />
+
+      <Logout />
+    </>
+  );
+}
+
+function Logout() {
+  const style = {
+    color: "#fff8",
+    position: "fixed",
+    left: "2em",
+    bottom: "2em",
+    background: "none",
+    border: "none",
+  };
+
+  return (
+    <button style={style} onClick={handleClick}>
+      Logout / Esci
+    </button>
+  );
+}
+
+function handleClick() {
+  deleteToken();
+
+  location = "/";
 }

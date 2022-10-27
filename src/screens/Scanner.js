@@ -19,8 +19,9 @@ export default function Scanner() {
     }
   };
 
-  useEffect(() =>
-    startScan().then((res) => (window.location.href = `/?token=${res}`))
+  useEffect(
+    () => startScan().then((res) => (window.location.href = `/?token=${res}`)),
+    []
   );
   return (
     <div

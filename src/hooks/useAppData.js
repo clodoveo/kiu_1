@@ -379,3 +379,7 @@ function getLangId() {
   let { langId } = useContext(ConfigContext);
   return langId;
 }
+
+export function deleteToken() {
+  localStorage.removeItem("reservationToken");
+}

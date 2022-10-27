@@ -16,12 +16,15 @@ import WizardWrapper from "./components/WizardWrapper";
 import WizardBottom from "./components/WizardBottom";
 import WizardButton from "./components/WizardButton";
 import DisplayError from "./components/DisplayError";
-import WizardButton from "./components/WizardButton";
-import { useLabels, useGuides, useReservation } from "./hooks/useAppData";
+
+import {
+  useLabels,
+  useGuides,
+  useReservation,
+  deleteToken,
+} from "./hooks/useAppData";
 
 import ScreensRouter from "./ScreensRouter";
-
-import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -29,7 +32,6 @@ const queryClient = new QueryClient();
 const defaultGuide = { id: null, name: "", picture: "" };
 
 export default function App() {
-  console.log(Capacitor);
   // id lingua
   const [langId, setLangId] = useLocalStorage("langId", null);
 
@@ -43,8 +45,6 @@ export default function App() {
   useState(() => {
     // token temporaneo per ID appartamento = 61
     // const tempToken = "f4b226aa068039e8d045a8100d03b4989d63ffd1"
-
-    //const receivedToken = "test";
     const receivedToken = getQueryValue("token");
 
     if (receivedToken) {
@@ -61,7 +61,6 @@ export default function App() {
   };
 
   // ricorda la route precedente per gestire le animazioni
-
   const [prevLocation, setPrevLocation] = useState(null);
 
   // variabile per getire redirect in differita (menu ScreenFooter)
@@ -116,21 +115,20 @@ const StyledApp = styled(({ className }) => {
 
   const { error } = useContext(AppContext);
 
-  if (error) {
-    const isMobileApp = window.Capacitor !== undefined;
+  if (error && location.pathname !== "/scanner") {
+    // const isMobileApp = window.Capacitor !== undefined;
+    const isMobileApp = 1;
 
     switch (error.code) {
       case "token is required":
         if (isMobileApp) {
-          if (location.pathname !== "/scanner") {
-            return (
-              <div className={className}>
-                <ScanQr />
-              </div>
-            );
-          }
+          return (
+            <div className={className}>
+              <ScanQr />
+            </div>
+          );
         } else {
-          // webapp
+          // web app
           return (
             <div className={className}>
               <TokenRequired />
@@ -172,6 +170,7 @@ const StyledApp = styled(({ className }) => {
   return (
     <div className={className}>
       <AddToHomeScreen />
+
       <Router>
         <ScreensRouter />
       </Router>
@@ -222,13 +221,11 @@ function TokenRequired() {
     fontWeight: "bold",
   };
 
+  const errorCode = "Access denied";
+
   return (
     <WizardWrapper logoTop="36%" logoPayoff>
-      <div style={btnStyle}>Access denied</div>
+      <DisplayError code={errorCode} />
     </WizardWrapper>
   );
-}
-
-function deleteToken() {
-  localStorage.removeItem("reservationToken");
 }

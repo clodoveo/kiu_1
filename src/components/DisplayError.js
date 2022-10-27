@@ -1,29 +1,18 @@
 import styled from "styled-components";
 
-import WizardButton from "./WizardButton";
-import { Link, Redirect } from "react-router-dom";
+import WizardButton from "../components/WizardButton";
 
 export default function DisplayError({ code, description }) {
-  // const startScan = async () => {
-  //   // Check camera permission
-  //   // This is just a simple example, check out the better checks below
-  //   await BarcodeScanner.checkPermission({ force: true });
-
-  //   // make background of WebView transparent
-  //   // note: if you are using ionic this might not be enough, check below
-  //   BarcodeScanner.hideBackground();
-
-  //   const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
-
-  //   // if the result has content
-  //   if (result.hasContent) {
-  //     console.log(result.content); // log the raw scanned content
-  //   }
-  // };
   return (
-    <StyledDisplayError>
-      <Link to="/scanner">SCAN QR</Link>
-    </StyledDisplayError>
+    <>
+      <StyledDisplayError>
+        Error: <strong>{code}</strong>
+        {description && <p>{description}</p>}
+        <a className="btn" href="/">
+          Continue
+        </a>
+      </StyledDisplayError>
+    </>
   );
 }
 
@@ -34,7 +23,21 @@ const StyledDisplayError = styled.div`
   bottom: 20%;
   left: 2em;
   right: 2em;
-  padding: 3em;
+  padding: 2em;
   text-align: center;
   border-radius: 1em;
+
+  .btn {
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 18px;
+    min-width: 120px;
+    background: #e95454;
+    color: white;
+    padding: 0.5em;
+    text-decoration: none;
+    border-radius: 50px;
+    display: inline-block;
+    margin-top: 1em;
+  }
 `;

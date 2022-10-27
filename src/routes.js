@@ -1,4 +1,4 @@
-import { matchPath, Redirect } from "react-router-dom";
+import { matchPath } from "react-router-dom";
 
 import Splash from "./screens/Splash";
 import LanguageSelector from "./screens/LanguageSelector";
